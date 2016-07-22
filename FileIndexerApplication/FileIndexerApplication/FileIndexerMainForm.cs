@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace FileIndexerApplication
 {
-    public partial class Form1 : Form
+    public partial class FileIndexerMainForm : Form
     {
-        public Form1()
+        public FileIndexerMainForm()
         {
             InitializeComponent();
         }
