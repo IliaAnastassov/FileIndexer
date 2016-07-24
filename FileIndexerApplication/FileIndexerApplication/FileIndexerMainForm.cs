@@ -65,6 +65,7 @@ namespace FileIndexerApplication
             var dir = new DirectoryInfo(e.Node.Tag.ToString());
             MainFormListView.Items.Clear();
             LargeImageList.Images.RemoveByKey(".exe");
+            SmallIimageList.Images.RemoveByKey(".exe");
 
             // Get the files in the selected directory and display them in the list view
             foreach (var file in dir.GetFiles())
@@ -75,6 +76,7 @@ namespace FileIndexerApplication
                 {
                     var icon = Icon.ExtractAssociatedIcon(file.FullName);
                     LargeImageList.Images.Add(file.Extension, icon);
+                    SmallIimageList.Images.Add(file.Extension, icon);
                 }
 
                 item.ImageKey = file.Extension;
