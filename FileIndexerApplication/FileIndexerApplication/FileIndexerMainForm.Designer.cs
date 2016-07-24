@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileIndexerMainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,8 +75,10 @@
             this.FiltersToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.FileIndexerTreeView = new System.Windows.Forms.TreeView();
-            this.FileIndexerListView = new System.Windows.Forms.ListView();
+            this.MainFormTreeView = new System.Windows.Forms.TreeView();
+            this.MainFormListView = new System.Windows.Forms.ListView();
+            this.LargeImageList = new System.Windows.Forms.ImageList(this.components);
+            this.SmallIimageList = new System.Windows.Forms.ImageList(this.components);
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -452,31 +455,46 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.FileIndexerTreeView);
+            this.splitContainer1.Panel1.Controls.Add(this.MainFormTreeView);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.FileIndexerListView);
+            this.splitContainer1.Panel2.Controls.Add(this.MainFormListView);
             this.splitContainer1.Size = new System.Drawing.Size(784, 490);
             this.splitContainer1.SplitterDistance = 261;
             this.splitContainer1.TabIndex = 3;
             // 
-            // FileIndexerTreeView
+            // MainFormTreeView
             // 
-            this.FileIndexerTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FileIndexerTreeView.Location = new System.Drawing.Point(0, 0);
-            this.FileIndexerTreeView.Name = "FileIndexerTreeView";
-            this.FileIndexerTreeView.Size = new System.Drawing.Size(261, 490);
-            this.FileIndexerTreeView.TabIndex = 0;
+            this.MainFormTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainFormTreeView.Location = new System.Drawing.Point(0, 0);
+            this.MainFormTreeView.Name = "MainFormTreeView";
+            this.MainFormTreeView.Size = new System.Drawing.Size(261, 490);
+            this.MainFormTreeView.TabIndex = 0;
+            this.MainFormTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.FileIndexerTreeView_AfterSelect);
             // 
-            // FileIndexerListView
+            // MainFormListView
             // 
-            this.FileIndexerListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FileIndexerListView.Location = new System.Drawing.Point(0, 0);
-            this.FileIndexerListView.Name = "FileIndexerListView";
-            this.FileIndexerListView.Size = new System.Drawing.Size(519, 490);
-            this.FileIndexerListView.TabIndex = 0;
-            this.FileIndexerListView.UseCompatibleStateImageBehavior = false;
+            this.MainFormListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainFormListView.LargeImageList = this.LargeImageList;
+            this.MainFormListView.Location = new System.Drawing.Point(0, 0);
+            this.MainFormListView.Name = "MainFormListView";
+            this.MainFormListView.Size = new System.Drawing.Size(519, 490);
+            this.MainFormListView.SmallImageList = this.SmallIimageList;
+            this.MainFormListView.TabIndex = 0;
+            this.MainFormListView.UseCompatibleStateImageBehavior = false;
+            // 
+            // LargeImageList
+            // 
+            this.LargeImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.LargeImageList.ImageSize = new System.Drawing.Size(32, 32);
+            this.LargeImageList.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // SmallIimageList
+            // 
+            this.SmallIimageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.SmallIimageList.ImageSize = new System.Drawing.Size(16, 16);
+            this.SmallIimageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // FileIndexerMainForm
             // 
@@ -549,10 +567,12 @@
         private System.Windows.Forms.ToolStripButton helpToolStripButton;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TreeView FileIndexerTreeView;
-        private System.Windows.Forms.ListView FileIndexerListView;
+        private System.Windows.Forms.TreeView MainFormTreeView;
+        private System.Windows.Forms.ListView MainFormListView;
         private System.Windows.Forms.ToolStripTextBox filePathTextBox;
         private System.Windows.Forms.ToolStripDropDownButton FiltersToolStripDropDownButton;
+        private System.Windows.Forms.ImageList LargeImageList;
+        private System.Windows.Forms.ImageList SmallIimageList;
     }
 }
 

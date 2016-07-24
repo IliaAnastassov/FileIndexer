@@ -23,7 +23,7 @@ namespace FileIndexerApplication
             // When loaded with no path as argument, the MyDocuments folder shows in the tree view
             var root = new TreeNode("My Documents");
             root.Tag = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            FileIndexerTreeView.Nodes.Add(root);
+            MainFormTreeView.Nodes.Add(root);
 
             GetFolders(root);
             root.Expand();
@@ -57,6 +57,28 @@ namespace FileIndexerApplication
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
+            }
+        }
+
+        private void FileIndexerTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            var dir = new DirectoryInfo(e.Node.Tag.ToString());
+            MainFormListView.Items.Clear();
+            LargeImageList.Images.RemoveByKey(".exe");
+
+            // Get the files in the selected directory and display them in the list view
+            foreach (var file in dir.GetFiles())
+            {
+                var item = new ListViewItem(file.Name);
+
+                if (!LargeImageList.Images.ContainsKey(file.Extension))
+                {
+                    var icon = Icon.ExtractAssociatedIcon(file.FullName);
+                    LargeImageList.Images.Add(file.Extension, icon);
+                }
+
+                item.ImageKey = file.Extension;
+                MainFormListView.Items.Add(item);
             }
         }
     }
