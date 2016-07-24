@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -79,6 +80,12 @@ namespace FileIndexerApplication
             foreach (var file in dir.GetFiles())
             {
                 var item = new ListViewItem(file.Name);
+
+                // Populate the sub-items of the item
+                var lastModified = file.LastWriteTime;
+                item.SubItems.Add(lastModified.ToShortDateString() + " " + lastModified.ToShortTimeString());
+                item.SubItems.Add(file.Extension);
+                item.SubItems.Add(Math.Ceiling(file.Length / 1024d) + " KB");
 
                 if (!LargeImageList.Images.ContainsKey(file.Extension))
                 {

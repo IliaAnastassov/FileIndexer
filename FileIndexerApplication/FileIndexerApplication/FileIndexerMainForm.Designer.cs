@@ -105,7 +105,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(784, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(884, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -353,7 +353,7 @@
             this.ViewToolStripComboBox});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(784, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(884, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -487,7 +487,7 @@
             // 
             this.statusStrip1.Location = new System.Drawing.Point(0, 539);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(784, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(884, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -504,8 +504,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.MainFormListView);
-            this.splitContainer1.Size = new System.Drawing.Size(784, 490);
-            this.splitContainer1.SplitterDistance = 200;
+            this.splitContainer1.Size = new System.Drawing.Size(884, 490);
+            this.splitContainer1.SplitterDistance = 225;
             this.splitContainer1.TabIndex = 3;
             // 
             // MainFormTreeView
@@ -513,7 +513,7 @@
             this.MainFormTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainFormTreeView.Location = new System.Drawing.Point(0, 0);
             this.MainFormTreeView.Name = "MainFormTreeView";
-            this.MainFormTreeView.Size = new System.Drawing.Size(200, 490);
+            this.MainFormTreeView.Size = new System.Drawing.Size(225, 490);
             this.MainFormTreeView.TabIndex = 0;
             this.MainFormTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.FileIndexerTreeView_AfterSelect);
             // 
@@ -528,7 +528,7 @@
             this.MainFormListView.LargeImageList = this.LargeImageList;
             this.MainFormListView.Location = new System.Drawing.Point(0, 0);
             this.MainFormListView.Name = "MainFormListView";
-            this.MainFormListView.Size = new System.Drawing.Size(580, 490);
+            this.MainFormListView.Size = new System.Drawing.Size(655, 490);
             this.MainFormListView.SmallImageList = this.SmallIimageList;
             this.MainFormListView.TabIndex = 0;
             this.MainFormListView.UseCompatibleStateImageBehavior = false;
@@ -553,7 +553,7 @@
             // DateCol
             // 
             this.DateCol.Text = "Date modified";
-            this.DateCol.Width = 100;
+            this.DateCol.Width = 150;
             // 
             // TypeCol
             // 
@@ -563,13 +563,14 @@
             // SizeCol
             // 
             this.SizeCol.Text = "Size";
+            this.SizeCol.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.SizeCol.Width = 75;
             // 
             // FileIndexerMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(884, 561);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
