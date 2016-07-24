@@ -72,13 +72,22 @@
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.filePathTextBox = new System.Windows.Forms.ToolStripTextBox();
-            this.FiltersToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.FilterToolStripLabel = new System.Windows.Forms.ToolStripLabel();
+            this.FilterToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.ViewToolStripLabel = new System.Windows.Forms.ToolStripLabel();
+            this.ViewToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.MainFormTreeView = new System.Windows.Forms.TreeView();
             this.MainFormListView = new System.Windows.Forms.ListView();
             this.LargeImageList = new System.Windows.Forms.ImageList(this.components);
             this.SmallIimageList = new System.Windows.Forms.ImageList(this.components);
+            this.NameCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.DateCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.TypeCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.SizeCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -336,7 +345,12 @@
             this.toolStripSeparator7,
             this.helpToolStripButton,
             this.filePathTextBox,
-            this.FiltersToolStripDropDownButton});
+            this.toolStripSeparator8,
+            this.FilterToolStripLabel,
+            this.FilterToolStripComboBox,
+            this.toolStripSeparator9,
+            this.ViewToolStripLabel,
+            this.ViewToolStripComboBox});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(784, 25);
@@ -428,16 +442,46 @@
             // filePathTextBox
             // 
             this.filePathTextBox.Name = "filePathTextBox";
-            this.filePathTextBox.Size = new System.Drawing.Size(300, 25);
+            this.filePathTextBox.Size = new System.Drawing.Size(250, 25);
             // 
-            // FiltersToolStripDropDownButton
+            // toolStripSeparator8
             // 
-            this.FiltersToolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.FiltersToolStripDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("FiltersToolStripDropDownButton.Image")));
-            this.FiltersToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.FiltersToolStripDropDownButton.Name = "FiltersToolStripDropDownButton";
-            this.FiltersToolStripDropDownButton.Size = new System.Drawing.Size(29, 22);
-            this.FiltersToolStripDropDownButton.Text = "toolStripDropDownButton1";
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 25);
+            // 
+            // FilterToolStripLabel
+            // 
+            this.FilterToolStripLabel.Name = "FilterToolStripLabel";
+            this.FilterToolStripLabel.Size = new System.Drawing.Size(33, 22);
+            this.FilterToolStripLabel.Text = "Filter";
+            // 
+            // FilterToolStripComboBox
+            // 
+            this.FilterToolStripComboBox.Name = "FilterToolStripComboBox";
+            this.FilterToolStripComboBox.Size = new System.Drawing.Size(121, 25);
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 25);
+            // 
+            // ViewToolStripLabel
+            // 
+            this.ViewToolStripLabel.Name = "ViewToolStripLabel";
+            this.ViewToolStripLabel.Size = new System.Drawing.Size(32, 22);
+            this.ViewToolStripLabel.Text = "View";
+            // 
+            // ViewToolStripComboBox
+            // 
+            this.ViewToolStripComboBox.Items.AddRange(new object[] {
+            "Large Icons",
+            "Small Icons",
+            "Details",
+            "List",
+            "Tiles"});
+            this.ViewToolStripComboBox.Name = "ViewToolStripComboBox";
+            this.ViewToolStripComboBox.Size = new System.Drawing.Size(100, 25);
+            this.ViewToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.ViewToolStripComboBox_SelectedIndexChanged);
             // 
             // statusStrip1
             // 
@@ -461,7 +505,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.MainFormListView);
             this.splitContainer1.Size = new System.Drawing.Size(784, 490);
-            this.splitContainer1.SplitterDistance = 261;
+            this.splitContainer1.SplitterDistance = 200;
             this.splitContainer1.TabIndex = 3;
             // 
             // MainFormTreeView
@@ -469,17 +513,22 @@
             this.MainFormTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainFormTreeView.Location = new System.Drawing.Point(0, 0);
             this.MainFormTreeView.Name = "MainFormTreeView";
-            this.MainFormTreeView.Size = new System.Drawing.Size(261, 490);
+            this.MainFormTreeView.Size = new System.Drawing.Size(200, 490);
             this.MainFormTreeView.TabIndex = 0;
             this.MainFormTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.FileIndexerTreeView_AfterSelect);
             // 
             // MainFormListView
             // 
+            this.MainFormListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.NameCol,
+            this.DateCol,
+            this.TypeCol,
+            this.SizeCol});
             this.MainFormListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainFormListView.LargeImageList = this.LargeImageList;
             this.MainFormListView.Location = new System.Drawing.Point(0, 0);
             this.MainFormListView.Name = "MainFormListView";
-            this.MainFormListView.Size = new System.Drawing.Size(519, 490);
+            this.MainFormListView.Size = new System.Drawing.Size(580, 490);
             this.MainFormListView.SmallImageList = this.SmallIimageList;
             this.MainFormListView.TabIndex = 0;
             this.MainFormListView.UseCompatibleStateImageBehavior = false;
@@ -495,6 +544,26 @@
             this.SmallIimageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
             this.SmallIimageList.ImageSize = new System.Drawing.Size(16, 16);
             this.SmallIimageList.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // NameCol
+            // 
+            this.NameCol.Text = "Name";
+            this.NameCol.Width = 250;
+            // 
+            // DateCol
+            // 
+            this.DateCol.Text = "Date modified";
+            this.DateCol.Width = 100;
+            // 
+            // TypeCol
+            // 
+            this.TypeCol.Text = "Type";
+            this.TypeCol.Width = 150;
+            // 
+            // SizeCol
+            // 
+            this.SizeCol.Text = "Size";
+            this.SizeCol.Width = 75;
             // 
             // FileIndexerMainForm
             // 
@@ -555,7 +624,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton newToolStripButton;
         private System.Windows.Forms.ToolStripButton openToolStripButton;
         private System.Windows.Forms.ToolStripButton saveToolStripButton;
         private System.Windows.Forms.ToolStripButton printToolStripButton;
@@ -570,9 +638,19 @@
         private System.Windows.Forms.TreeView MainFormTreeView;
         private System.Windows.Forms.ListView MainFormListView;
         private System.Windows.Forms.ToolStripTextBox filePathTextBox;
-        private System.Windows.Forms.ToolStripDropDownButton FiltersToolStripDropDownButton;
         private System.Windows.Forms.ImageList LargeImageList;
         private System.Windows.Forms.ImageList SmallIimageList;
+        private System.Windows.Forms.ToolStripButton newToolStripButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripLabel ViewToolStripLabel;
+        private System.Windows.Forms.ToolStripComboBox ViewToolStripComboBox;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripLabel FilterToolStripLabel;
+        private System.Windows.Forms.ToolStripComboBox FilterToolStripComboBox;
+        private System.Windows.Forms.ColumnHeader NameCol;
+        private System.Windows.Forms.ColumnHeader DateCol;
+        private System.Windows.Forms.ColumnHeader TypeCol;
+        private System.Windows.Forms.ColumnHeader SizeCol;
     }
 }
 
