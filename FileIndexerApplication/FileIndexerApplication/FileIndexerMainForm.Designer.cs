@@ -70,10 +70,12 @@
             this.pasteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.filePathTextBox = new System.Windows.Forms.ToolStripTextBox();
+            this.FiltersToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.treeView = new System.Windows.Forms.TreeView();
-            this.listView = new System.Windows.Forms.ListView();
+            this.FileIndexerTreeView = new System.Windows.Forms.TreeView();
+            this.FileIndexerListView = new System.Windows.Forms.ListView();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -329,7 +331,9 @@
             this.copyToolStripButton,
             this.pasteToolStripButton,
             this.toolStripSeparator7,
-            this.helpToolStripButton});
+            this.helpToolStripButton,
+            this.filePathTextBox,
+            this.FiltersToolStripDropDownButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(784, 25);
@@ -418,6 +422,20 @@
             this.helpToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.helpToolStripButton.Text = "He&lp";
             // 
+            // filePathTextBox
+            // 
+            this.filePathTextBox.Name = "filePathTextBox";
+            this.filePathTextBox.Size = new System.Drawing.Size(300, 25);
+            // 
+            // FiltersToolStripDropDownButton
+            // 
+            this.FiltersToolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.FiltersToolStripDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("FiltersToolStripDropDownButton.Image")));
+            this.FiltersToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.FiltersToolStripDropDownButton.Name = "FiltersToolStripDropDownButton";
+            this.FiltersToolStripDropDownButton.Size = new System.Drawing.Size(29, 22);
+            this.FiltersToolStripDropDownButton.Text = "toolStripDropDownButton1";
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Location = new System.Drawing.Point(0, 539);
@@ -434,31 +452,31 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.treeView);
+            this.splitContainer1.Panel1.Controls.Add(this.FileIndexerTreeView);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.listView);
+            this.splitContainer1.Panel2.Controls.Add(this.FileIndexerListView);
             this.splitContainer1.Size = new System.Drawing.Size(784, 490);
             this.splitContainer1.SplitterDistance = 261;
             this.splitContainer1.TabIndex = 3;
             // 
-            // treeView
+            // FileIndexerTreeView
             // 
-            this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView.Location = new System.Drawing.Point(0, 0);
-            this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(261, 490);
-            this.treeView.TabIndex = 0;
+            this.FileIndexerTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FileIndexerTreeView.Location = new System.Drawing.Point(0, 0);
+            this.FileIndexerTreeView.Name = "FileIndexerTreeView";
+            this.FileIndexerTreeView.Size = new System.Drawing.Size(261, 490);
+            this.FileIndexerTreeView.TabIndex = 0;
             // 
-            // listView
+            // FileIndexerListView
             // 
-            this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView.Location = new System.Drawing.Point(0, 0);
-            this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(519, 490);
-            this.listView.TabIndex = 0;
-            this.listView.UseCompatibleStateImageBehavior = false;
+            this.FileIndexerListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FileIndexerListView.Location = new System.Drawing.Point(0, 0);
+            this.FileIndexerListView.Name = "FileIndexerListView";
+            this.FileIndexerListView.Size = new System.Drawing.Size(519, 490);
+            this.FileIndexerListView.TabIndex = 0;
+            this.FileIndexerListView.UseCompatibleStateImageBehavior = false;
             // 
             // FileIndexerMainForm
             // 
@@ -472,6 +490,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FileIndexerMainForm";
             this.Text = "FileIndexer";
+            this.Load += new System.EventHandler(this.FileIndexerMainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -530,8 +549,10 @@
         private System.Windows.Forms.ToolStripButton helpToolStripButton;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TreeView treeView;
-        private System.Windows.Forms.ListView listView;
+        private System.Windows.Forms.TreeView FileIndexerTreeView;
+        private System.Windows.Forms.ListView FileIndexerListView;
+        private System.Windows.Forms.ToolStripTextBox filePathTextBox;
+        private System.Windows.Forms.ToolStripDropDownButton FiltersToolStripDropDownButton;
     }
 }
 
