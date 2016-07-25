@@ -166,7 +166,7 @@ namespace FileIndexerApplication
 
             if (dir.Exists)
             {
-                // Clear the existing nodes
+                // Clear the existing nodes only in case of a valid path
                 MainFormTreeView.Nodes.Clear();
 
                 root = new TreeNode(dir.Name);
