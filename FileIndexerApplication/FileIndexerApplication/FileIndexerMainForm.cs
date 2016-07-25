@@ -66,8 +66,14 @@ namespace FileIndexerApplication
             {
                 subsequentPaths.RemoveAt(subsequentPaths.Count - 1);
                 currentPath = subsequentPaths[subsequentPaths.Count - 1];
-                UpdatePathTextBox();
                 PopulateListView(currentPath);
+
+                if (DirectoryChanged())
+                {
+                    PopulateTreeView(currentPath);
+                }
+
+                UpdatePathTextBox();
             }
         }
 
@@ -203,6 +209,18 @@ namespace FileIndexerApplication
                 var item = new ListViewItem(childDir.Name, 0);
 
                 MainFormListView.Items.Add(item);
+            }
+        }
+
+        private bool DirectoryChanged()
+        {
+            if (currentPath[0] != PathTextBox.Text[0])
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }
