@@ -14,6 +14,9 @@ namespace FileIndexerApplication
 {
     public partial class FileIndexerMainForm : Form
     {
+        private string inputPath = string.Empty;
+        private List<string> subsequentPaths = new List<string>(8); // Estimation
+
         public FileIndexerMainForm()
         {
             InitializeComponent();
@@ -30,38 +33,6 @@ namespace FileIndexerApplication
 
             GetFolders(root);
             root.Expand();
-        }
-
-        /// <summary>
-        /// Index a folder and all of its contents recursively
-        /// </summary>
-        /// <param name="node"></param>
-        private void GetFolders(TreeNode node)
-        {
-            var dir = new DirectoryInfo(node.Tag.ToString());
-
-            try
-            {
-                // Recursively add all child nodes to the application tree view
-                foreach (var childDir in dir.GetDirectories())
-                {
-                    // If access to a folder is restricted don't display  it
-                    if (childDir.Attributes.HasFlag(FileAttributes.Hidden))
-                    {
-                        continue;
-                    }
-
-                    var childNode = new TreeNode(childDir.Name);
-                    childNode.Tag = childDir.FullName;
-                    node.Nodes.Add(childNode);
-
-                    GetFolders(childNode);
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
         }
 
         /// <summary>
@@ -141,6 +112,68 @@ namespace FileIndexerApplication
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void GoToButton_Click(object sender, EventArgs e)
+        {
+            // TODO:
+            inputPath = PathTextBox.Text;
+
+            if (inputPath.Replace(" ", string.Empty) != string.Empty)
+            {
+                subsequentPaths.Add(inputPath);
+                LoadDirectory(inputPath);
+            }
+        }
+
+        /// <summary>
+        /// Index a folder and all of its contents recursively
+        /// </summary>
+        /// <param name="node"></param>
+        private void GetFolders(TreeNode node)
+        {
+            var dir = new DirectoryInfo(node.Tag.ToString());
+
+            try
+            {
+                // Recursively add all child nodes to the application tree view
+                foreach (var childDir in dir.GetDirectories())
+                {
+                    // If access to a folder is restricted don't display  it
+                    if (childDir.Attributes.HasFlag(FileAttributes.Hidden))
+                    {
+                        continue;
+                    }
+
+                    var childNode = new TreeNode(childDir.Name);
+                    childNode.Tag = childDir.FullName;
+                    node.Nodes.Add(childNode);
+
+                    GetFolders(childNode);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+        private void LoadDirectory(string path)
+        {
+            TreeNode root;
+            var dir = new DirectoryInfo(path);
+
+            if (dir.Exists)
+            {
+                // Clear the existing nodes
+                MainFormTreeView.Nodes.Clear();
+
+                root = new TreeNode(dir.Name);
+                root.Tag = dir;
+                GetFolders(root);
+
+                MainFormTreeView.Nodes.Add(root);
             }
         }
     }
