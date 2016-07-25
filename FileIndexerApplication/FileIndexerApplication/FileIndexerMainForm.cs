@@ -28,6 +28,7 @@ namespace FileIndexerApplication
             var root = new TreeNode("My Documents");
             root.Tag = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             currentPath = root.Tag.ToString();
+            subsequentPaths.Add(currentPath);
             UpdatePathTextBox();
 
             // Populate the tree view with the default root folder
@@ -37,23 +38,39 @@ namespace FileIndexerApplication
             root.Expand();
         }
 
-        /// <summary>
-        /// Event handler of the Tree View select node event
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void FileIndexerTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             currentPath = e.Node.Tag.ToString();
+            subsequentPaths.Add(currentPath);
             UpdatePathTextBox();
             PopulateListView(currentPath);
         }
 
-        /// <summary>
-        /// Event handler of the View Tool Strip Combo Box change view event
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        private void GoToButton_Click(object sender, EventArgs e)
+        {
+            currentPath = PathTextBox.Text;
+
+            if (currentPath.Replace(" ", string.Empty) != string.Empty)
+            {
+                subsequentPaths.Add(currentPath);
+                PopulateTreeView(currentPath);
+                PopulateListView(currentPath);
+                UpdatePathTextBox();
+            }
+        }
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            // Return to the previous path
+            if (subsequentPaths.Count > 1)
+            {
+                subsequentPaths.RemoveAt(subsequentPaths.Count - 1);
+                currentPath = subsequentPaths[subsequentPaths.Count - 1];
+                UpdatePathTextBox();
+                PopulateListView(currentPath);
+            }
+        }
+
         private void ViewToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (ViewToolStripComboBox.Text)
@@ -78,42 +95,18 @@ namespace FileIndexerApplication
             }
         }
 
-        private void GoToButton_Click(object sender, EventArgs e)
+        private void PathTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            currentPath = PathTextBox.Text;
-
-            if (currentPath.Replace(" ", string.Empty) != string.Empty)
+            switch (e.KeyChar)
             {
-                subsequentPaths.Add(currentPath);
-                PopulateTreeView(currentPath);
-                PopulateListView(currentPath);
-                UpdatePathTextBox();
+                case (char)Keys.Enter:
+                    GoToButton.PerformClick();
+                    break;
+                default:
+                    break;
             }
         }
 
-        private void PopulateTreeView(string path)
-        {
-            TreeNode root;
-            var dir = new DirectoryInfo(path);
-
-            if (dir.Exists)
-            {
-                // Clear the existing nodes only in case of a valid path
-                MainFormTreeView.Nodes.Clear();
-
-                root = new TreeNode(dir.Name);
-                root.Tag = dir;
-                GetFolders(root);
-
-                MainFormTreeView.Nodes.Add(root);
-                root.Expand();
-            }
-        }
-
-        /// <summary>
-        /// Index a folder and all of its contents recursively
-        /// </summary>
-        /// <param name="node"></param>
         private void GetFolders(TreeNode node)
         {
             var dir = new DirectoryInfo(node.Tag.ToString());
@@ -142,33 +135,28 @@ namespace FileIndexerApplication
             }
         }
 
-        private void PathTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            switch (e.KeyChar)
-            {
-                case (char)Keys.Enter:
-                    GoToButton.PerformClick();
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void BackButton_Click(object sender, EventArgs e)
-        {
-            // Return to the previous path
-            if (subsequentPaths.Count > 1)
-            {
-                subsequentPaths.RemoveAt(subsequentPaths.Count - 1);
-                currentPath = subsequentPaths[subsequentPaths.Count - 1];
-                UpdatePathTextBox();
-                PopulateListView(currentPath);
-            }
-        }
-
         private void UpdatePathTextBox()
         {
             PathTextBox.Text = currentPath;
+        }
+
+        private void PopulateTreeView(string path)
+        {
+            TreeNode root;
+            var dir = new DirectoryInfo(path);
+
+            if (dir.Exists)
+            {
+                // Clear the existing nodes only in case of a valid path
+                MainFormTreeView.Nodes.Clear();
+
+                root = new TreeNode(dir.Name);
+                root.Tag = dir;
+                GetFolders(root);
+
+                MainFormTreeView.Nodes.Add(root);
+                root.Expand();
+            }
         }
 
         private void PopulateListView(string path)
