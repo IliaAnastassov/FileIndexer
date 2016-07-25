@@ -82,12 +82,12 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.MainFormTreeView = new System.Windows.Forms.TreeView();
             this.MainFormListView = new System.Windows.Forms.ListView();
-            this.LargeImageList = new System.Windows.Forms.ImageList(this.components);
-            this.SmallIimageList = new System.Windows.Forms.ImageList(this.components);
             this.NameCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.DateCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TypeCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SizeCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.LargeImageList = new System.Windows.Forms.ImageList(this.components);
+            this.SmallIimageList = new System.Windows.Forms.ImageList(this.components);
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -533,18 +533,6 @@
             this.MainFormListView.TabIndex = 0;
             this.MainFormListView.UseCompatibleStateImageBehavior = false;
             // 
-            // LargeImageList
-            // 
-            this.LargeImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.LargeImageList.ImageSize = new System.Drawing.Size(32, 32);
-            this.LargeImageList.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // SmallIimageList
-            // 
-            this.SmallIimageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.SmallIimageList.ImageSize = new System.Drawing.Size(16, 16);
-            this.SmallIimageList.TransparentColor = System.Drawing.Color.Transparent;
-            // 
             // NameCol
             // 
             this.NameCol.Text = "Name";
@@ -565,6 +553,18 @@
             this.SizeCol.Text = "Size";
             this.SizeCol.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.SizeCol.Width = 75;
+            // 
+            // LargeImageList
+            // 
+            this.LargeImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("LargeImageList.ImageStream")));
+            this.LargeImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.LargeImageList.Images.SetKeyName(0, "FolderIcon.png");
+            // 
+            // SmallIimageList
+            // 
+            this.SmallIimageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("SmallIimageList.ImageStream")));
+            this.SmallIimageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.SmallIimageList.Images.SetKeyName(0, "FolderIcon.png");
             // 
             // FileIndexerMainForm
             // 

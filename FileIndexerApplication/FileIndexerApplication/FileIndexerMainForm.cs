@@ -23,7 +23,7 @@ namespace FileIndexerApplication
         {
             // Set the default view to Large Icons
             ViewToolStripComboBox.SelectedIndex = 0;
-            
+
             // When loaded with no path as argument, the MyDocuments folder shows in the tree view
             var root = new TreeNode("My Documents");
             root.Tag = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -46,6 +46,7 @@ namespace FileIndexerApplication
                 // Recursively add all child nodes to the application tree view
                 foreach (var childDir in dir.GetDirectories())
                 {
+                    // If access to a folder is restricted don't display  it
                     if (childDir.Attributes.HasFlag(FileAttributes.Hidden))
                     {
                         continue;
@@ -87,6 +88,7 @@ namespace FileIndexerApplication
                 item.SubItems.Add(file.Extension);
                 item.SubItems.Add(Math.Ceiling(file.Length / 1024d) + " KB");
 
+                // Add an icon only once
                 if (!LargeImageList.Images.ContainsKey(file.Extension))
                 {
                     var icon = Icon.ExtractAssociatedIcon(file.FullName);
@@ -95,6 +97,21 @@ namespace FileIndexerApplication
                 }
 
                 item.ImageKey = file.Extension;
+                MainFormListView.Items.Add(item);
+            }
+
+            // TODO: Folders
+            foreach (var childDir in dir.GetDirectories())
+            {
+                // If access to a folder is restricted don't display  it
+                if (childDir.Attributes.HasFlag(FileAttributes.Hidden))
+                {
+                    continue;
+                }
+
+                // Create a list view item with the folder image index (0)
+                var item = new ListViewItem(childDir.Name, 0);
+
                 MainFormListView.Items.Add(item);
             }
         }
