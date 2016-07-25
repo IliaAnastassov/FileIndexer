@@ -44,54 +44,9 @@ namespace FileIndexerApplication
         /// <param name="e"></param>
         private void FileIndexerTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            var dir = new DirectoryInfo(e.Node.Tag.ToString());
-
-            // Update current path
             currentPath = e.Node.Tag.ToString();
-            subsequentPaths.Add(currentPath);
             UpdatePathTextBox();
-
-            MainFormListView.Items.Clear();
-            LargeImageList.Images.RemoveByKey(".exe");
-            SmallIimageList.Images.RemoveByKey(".exe");
-
-            // Get the files in the selected directory and display them in the list view
-            foreach (var file in dir.GetFiles())
-            {
-                var item = new ListViewItem(file.Name);
-
-                // Populate the sub-items of the item
-                var lastModified = file.LastWriteTime;
-                item.SubItems.Add(lastModified.ToShortDateString() + " " + lastModified.ToShortTimeString());
-                item.SubItems.Add(file.Extension);
-                item.SubItems.Add(Math.Ceiling(file.Length / 1024d) + " KB");
-
-                // Add an icon only once
-                if (!LargeImageList.Images.ContainsKey(file.Extension))
-                {
-                    var icon = Icon.ExtractAssociatedIcon(file.FullName);
-                    LargeImageList.Images.Add(file.Extension, icon);
-                    SmallIimageList.Images.Add(file.Extension, icon);
-                }
-
-                item.ImageKey = file.Extension;
-                MainFormListView.Items.Add(item);
-            }
-
-            // Get the folders in the selected directory and display them in the list view
-            foreach (var childDir in dir.GetDirectories())
-            {
-                // If access to a folder is restricted don't display  it
-                if (childDir.Attributes.HasFlag(FileAttributes.Hidden))
-                {
-                    continue;
-                }
-
-                // Create a list view item with the folder image index (0)
-                var item = new ListViewItem(childDir.Name, 0);
-
-                MainFormListView.Items.Add(item);
-            }
+            PopulateListView(currentPath);
         }
 
         /// <summary>
@@ -130,12 +85,13 @@ namespace FileIndexerApplication
             if (currentPath.Replace(" ", string.Empty) != string.Empty)
             {
                 subsequentPaths.Add(currentPath);
-                LoadDirectory(currentPath);
+                PopulateTreeView(currentPath);
+                PopulateListView(currentPath);
                 UpdatePathTextBox();
             }
         }
 
-        private void LoadDirectory(string path)
+        private void PopulateTreeView(string path)
         {
             TreeNode root;
             var dir = new DirectoryInfo(path);
@@ -193,9 +149,6 @@ namespace FileIndexerApplication
                 case (char)Keys.Enter:
                     GoToButton.PerformClick();
                     break;
-                case (char)Keys.Back:
-                    BackButton.PerformClick();
-                    break;
                 default:
                     break;
             }
@@ -208,14 +161,66 @@ namespace FileIndexerApplication
             {
                 subsequentPaths.RemoveAt(subsequentPaths.Count - 1);
                 currentPath = subsequentPaths[subsequentPaths.Count - 1];
-                LoadDirectory(currentPath);
                 UpdatePathTextBox();
+                PopulateListView(currentPath);
             }
         }
 
         private void UpdatePathTextBox()
         {
             PathTextBox.Text = currentPath;
+        }
+
+        private void PopulateListView(string path)
+        {
+            var dir = new DirectoryInfo(path);
+
+            // Update current path
+            currentPath = path;
+            subsequentPaths.Add(currentPath);
+            UpdatePathTextBox();
+
+            MainFormListView.Items.Clear();
+            LargeImageList.Images.RemoveByKey(".exe");
+            SmallIimageList.Images.RemoveByKey(".exe");
+
+            // Get the files in the selected directory and display them in the list view
+            foreach (var file in dir.GetFiles())
+            {
+                var item = new ListViewItem(file.Name);
+
+                // Populate the sub-items of the item
+                var lastModified = file.LastWriteTime;
+                item.SubItems.Add(lastModified.ToShortDateString() + " " + lastModified.ToShortTimeString());
+                item.SubItems.Add(file.Extension);
+                item.SubItems.Add(Math.Ceiling(file.Length / 1024d) + " KB");
+
+                // Add an icon only once
+                if (!LargeImageList.Images.ContainsKey(file.Extension))
+                {
+                    var icon = Icon.ExtractAssociatedIcon(file.FullName);
+                    LargeImageList.Images.Add(file.Extension, icon);
+                    SmallIimageList.Images.Add(file.Extension, icon);
+                }
+
+                item.ImageKey = file.Extension;
+                MainFormListView.Items.Add(item);
+            }
+
+            // Get the folders in the selected directory and display them in the list view
+            foreach (var childDir in dir.GetDirectories())
+            {
+                // If access to a folder is restricted don't display  it
+                if (childDir.Attributes.HasFlag(FileAttributes.Hidden))
+                {
+                    continue;
+                }
+
+                // Create a list view item with the folder image index (0)
+                var item = new ListViewItem(childDir.Name, 0);
+
+                MainFormListView.Items.Add(item);
+            }
         }
     }
 }
