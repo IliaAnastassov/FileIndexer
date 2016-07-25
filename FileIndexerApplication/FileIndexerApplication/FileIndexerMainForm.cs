@@ -21,12 +21,11 @@ namespace FileIndexerApplication
 
         private void FileIndexerMainForm_Load(object sender, EventArgs e)
         {
-            // Set the default view to Large Icons
-            ViewToolStripComboBox.SelectedIndex = 0;
-
-            // When loaded with no path as argument, the MyDocuments folder shows in the tree view
+            // When loaded with no path as argument, MyDocuments folder is the default root folder
             var root = new TreeNode("My Documents");
             root.Tag = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            // Populate the tree view with the default root folder
             MainFormTreeView.Nodes.Add(root);
 
             GetFolders(root);
@@ -100,7 +99,7 @@ namespace FileIndexerApplication
                 MainFormListView.Items.Add(item);
             }
 
-            // TODO: Folders
+            // Get the folders in the selected directory and display them in the list view
             foreach (var childDir in dir.GetDirectories())
             {
                 // If access to a folder is restricted don't display  it
