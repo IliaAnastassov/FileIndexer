@@ -62,7 +62,7 @@ namespace FileIndexerApplication
         private void BackButton_Click(object sender, EventArgs e)
         {
             // Return to the previous path
-            if (subsequentPaths.Count > 1)
+            if (subsequentPaths.Count > 0)
             {
                 subsequentPaths.RemoveAt(subsequentPaths.Count - 1);
                 currentPath = subsequentPaths[subsequentPaths.Count - 1];
@@ -162,11 +162,6 @@ namespace FileIndexerApplication
         private void PopulateListView(string path)
         {
             var dir = new DirectoryInfo(path);
-
-            // Update current path
-            currentPath = path;
-            subsequentPaths.Add(currentPath);
-            UpdatePathTextBox();
 
             MainFormListView.Items.Clear();
             LargeImageList.Images.RemoveByKey(".exe");
