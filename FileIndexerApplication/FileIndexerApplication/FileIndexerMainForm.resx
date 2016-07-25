@@ -236,9 +236,9 @@
 </value>
   </data>
   <metadata name="FileIndexerMainToolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>132, 17</value>
+    <value>199, 18</value>
   </metadata>
-  <data name="toolStripButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BackButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAtHSURBVHhe7d3L6+V1HcdxR6fUiczIoCIVE0SYymhh5EbL
@@ -292,7 +292,7 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANvqrLP+D5bDzUQ2jsReAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="toolStripButton2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="ForwardButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAviSURBVHhe7d3L6+V1HcdxR6fUiczIoCIVE0SYymhh5EbL
@@ -423,10 +423,10 @@
 </value>
   </data>
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>237, 17</value>
+    <value>375, 17</value>
   </metadata>
   <metadata name="TreeViewImageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>599, 17</value>
+    <value>730, 18</value>
   </metadata>
   <data name="TreeViewImageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -461,7 +461,7 @@
 </value>
   </data>
   <metadata name="LargeImageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>353, 17</value>
+    <value>481, 18</value>
   </metadata>
   <data name="LargeImageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -558,7 +558,7 @@
 </value>
   </data>
   <metadata name="SmallIimageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>463, 17</value>
+    <value>591, 18</value>
   </metadata>
   <data name="SmallIimageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>

@@ -127,6 +127,25 @@ namespace FileIndexerApplication
             }
         }
 
+        private void LoadDirectory(string path)
+        {
+            TreeNode root;
+            var dir = new DirectoryInfo(path);
+
+            if (dir.Exists)
+            {
+                // Clear the existing nodes only in case of a valid path
+                MainFormTreeView.Nodes.Clear();
+
+                root = new TreeNode(dir.Name);
+                root.Tag = dir;
+                GetFolders(root);
+
+                MainFormTreeView.Nodes.Add(root);
+                root.Expand();
+            }
+        }
+
         /// <summary>
         /// Index a folder and all of its contents recursively
         /// </summary>
@@ -159,21 +178,18 @@ namespace FileIndexerApplication
             }
         }
 
-        private void LoadDirectory(string path)
+        private void PathTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            TreeNode root;
-            var dir = new DirectoryInfo(path);
-
-            if (dir.Exists)
+            switch (e.KeyChar)
             {
-                // Clear the existing nodes only in case of a valid path
-                MainFormTreeView.Nodes.Clear();
-
-                root = new TreeNode(dir.Name);
-                root.Tag = dir;
-                GetFolders(root);
-
-                MainFormTreeView.Nodes.Add(root);
+                case (char)Keys.Enter:
+                    GoToButton.PerformClick();
+                    break;
+                case (char)Keys.Back:
+                    BackButton.PerformClick();
+                    break;
+                default:
+                    break;
             }
         }
     }
