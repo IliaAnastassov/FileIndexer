@@ -13,9 +13,11 @@ using System.Windows.Forms;
 
 namespace FileIndexerApplication
 {
+    // TODO: research index and indexing
+
     public partial class FileIndexerMainForm : Form
     {
-        private string currentPath = string.Empty;
+        private string currentPath;
         private List<string> subsequentPaths = new List<string>(8); // Estimation
 
         public FileIndexerMainForm()
@@ -62,8 +64,7 @@ namespace FileIndexerApplication
 
         private void BackButton_Click(object sender, EventArgs e)
         {
-            // Return to the previous path
-            if (subsequentPaths.Count > 0)
+            if (subsequentPaths.Count > 1)
             {
                 subsequentPaths.RemoveAt(subsequentPaths.Count - 1);
                 currentPath = subsequentPaths[subsequentPaths.Count - 1];
@@ -224,6 +225,21 @@ namespace FileIndexerApplication
             }
 
             return files;
+        }
+
+        private void GetFilesButton_Click(object sender, EventArgs e)
+        {
+            // TODO: Serialize - XML, JSON
+            var files = GetFiles(currentPath);
+
+            var dialog = new SaveFileDialog();
+            dialog.Filter = "Text file|*.txt|MS Word file|*.doc|Rich Text file|*.rtx";
+            dialog.AddExtension = true;
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                // TODO: Save the file to the disk
+            }
         }
 
         private bool DirectoryChanged()
