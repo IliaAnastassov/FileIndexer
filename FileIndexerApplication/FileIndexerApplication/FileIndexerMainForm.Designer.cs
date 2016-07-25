@@ -379,7 +379,7 @@
             // GoToButton
             // 
             this.GoToButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.GoToButton.Image = ((System.Drawing.Image)(resources.GetObject("GoToButton.Image")));
+            this.GoToButton.Image = global::FileIndexerApplication.Properties.Resources.right_arrow_icon;
             this.GoToButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.GoToButton.Name = "GoToButton";
             this.GoToButton.Size = new System.Drawing.Size(23, 20);
