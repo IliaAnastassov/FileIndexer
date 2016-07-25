@@ -14,7 +14,7 @@ namespace FileIndexerApplication
 {
     public partial class FileIndexerMainForm : Form
     {
-        private string inputPath = string.Empty;
+        private string currentPath = string.Empty;
         private List<string> subsequentPaths = new List<string>(8); // Estimation
 
         public FileIndexerMainForm()
@@ -27,6 +27,8 @@ namespace FileIndexerApplication
             // When loaded with no path as argument, MyDocuments folder is the default root folder
             var root = new TreeNode("My Documents");
             root.Tag = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            currentPath = root.Tag.ToString();
+            UpdatePathTextBox();
 
             // Populate the tree view with the default root folder
             MainFormTreeView.Nodes.Add(root);
@@ -43,6 +45,12 @@ namespace FileIndexerApplication
         private void FileIndexerTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             var dir = new DirectoryInfo(e.Node.Tag.ToString());
+
+            // Update current path
+            currentPath = e.Node.Tag.ToString();
+            subsequentPaths.Add(currentPath);
+            UpdatePathTextBox();
+
             MainFormListView.Items.Clear();
             LargeImageList.Images.RemoveByKey(".exe");
             SmallIimageList.Images.RemoveByKey(".exe");
@@ -117,13 +125,13 @@ namespace FileIndexerApplication
 
         private void GoToButton_Click(object sender, EventArgs e)
         {
-            // TODO:
-            inputPath = PathTextBox.Text;
+            currentPath = PathTextBox.Text;
 
-            if (inputPath.Replace(" ", string.Empty) != string.Empty)
+            if (currentPath.Replace(" ", string.Empty) != string.Empty)
             {
-                subsequentPaths.Add(inputPath);
-                LoadDirectory(inputPath);
+                subsequentPaths.Add(currentPath);
+                LoadDirectory(currentPath);
+                UpdatePathTextBox();
             }
         }
 
@@ -199,11 +207,15 @@ namespace FileIndexerApplication
             if (subsequentPaths.Count > 1)
             {
                 subsequentPaths.RemoveAt(subsequentPaths.Count - 1);
-                inputPath = subsequentPaths[subsequentPaths.Count - 1];
-                LoadDirectory(inputPath);
+                currentPath = subsequentPaths[subsequentPaths.Count - 1];
+                LoadDirectory(currentPath);
+                UpdatePathTextBox();
             }
         }
 
-        // TODO: update path 
+        private void UpdatePathTextBox()
+        {
+            PathTextBox.Text = currentPath;
+        }
     }
 }
