@@ -349,6 +349,7 @@
             this.BackButton.Name = "BackButton";
             this.BackButton.Size = new System.Drawing.Size(23, 20);
             this.BackButton.Text = "Step back";
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // ForwardButton
             // 

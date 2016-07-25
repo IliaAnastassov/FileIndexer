@@ -192,5 +192,18 @@ namespace FileIndexerApplication
                     break;
             }
         }
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            // Return to the previous path
+            if (subsequentPaths.Count > 1)
+            {
+                subsequentPaths.RemoveAt(subsequentPaths.Count - 1);
+                inputPath = subsequentPaths[subsequentPaths.Count - 1];
+                LoadDirectory(inputPath);
+            }
+        }
+
+        // TODO: update path 
     }
 }
