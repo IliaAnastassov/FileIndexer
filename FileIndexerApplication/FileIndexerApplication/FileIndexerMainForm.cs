@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FileIndexerApplication.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -210,6 +211,19 @@ namespace FileIndexerApplication
 
                 MainFormListView.Items.Add(item);
             }
+        }
+
+        private IEnumerable<FileIndex> GetFiles(string path)
+        {
+            var dir = new DirectoryInfo(path);
+            var files = new List<FileIndex>();
+
+            foreach (var file in dir.GetFiles())
+            {
+                files.Add(new FileIndex(file.Name, file.Length, file.DirectoryName));
+            }
+
+            return files;
         }
 
         private bool DirectoryChanged()
