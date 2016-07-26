@@ -1,9 +1,6 @@
 # FileIndexer
 
-A file indexing program. 
-The purpose of the application is to be able to index a folder and all of its contents recursively. 
-Once indexed the user can browse the contents in a user interface and quickly see handful information about files and folders.
-The user should also be able to filter results, save them and import them.
+A simple file indexing program developed in Win Forms.The purpose of the application is to be able to index a folder and all of its contents recursively. Once indexed the user can browse the contents in a user interface and quickly see handful information about files and folders. The user should also be able to filter results, save them and import them.
 
 Description:
 - General
