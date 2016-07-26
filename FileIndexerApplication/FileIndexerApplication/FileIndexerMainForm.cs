@@ -14,6 +14,7 @@ using System.Windows.Forms;
 namespace FileIndexerApplication
 {
     // TODO: research index and indexing
+    // TODO: Add copy/paste functionality to paht text box
 
     public partial class FileIndexerMainForm : Form
     {
