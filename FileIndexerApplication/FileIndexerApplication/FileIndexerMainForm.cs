@@ -40,7 +40,7 @@ namespace FileIndexerApplication
             // Populate the tree view with the default root folder
             MainFormTreeView.Nodes.Add(root);
 
-            GetFolders(root);
+            GetContainingFolders(root);
             root.Expand();
         }
 
@@ -135,7 +135,7 @@ namespace FileIndexerApplication
 
                 root = new TreeNode(dir.Name);
                 root.Tag = dir;
-                GetFolders(root);
+                GetContainingFolders(root);
 
                 MainFormTreeView.Nodes.Add(root);
                 root.Expand();
@@ -189,7 +189,7 @@ namespace FileIndexerApplication
             }
         }
 
-        private void GetFolders(TreeNode node)
+        private void GetContainingFolders(TreeNode node)
         {
             var dir = new DirectoryInfo(node.Tag.ToString());
 
@@ -208,7 +208,7 @@ namespace FileIndexerApplication
                     childNode.Tag = childDir.FullName;
                     node.Nodes.Add(childNode);
 
-                    GetFolders(childNode);
+                    GetContainingFolders(childNode);
                 }
             }
             catch (Exception e)
@@ -217,7 +217,7 @@ namespace FileIndexerApplication
             }
         }
 
-        private IEnumerable<FileIndex> GetFiles(string path)
+        private IEnumerable<FileIndex> IndexFiles(string path)
         {
             var dir = new DirectoryInfo(path);
             var files = new List<FileIndex>();
@@ -230,10 +230,10 @@ namespace FileIndexerApplication
             return files;
         }
 
-        private void GetFilesButton_Click(object sender, EventArgs e)
+        private void IndexFilesButton_Click(object sender, EventArgs e)
         {
             // TODO: Serialize - XML, JSON
-            var files = GetFiles(currentPath);
+            var files = IndexFiles(currentPath);
 
             var dialog = new SaveFileDialog();
             dialog.Filter = "Text file|*.txt|MS Word file|*.doc|Rich Text file|*.rtx";
