@@ -15,6 +15,8 @@ namespace FileIndexerApplication
 {
     // TODO: research index and indexing
     // TODO: Add copy/paste functionality to paht text box
+    // TODO: Add save/load functionality
+    // TODO: Add search functionality in the indexed folder
 
     public partial class FileIndexerMainForm : Form
     {
@@ -116,34 +118,6 @@ namespace FileIndexerApplication
             }
         }
 
-        private void GetFolders(TreeNode node)
-        {
-            var dir = new DirectoryInfo(node.Tag.ToString());
-
-            try
-            {
-                // Recursively add all child nodes to the application tree view
-                foreach (var childDir in dir.GetDirectories())
-                {
-                    // If access to a folder is restricted don't display  it
-                    if (childDir.Attributes.HasFlag(FileAttributes.Hidden))
-                    {
-                        continue;
-                    }
-
-                    var childNode = new TreeNode(childDir.Name);
-                    childNode.Tag = childDir.FullName;
-                    node.Nodes.Add(childNode);
-
-                    GetFolders(childNode);
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
-        }
-
         private void UpdatePathTextBox()
         {
             PathTextBox.Text = currentPath;
@@ -212,6 +186,34 @@ namespace FileIndexerApplication
                 var item = new ListViewItem(childDir.Name, 0);
 
                 MainFormListView.Items.Add(item);
+            }
+        }
+
+        private void GetFolders(TreeNode node)
+        {
+            var dir = new DirectoryInfo(node.Tag.ToString());
+
+            try
+            {
+                // Recursively add all child nodes to the application tree view
+                foreach (var childDir in dir.GetDirectories())
+                {
+                    // If access to a folder is restricted don't display  it
+                    if (childDir.Attributes.HasFlag(FileAttributes.Hidden))
+                    {
+                        continue;
+                    }
+
+                    var childNode = new TreeNode(childDir.Name);
+                    childNode.Tag = childDir.FullName;
+                    node.Nodes.Add(childNode);
+
+                    GetFolders(childNode);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
 
