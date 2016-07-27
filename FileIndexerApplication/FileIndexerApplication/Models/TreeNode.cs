@@ -26,18 +26,15 @@
 
         public ReadOnlyCollection<TreeNode<T>> ChildNodes { get { return childNodes.AsReadOnly(); } }
 
-        // TODO: Why return a value?
-        public TreeNode<T> AddChildNode(T value)
+        public void AddChildNode(T value)
         {
             var node = new TreeNode<T>(value) { Parent = this };
             childNodes.Add(node);
-            return node;
         }
 
-        // TODO: Why return a bool?
-        public bool RemoveChildNode(TreeNode<T> node)
+        public void RemoveChildNode(TreeNode<T> node)
         {
-            return childNodes.Remove(node);
+            childNodes.Remove(node);
         }
 
         public IEnumerable<T> Flatten()
