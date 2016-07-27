@@ -12,7 +12,6 @@
     {
         private readonly T value;
         private readonly List<TreeNode<T>> nodes = new List<TreeNode<T>>();
-        private readonly List<FileInfo> leafs = new List<FileInfo>();
 
         public TreeNode(T value)
         {
@@ -39,16 +38,6 @@
         public void RemoveNode(TreeNode<T> node)
         {
             nodes.Remove(node);
-        }
-
-        public void AddLeaf(FileInfo file)
-        {
-            leafs.Add(file);
-        }
-
-        private void RemoveLeaf(FileInfo file)
-        {
-            leafs.Remove(file);
         }
 
         public IEnumerable<T> Flatten()
