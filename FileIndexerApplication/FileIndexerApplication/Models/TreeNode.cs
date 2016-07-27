@@ -5,7 +5,9 @@
     using System.Collections.ObjectModel;
     using System.IO;
     using System.Linq;
+    using System.Runtime.Serialization;
 
+    [Serializable]
     public class TreeNode<T>
     {
         private readonly T value;
