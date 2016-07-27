@@ -13,10 +13,10 @@ using System.Windows.Forms;
 
 namespace FileIndexerApplication
 {
-    // TODO: research index and indexing
     // TODO: Add copy/paste functionality to paht text box
     // TODO: Add save/load functionality
     // TODO: Add search functionality in the indexed folder
+    // TODO: Add command line arguments
 
     public partial class FileIndexerMainForm : Form
     {
@@ -103,6 +103,21 @@ namespace FileIndexerApplication
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void IndexFilesButton_Click(object sender, EventArgs e)
+        {
+            // TODO: Serialize - XML, JSON
+            var files = IndexFiles(currentPath);
+
+            var dialog = new SaveFileDialog();
+            dialog.Filter = "Text file|*.txt|MS Word file|*.doc|Rich Text file|*.rtx";
+            dialog.AddExtension = true;
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                // TODO: Save the file to the disk
             }
         }
 
@@ -217,31 +232,40 @@ namespace FileIndexerApplication
             }
         }
 
-        private IEnumerable<FileIndex> IndexFiles(string path)
+        private TreeNode<DirectoryInfo> IndexFiles(string path)
         {
             var dir = new DirectoryInfo(path);
-            var files = new List<FileIndex>();
+
+            if (dir.Exists)
+            {
+                var rootNode = new TreeNode<DirectoryInfo>(dir);
+                GetContainingItems(rootNode, path);
+                return rootNode;
+            }
+
+            return null;
+        }
+
+        private void GetContainingItems(TreeNode<DirectoryInfo> node, string path)
+        {
+            var dir = new DirectoryInfo(path);
 
             foreach (var file in dir.GetFiles())
             {
-                files.Add(new FileIndex(file.Name, file.Length, file.DirectoryName));
+                node.AddLeaf(file);
             }
 
-            return files;
-        }
-
-        private void IndexFilesButton_Click(object sender, EventArgs e)
-        {
-            // TODO: Serialize - XML, JSON
-            var files = IndexFiles(currentPath);
-
-            var dialog = new SaveFileDialog();
-            dialog.Filter = "Text file|*.txt|MS Word file|*.doc|Rich Text file|*.rtx";
-            dialog.AddExtension = true;
-
-            if (dialog.ShowDialog() == DialogResult.OK)
+            foreach (var childDir in dir.GetDirectories())
             {
-                // TODO: Save the file to the disk
+                if (childDir.Attributes.HasFlag(FileAttributes.Hidden))
+                {
+                    continue;
+                }
+
+                node.AddNode(childDir);
+
+                var childNode = new TreeNode<DirectoryInfo>(childDir);
+                GetContainingItems(childNode, childDir.FullName);
             }
         }
 
