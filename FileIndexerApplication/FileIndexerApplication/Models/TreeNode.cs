@@ -9,8 +9,8 @@
     public class TreeNode<T>
     {
         private readonly T value;
-        private readonly List<TreeNode<T>> childNodes = new List<TreeNode<T>>();
-        private readonly List<FileInfo> childItems = new List<FileInfo>();
+        private readonly List<TreeNode<T>> nodes = new List<TreeNode<T>>();
+        private readonly List<FileInfo> leafs = new List<FileInfo>();
 
         public TreeNode(T value)
         {
@@ -19,39 +19,39 @@
 
         public TreeNode<T> this[int index]
         {
-            get { return childNodes[index]; }
+            get { return nodes[index]; }
         }
 
         public TreeNode<T> Parent { get; private set; }
 
         public T Value { get { return value; } }
 
-        public ReadOnlyCollection<TreeNode<T>> ChildNodes { get { return childNodes.AsReadOnly(); } }
+        public ReadOnlyCollection<TreeNode<T>> Nodes { get { return nodes.AsReadOnly(); } }
 
-        public void AddChildNode(T value)
+        public void AddNode(T value)
         {
             var node = new TreeNode<T>(value) { Parent = this };
-            childNodes.Add(node);
+            nodes.Add(node);
         }
 
-        public void RemoveChildNode(TreeNode<T> node)
+        public void RemoveNode(TreeNode<T> node)
         {
-            childNodes.Remove(node);
+            nodes.Remove(node);
         }
 
-        public void AddChildItem(FileInfo file)
+        public void AddLeaf(FileInfo file)
         {
-            childItems.Add(file);
+            leafs.Add(file);
         }
 
-        private void RemoveChildItem(FileInfo file)
+        private void RemoveLeaf(FileInfo file)
         {
-            childItems.Remove(file);
+            leafs.Remove(file);
         }
 
         public IEnumerable<T> Flatten()
         {
-            return new[] { Value }.Union(childNodes.SelectMany(x => x.Flatten()));
+            return new[] { Value }.Union(nodes.SelectMany(x => x.Flatten()));
         }
     }
 }
