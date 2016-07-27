@@ -3,12 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.IO;
     using System.Linq;
 
     public class TreeNode<T>
     {
         private readonly T value;
         private readonly List<TreeNode<T>> childNodes = new List<TreeNode<T>>();
+        private readonly List<FileInfo> childItems = new List<FileInfo>();
 
         public TreeNode(T value)
         {
@@ -35,6 +37,16 @@
         public void RemoveChildNode(TreeNode<T> node)
         {
             childNodes.Remove(node);
+        }
+
+        public void AddChildItem(FileInfo file)
+        {
+            childItems.Add(file);
+        }
+
+        private void RemoveChildItem(FileInfo file)
+        {
+            childItems.Remove(file);
         }
 
         public IEnumerable<T> Flatten()
