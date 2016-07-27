@@ -14,7 +14,7 @@ using System.Windows.Forms;
 namespace FileIndexerApplication
 {
     // TODO: Add copy/paste functionality to paht text box
-    // TODO: Add save/load functionality
+    // TODO: Add save/load indexed folder functionality
     // TODO: Add search functionality in the indexed folder
     // TODO: Add command line arguments
 
@@ -108,8 +108,10 @@ namespace FileIndexerApplication
 
         private void IndexFilesButton_Click(object sender, EventArgs e)
         {
+            var indexedDirTree = IndexDirectory(currentPath);
+
             // TODO: Serialize - XML, JSON
-            var files = IndexFiles(currentPath);
+
 
             var dialog = new SaveFileDialog();
             dialog.Filter = "Text file|*.txt|MS Word file|*.doc|Rich Text file|*.rtx";
@@ -232,13 +234,13 @@ namespace FileIndexerApplication
             }
         }
 
-        private TreeNode<DirectoryInfo> IndexFiles(string path)
+        private SerializableTreeNode<DirectoryInfo> IndexDirectory(string path)
         {
             var dir = new DirectoryInfo(path);
 
             if (dir.Exists)
             {
-                var rootNode = new TreeNode<DirectoryInfo>(dir);
+                var rootNode = new SerializableTreeNode<DirectoryInfo>(dir);
                 GetContainingItems(rootNode, path);
                 return rootNode;
             }
@@ -246,14 +248,9 @@ namespace FileIndexerApplication
             return null;
         }
 
-        private void GetContainingItems(TreeNode<DirectoryInfo> node, string path)
+        private void GetContainingItems(SerializableTreeNode<DirectoryInfo> node, string path)
         {
             var dir = new DirectoryInfo(path);
-
-            foreach (var file in dir.GetFiles())
-            {
-                node.AddLeaf(file);
-            }
 
             foreach (var childDir in dir.GetDirectories())
             {
@@ -264,7 +261,7 @@ namespace FileIndexerApplication
 
                 node.AddNode(childDir);
 
-                var childNode = new TreeNode<DirectoryInfo>(childDir);
+                var childNode = new SerializableTreeNode<DirectoryInfo>(childDir);
                 GetContainingItems(childNode, childDir.FullName);
             }
         }
