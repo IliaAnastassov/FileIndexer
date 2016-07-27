@@ -53,7 +53,7 @@
       <DependentUpon>FileIndexerMainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\FileIndex.cs" />
-    <Compile Include="Models\TreeNode.cs" />
+    <Compile Include="Models\SerializableTreeNode.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FileIndexerMainForm.resx">
