@@ -107,7 +107,7 @@ namespace FileIndexerApplication
             }
         }
 
-        private void ExportIndexedDirButton_Click(object sender, EventArgs e)
+        private void SaveIndexedDirButton_Click(object sender, EventArgs e)
         {
             var dialog = new SaveFileDialog();
             dialog.Filter = "Indexed Directory File|*.idf";

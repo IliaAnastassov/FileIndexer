@@ -32,11 +32,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileIndexerMainForm));
             this.FileIndexerMainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,7 +57,7 @@
             this.FileIndexerMainToolStrip = new System.Windows.Forms.ToolStrip();
             this.BackButton = new System.Windows.Forms.ToolStripButton();
             this.ForwardButton = new System.Windows.Forms.ToolStripButton();
-            this.ExportIndexedDirButton = new System.Windows.Forms.ToolStripButton();
+            this.SaveIndexedDirButton = new System.Windows.Forms.ToolStripButton();
             this.PathTextBox = new System.Windows.Forms.ToolStripTextBox();
             this.GoToButton = new System.Windows.Forms.ToolStripButton();
             this.FilterToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
@@ -100,59 +98,44 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripMenuItem,
-            this.openToolStripMenuItem,
+            this.ImportToolStripMenuItem,
+            this.SaveToolStripMenuItem,
             this.toolStripSeparator,
-            this.saveToolStripMenuItem,
-            this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
-            // newToolStripMenuItem
+            // ImportToolStripMenuItem
             // 
-            this.newToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripMenuItem.Image")));
-            this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.newToolStripMenuItem.Text = "&Import";
+            this.ImportToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("ImportToolStripMenuItem.Image")));
+            this.ImportToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ImportToolStripMenuItem.Name = "ImportToolStripMenuItem";
+            this.ImportToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.ImportToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.ImportToolStripMenuItem.Text = "&Import";
             // 
-            // openToolStripMenuItem
+            // SaveToolStripMenuItem
             // 
-            this.openToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripMenuItem.Image")));
-            this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.openToolStripMenuItem.Text = "&Export";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.ExportIndexedDirButton_Click);
+            this.SaveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("SaveToolStripMenuItem.Image")));
+            this.SaveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
+            this.SaveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.SaveToolStripMenuItem.Text = "&Save";
+            this.SaveToolStripMenuItem.Click += new System.EventHandler(this.SaveIndexedDirButton_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(149, 6);
-            // 
-            // saveToolStripMenuItem
-            // 
-            this.saveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
-            this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.saveToolStripMenuItem.Text = "&Save";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(144, 6);
             // 
             // exitToolStripMenuItem
             // 
+            this.exitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exitToolStripMenuItem.Image")));
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -293,10 +276,11 @@
             // FileIndexerMainToolStrip
             // 
             this.FileIndexerMainToolStrip.BackColor = System.Drawing.SystemColors.Window;
+            this.FileIndexerMainToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.FileIndexerMainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.BackButton,
             this.ForwardButton,
-            this.ExportIndexedDirButton,
+            this.SaveIndexedDirButton,
             this.PathTextBox,
             this.GoToButton,
             this.FilterToolStripComboBox,
@@ -327,15 +311,15 @@
             this.ForwardButton.Size = new System.Drawing.Size(23, 20);
             this.ForwardButton.Text = "Step Forward";
             // 
-            // ExportIndexedDirButton
+            // SaveIndexedDirButton
             // 
-            this.ExportIndexedDirButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ExportIndexedDirButton.Image = ((System.Drawing.Image)(resources.GetObject("ExportIndexedDirButton.Image")));
-            this.ExportIndexedDirButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ExportIndexedDirButton.Name = "ExportIndexedDirButton";
-            this.ExportIndexedDirButton.Size = new System.Drawing.Size(23, 20);
-            this.ExportIndexedDirButton.Text = "Export Indexed Directory";
-            this.ExportIndexedDirButton.Click += new System.EventHandler(this.ExportIndexedDirButton_Click);
+            this.SaveIndexedDirButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.SaveIndexedDirButton.Image = ((System.Drawing.Image)(resources.GetObject("SaveIndexedDirButton.Image")));
+            this.SaveIndexedDirButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SaveIndexedDirButton.Name = "SaveIndexedDirButton";
+            this.SaveIndexedDirButton.Size = new System.Drawing.Size(23, 20);
+            this.SaveIndexedDirButton.Text = "Save Indexed Directory";
+            this.SaveIndexedDirButton.Click += new System.EventHandler(this.SaveIndexedDirButton_Click);
             // 
             // PathTextBox
             // 
@@ -349,7 +333,7 @@
             // GoToButton
             // 
             this.GoToButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.GoToButton.Image = global::FileIndexerApplication.Properties.Resources.right_arrow_icon;
+            this.GoToButton.Image = ((System.Drawing.Image)(resources.GetObject("GoToButton.Image")));
             this.GoToButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.GoToButton.Name = "GoToButton";
             this.GoToButton.Size = new System.Drawing.Size(23, 20);
@@ -402,7 +386,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.MainFormListView);
             this.splitContainer1.Size = new System.Drawing.Size(944, 482);
-            this.splitContainer1.SplitterDistance = 213;
+            this.splitContainer1.SplitterDistance = 198;
             this.splitContainer1.TabIndex = 3;
             // 
             // MainFormTreeView
@@ -413,7 +397,7 @@
             this.MainFormTreeView.Location = new System.Drawing.Point(0, 0);
             this.MainFormTreeView.Name = "MainFormTreeView";
             this.MainFormTreeView.SelectedImageIndex = 0;
-            this.MainFormTreeView.Size = new System.Drawing.Size(213, 482);
+            this.MainFormTreeView.Size = new System.Drawing.Size(198, 482);
             this.MainFormTreeView.TabIndex = 0;
             this.MainFormTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.FileIndexerTreeView_AfterSelect);
             // 
@@ -435,7 +419,7 @@
             this.MainFormListView.LargeImageList = this.LargeImageList;
             this.MainFormListView.Location = new System.Drawing.Point(0, 0);
             this.MainFormListView.Name = "MainFormListView";
-            this.MainFormListView.Size = new System.Drawing.Size(727, 482);
+            this.MainFormListView.Size = new System.Drawing.Size(742, 482);
             this.MainFormListView.SmallImageList = this.SmallIimageList;
             this.MainFormListView.TabIndex = 0;
             this.MainFormListView.UseCompatibleStateImageBehavior = false;
@@ -506,10 +490,8 @@
 
         private System.Windows.Forms.MenuStrip FileIndexerMainMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SaveToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
@@ -546,9 +528,9 @@
         private System.Windows.Forms.ImageList TreeViewImageList;
         private System.Windows.Forms.ToolStripButton BackButton;
         private System.Windows.Forms.ToolStripButton ForwardButton;
-        private System.Windows.Forms.ToolStripButton ExportIndexedDirButton;
+        private System.Windows.Forms.ToolStripButton SaveIndexedDirButton;
         private System.Windows.Forms.ToolStripButton GoToButton;
-        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ImportToolStripMenuItem;
     }
 }
 
