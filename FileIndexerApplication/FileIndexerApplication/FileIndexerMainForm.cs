@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -40,7 +41,7 @@ namespace FileIndexerApplication
             // Populate the tree view with the default root folder
             MainFormTreeView.Nodes.Add(root);
 
-            GetContainingFolders(root);
+            GetTreeViewFolders(root);
             root.Expand();
         }
 
@@ -108,18 +109,18 @@ namespace FileIndexerApplication
 
         private void IndexFilesButton_Click(object sender, EventArgs e)
         {
-            var indexedDirTree = IndexDirectory(currentPath);
-
-            // TODO: Serialize - XML, JSON
-
-
             var dialog = new SaveFileDialog();
-            dialog.Filter = "Text file|*.txt|MS Word file|*.doc|Rich Text file|*.rtx";
+            dialog.Filter = "Indexed Directory File|*.idf";
             dialog.AddExtension = true;
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                // TODO: Save the file to the disk
+                using (FileStream fStream = new FileStream(dialog.FileName, FileMode.Create))
+                {
+                    var binFormatter = new BinaryFormatter();
+                    var indexedDirTree = IndexDirectory(currentPath);
+                    binFormatter.Serialize(fStream, indexedDirTree);
+                }
             }
         }
 
@@ -152,7 +153,7 @@ namespace FileIndexerApplication
 
                 root = new TreeNode(dir.Name);
                 root.Tag = dir;
-                GetContainingFolders(root);
+                GetTreeViewFolders(root);
 
                 MainFormTreeView.Nodes.Add(root);
                 root.Expand();
@@ -206,7 +207,7 @@ namespace FileIndexerApplication
             }
         }
 
-        private void GetContainingFolders(TreeNode node)
+        private void GetTreeViewFolders(TreeNode node)
         {
             var dir = new DirectoryInfo(node.Tag.ToString());
 
@@ -225,7 +226,7 @@ namespace FileIndexerApplication
                     childNode.Tag = childDir.FullName;
                     node.Nodes.Add(childNode);
 
-                    GetContainingFolders(childNode);
+                    GetTreeViewFolders(childNode);
                 }
             }
             catch (Exception e)
@@ -241,14 +242,14 @@ namespace FileIndexerApplication
             if (dir.Exists)
             {
                 var rootNode = new SerializableTreeNode<DirectoryInfo>(dir);
-                GetContainingItems(rootNode, path);
+                GetContainingFolders(rootNode, path);
                 return rootNode;
             }
 
             return null;
         }
 
-        private void GetContainingItems(SerializableTreeNode<DirectoryInfo> node, string path)
+        private void GetContainingFolders(SerializableTreeNode<DirectoryInfo> node, string path)
         {
             var dir = new DirectoryInfo(path);
 
@@ -262,7 +263,7 @@ namespace FileIndexerApplication
                 node.AddChildNode(childDir);
 
                 var childNode = new SerializableTreeNode<DirectoryInfo>(childDir);
-                GetContainingItems(childNode, childDir.FullName);
+                GetContainingFolders(childNode, childDir.FullName);
             }
         }
 
