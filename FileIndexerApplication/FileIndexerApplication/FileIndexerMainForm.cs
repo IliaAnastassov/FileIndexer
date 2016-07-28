@@ -112,14 +112,45 @@ namespace FileIndexerApplication
             var dialog = new SaveFileDialog();
             dialog.Filter = "Indexed Directory File|*.idf";
             dialog.AddExtension = true;
+            var result = dialog.ShowDialog();
 
-            if (dialog.ShowDialog() == DialogResult.OK)
+            if (result == DialogResult.OK)
             {
                 using (FileStream fStream = new FileStream(dialog.FileName, FileMode.Create))
                 {
                     var binFormatter = new BinaryFormatter();
                     var indexedDirTree = IndexDirectory(currentPath);
                     binFormatter.Serialize(fStream, indexedDirTree);
+                }
+            }
+        }
+
+        private void ImportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "Indexed Directory File|*.idf";
+            var result = dialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                try
+                {
+                    var stream = dialog.OpenFile();
+
+                    if (stream != null)
+                    {
+                        using (stream)
+                        {
+                            var binFormatter = new BinaryFormatter();
+                            var indexedDirTree = binFormatter.Deserialize(stream) as SerializableTreeNode<DirectoryInfo>;
+                            // TODO: load MainFormTreeView with indexedDirTree
+                            // TODO: load MainFormListView with indexedDirTree
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error. Could not read file from disk. Original error: " + ex.Message);
                 }
             }
         }
