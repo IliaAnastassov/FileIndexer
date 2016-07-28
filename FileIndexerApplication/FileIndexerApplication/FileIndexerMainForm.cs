@@ -13,10 +13,10 @@ using System.Windows.Forms;
 
 namespace FileIndexerApplication
 {
-    // TODO: Add copy/paste functionality to paht text box
     // TODO: Add save/load indexed folder functionality
     // TODO: Add search functionality in the indexed folder
     // TODO: Add command line arguments
+    // TODO: Add copy/paste functionality to paht text box
 
     public partial class FileIndexerMainForm : Form
     {
@@ -259,7 +259,7 @@ namespace FileIndexerApplication
                     continue;
                 }
 
-                node.AddNode(childDir);
+                node.AddChildNode(childDir);
 
                 var childNode = new SerializableTreeNode<DirectoryInfo>(childDir);
                 GetContainingItems(childNode, childDir.FullName);

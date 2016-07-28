@@ -3,15 +3,16 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.IO;
     using System.Linq;
     using System.Runtime.Serialization;
+    using System.Security;
+    using System.Security.Permissions;
 
     [Serializable]
     public class SerializableTreeNode<T> : ISerializable
     {
         private readonly T value;
-        private readonly List<SerializableTreeNode<T>> nodes = new List<SerializableTreeNode<T>>();
+        private readonly List<SerializableTreeNode<T>> childNodes = new List<SerializableTreeNode<T>>();
 
         public SerializableTreeNode(T value)
         {
@@ -20,44 +21,56 @@
 
         public SerializableTreeNode<T> this[int index]
         {
-            get { return nodes[index]; }
+            get { return childNodes[index]; }
         }
 
         public SerializableTreeNode<T> Parent { get; private set; }
 
         public T Value { get { return value; } }
 
-        public ReadOnlyCollection<SerializableTreeNode<T>> Nodes { get { return nodes.AsReadOnly(); } }
+        public ReadOnlyCollection<SerializableTreeNode<T>> Nodes { get { return childNodes.AsReadOnly(); } }
 
-        public void AddNode(T value)
+        public void AddChildNode(T value)
         {
             var node = new SerializableTreeNode<T>(value) { Parent = this };
-            nodes.Add(node);
+            childNodes.Add(node);
         }
 
-        public void RemoveNode(SerializableTreeNode<T> node)
+        public void RemoveChildNode(SerializableTreeNode<T> node)
         {
-            nodes.Remove(node);
+            childNodes.Remove(node);
         }
 
         public IEnumerable<T> Flatten()
         {
-            return new[] { Value }.Union(nodes.SelectMany(x => x.Flatten()));
+            return new[] { Value }.Union(childNodes.SelectMany(x => x.Flatten()));
         }
 
         // Serialization method
+        [SecurityPermission(SecurityAction.LinkDemand,
+            Flags = SecurityPermissionFlag.SerializationFormatter)]
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            if (info == null)
+            {
+                throw new ArgumentNullException("info");
+            }
+
             info.AddValue("Value", value);
-            info.AddValue("Nodes", nodes);
+            info.AddValue("Nodes", childNodes);
             info.AddValue("Parent", Parent);
         }
 
         // Deserialization Constructor
         public SerializableTreeNode(SerializationInfo info, StreamingContext context)
         {
+            if (info == null)
+            {
+                throw new ArgumentNullException("info");
+            }
+
             value = (dynamic)info.GetValue("Value", typeof(object));
-            nodes = (dynamic)info.GetValue("Nodes", typeof(object));
+            childNodes = (dynamic)info.GetValue("Nodes", typeof(object));
             Parent = (dynamic)info.GetValue("Parent", typeof(object));
         }
     }
