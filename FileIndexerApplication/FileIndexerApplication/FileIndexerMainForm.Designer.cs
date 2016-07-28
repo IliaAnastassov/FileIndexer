@@ -59,7 +59,7 @@
             this.FileIndexerMainToolStrip = new System.Windows.Forms.ToolStrip();
             this.BackButton = new System.Windows.Forms.ToolStripButton();
             this.ForwardButton = new System.Windows.Forms.ToolStripButton();
-            this.IndexFilesButton = new System.Windows.Forms.ToolStripButton();
+            this.ExportIndexedDirButton = new System.Windows.Forms.ToolStripButton();
             this.PathTextBox = new System.Windows.Forms.ToolStripTextBox();
             this.GoToButton = new System.Windows.Forms.ToolStripButton();
             this.FilterToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
@@ -116,7 +116,7 @@
             this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newToolStripMenuItem.Text = "&Import";
             // 
             // openToolStripMenuItem
@@ -125,13 +125,14 @@
             this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "&Export";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.ExportIndexedDirButton_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(144, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(149, 6);
             // 
             // saveToolStripMenuItem
             // 
@@ -139,20 +140,21 @@
             this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(144, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -294,7 +296,7 @@
             this.FileIndexerMainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.BackButton,
             this.ForwardButton,
-            this.IndexFilesButton,
+            this.ExportIndexedDirButton,
             this.PathTextBox,
             this.GoToButton,
             this.FilterToolStripComboBox,
@@ -325,15 +327,15 @@
             this.ForwardButton.Size = new System.Drawing.Size(23, 20);
             this.ForwardButton.Text = "Step Forward";
             // 
-            // IndexFilesButton
+            // ExportIndexedDirButton
             // 
-            this.IndexFilesButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.IndexFilesButton.Image = ((System.Drawing.Image)(resources.GetObject("IndexFilesButton.Image")));
-            this.IndexFilesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.IndexFilesButton.Name = "IndexFilesButton";
-            this.IndexFilesButton.Size = new System.Drawing.Size(23, 20);
-            this.IndexFilesButton.Text = "Index Files";
-            this.IndexFilesButton.Click += new System.EventHandler(this.IndexFilesButton_Click);
+            this.ExportIndexedDirButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ExportIndexedDirButton.Image = ((System.Drawing.Image)(resources.GetObject("ExportIndexedDirButton.Image")));
+            this.ExportIndexedDirButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ExportIndexedDirButton.Name = "ExportIndexedDirButton";
+            this.ExportIndexedDirButton.Size = new System.Drawing.Size(23, 20);
+            this.ExportIndexedDirButton.Text = "Export Indexed Directory";
+            this.ExportIndexedDirButton.Click += new System.EventHandler(this.ExportIndexedDirButton_Click);
             // 
             // PathTextBox
             // 
@@ -544,7 +546,7 @@
         private System.Windows.Forms.ImageList TreeViewImageList;
         private System.Windows.Forms.ToolStripButton BackButton;
         private System.Windows.Forms.ToolStripButton ForwardButton;
-        private System.Windows.Forms.ToolStripButton IndexFilesButton;
+        private System.Windows.Forms.ToolStripButton ExportIndexedDirButton;
         private System.Windows.Forms.ToolStripButton GoToButton;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
     }

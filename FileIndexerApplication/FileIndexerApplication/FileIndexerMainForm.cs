@@ -107,7 +107,7 @@ namespace FileIndexerApplication
             }
         }
 
-        private void IndexFilesButton_Click(object sender, EventArgs e)
+        private void ExportIndexedDirButton_Click(object sender, EventArgs e)
         {
             var dialog = new SaveFileDialog();
             dialog.Filter = "Indexed Directory File|*.idf";
@@ -235,6 +235,11 @@ namespace FileIndexerApplication
             }
         }
 
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
         private SerializableTreeNode<DirectoryInfo> IndexDirectory(string path)
         {
             var dir = new DirectoryInfo(path);
@@ -278,5 +283,6 @@ namespace FileIndexerApplication
                 return false;
             }
         }
+
     }
 }
