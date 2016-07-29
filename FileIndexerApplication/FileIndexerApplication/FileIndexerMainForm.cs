@@ -155,6 +155,11 @@ namespace FileIndexerApplication
             }
         }
 
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
         private void PathTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             switch (e.KeyChar)
@@ -273,21 +278,16 @@ namespace FileIndexerApplication
             if (dir.Exists)
             {
                 var rootNode = new SerializableTreeNode<DirectoryInfo>(dir);
-                GetContainingFolders(rootNode, path);
+                StructureTree(rootNode);
                 return rootNode;
             }
 
             return null;
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void StructureTree(SerializableTreeNode<DirectoryInfo> node)
         {
-            Application.Exit();
-        }
-
-        private void GetContainingFolders(SerializableTreeNode<DirectoryInfo> node, string path)
-        {
-            var dir = new DirectoryInfo(path);
+            var dir = node.Value;
 
             foreach (var childDir in dir.GetDirectories())
             {
@@ -296,10 +296,7 @@ namespace FileIndexerApplication
                     continue;
                 }
 
-                node.AddChildNode(childDir);
-
-                var childNode = new SerializableTreeNode<DirectoryInfo>(childDir);
-                GetContainingFolders(childNode, childDir.FullName);
+                StructureTree(node.AddChildNode(childDir));
             }
         }
 
