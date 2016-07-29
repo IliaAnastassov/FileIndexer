@@ -30,10 +30,11 @@
 
         public ReadOnlyCollection<SerializableTreeNode<T>> Nodes { get { return childNodes.AsReadOnly(); } }
 
-        public void AddChildNode(T value)
+        public SerializableTreeNode<T> AddChildNode(T value)
         {
-            var node = new SerializableTreeNode<T>(value) { Parent = this };
-            childNodes.Add(node);
+            var childNode = new SerializableTreeNode<T>(value) { Parent = this };
+            childNodes.Add(childNode);
+            return childNode;
         }
 
         public void RemoveChildNode(SerializableTreeNode<T> node)
