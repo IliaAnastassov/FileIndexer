@@ -116,12 +116,7 @@ namespace FileIndexerApplication
 
             if (result == DialogResult.OK)
             {
-                using (FileStream fStream = new FileStream(dialog.FileName, FileMode.Create))
-                {
-                    var binFormatter = new BinaryFormatter();
-                    var indexedDirTree = IndexDirectory(currentPath);
-                    binFormatter.Serialize(fStream, indexedDirTree);
-                }
+                SaveTree(MainFormTreeView, dialog.FileName);
             }
         }
 
@@ -135,18 +130,7 @@ namespace FileIndexerApplication
             {
                 try
                 {
-                    var stream = dialog.OpenFile();
-
-                    if (stream != null)
-                    {
-                        using (stream)
-                        {
-                            var binFormatter = new BinaryFormatter();
-                            var indexedDirTree = binFormatter.Deserialize(stream) as SerializableTreeNode<DirectoryInfo>;
-
-                            LoadDirectoryTree(indexedDirTree);
-                        }
-                    }
+                    LoadTree(MainFormTreeView, dialog.FileName);
                 }
                 catch (Exception ex)
                 {
@@ -271,78 +255,27 @@ namespace FileIndexerApplication
             }
         }
 
-        private SerializableTreeNode<DirectoryInfo> IndexDirectory(string path)
+        private static void SaveTree(TreeView tree, string filename)
         {
-            var dir = new DirectoryInfo(path);
-
-            if (dir.Exists)
+            using (Stream file = File.Open(filename, FileMode.Create))
             {
-                var rootNode = new SerializableTreeNode<DirectoryInfo>(dir);
-                StructureTree(rootNode);
-                return rootNode;
-            }
-
-            return null;
-        }
-
-        private void StructureTree(SerializableTreeNode<DirectoryInfo> node)
-        {
-            var dir = node.Value;
-
-            foreach (var childDir in dir.GetDirectories())
-            {
-                if (childDir.Attributes.HasFlag(FileAttributes.Hidden))
-                {
-                    continue;
-                }
-
-                StructureTree(node.AddChildNode(childDir));
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(file, tree.Nodes.Cast<TreeNode>().ToList());
             }
         }
 
-        private void LoadDirectoryTree(SerializableTreeNode<DirectoryInfo> sNode)
+        private static void LoadTree(TreeView tree, string filename)
         {
-            LoadTreeView(sNode);
-            LoadListView(sNode);
-        }
+            using (Stream file = File.Open(filename, FileMode.Open))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                object obj = bf.Deserialize(file);
 
-        private void LoadTreeView(SerializableTreeNode<DirectoryInfo> sNode)
-        {
-            // TODO: MAKE IT WORK!!!
-            // Clear the existing nodes in the TreeView control
-            MainFormTreeView.Nodes.Clear();
-            subsequentPaths.Clear();
-
-            // Extract information about the root node from the indexedDirectoryTree
-            var root = new TreeNode(sNode.Value.Name);
-            root.Tag = sNode.Value.FullName;
-
-            ////    currentPath = root.Tag.ToString();
-            ////    subsequentPaths.Add(currentPath);
-            ////    UpdatePathTextBox();
-
-            ////    MainFormTreeView.Nodes.Add(root);
-            ////    LoadTreeViewFolders(root);
-            ////    root.Expand();
-        }
-
-        private void LoadTreeViewFolders(SerializableTreeNode<DirectoryInfo> sNode)
-        {
-            var dir = sNode.Value;
-
-            ////foreach (var childDir in dir.GetDirectories())
-            ////{
-            ////    if (childDir.Attributes.HasFlag(FileAttributes.Hidden))
-            ////    {
-            ////        continue;
-            ////    }
-
-            ////    var childNode = new TreeNode(childDir.Name);
-            ////    childNode.Tag = childDir.FullName;
-            ////    node.Nodes.Add(childNode);
-
-            ////    GetTreeViewFolders(childNode);
-            ////}
+                TreeNode[] nodeList = (obj as IEnumerable<TreeNode>).ToArray();
+                tree.Nodes.Clear();
+                tree.Nodes.AddRange(nodeList);
+                tree.Nodes[0].Expand();
+            }
         }
 
         private void LoadListView(SerializableTreeNode<DirectoryInfo> sNode)
@@ -350,7 +283,7 @@ namespace FileIndexerApplication
             // Clear the existing items in the ListView control
             MainFormListView.Items.Clear();
 
-
+            // TODO:
         }
 
         private bool DirectoryChanged()
