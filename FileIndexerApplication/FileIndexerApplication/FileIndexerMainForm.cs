@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace FileIndexerApplication
 {
-    // TODO: Add save/load indexed folder functionality
+    // TODO: Fix ListView for loaded tree
     // TODO: Add search functionality in the indexed folder
     // TODO: Add command line arguments
     // TODO: Add copy/paste functionality to paht text box
@@ -50,7 +50,7 @@ namespace FileIndexerApplication
             currentPath = e.Node.Tag.ToString();
             subsequentPaths.Add(currentPath);
             UpdatePathTextBox();
-            PopulateListView(currentPath);
+            PopulateListView(e.Node);
         }
 
         private void GoToButton_Click(object sender, EventArgs e)
@@ -61,7 +61,7 @@ namespace FileIndexerApplication
             {
                 subsequentPaths.Add(currentPath);
                 PopulateTreeView(currentPath);
-                PopulateListView(currentPath);
+                ////PopulateListView();
                 UpdatePathTextBox();
             }
         }
@@ -72,7 +72,7 @@ namespace FileIndexerApplication
             {
                 subsequentPaths.RemoveAt(subsequentPaths.Count - 1);
                 currentPath = subsequentPaths[subsequentPaths.Count - 1];
-                PopulateListView(currentPath);
+                //PopulateListView(currentPath);
 
                 if (DirectoryChanged())
                 {
@@ -135,7 +135,7 @@ namespace FileIndexerApplication
                     currentPath = MainFormTreeView.Nodes[0].Tag.ToString();
                     subsequentPaths.Add(currentPath);
                     UpdatePathTextBox();
-                    UpdateListView(MainFormListView);
+                    PopulateListView(MainFormTreeView.Nodes[0]);
                 }
                 catch (Exception ex)
                 {
@@ -185,9 +185,11 @@ namespace FileIndexerApplication
             }
         }
 
-        private void PopulateListView(string path)
+        // TODO: REFACTOR!!!
+        private void PopulateListView(TreeNode node)
         {
-            var dir = new DirectoryInfo(path);
+            // DOES NOT WORK PROPERLY
+            var dir = new DirectoryInfo(node.Tag.ToString());
 
             MainFormListView.Items.Clear();
             LargeImageList.Images.RemoveByKey(".exe");
@@ -196,6 +198,12 @@ namespace FileIndexerApplication
             // Get the files in the selected directory and display them in the list view
             foreach (var file in dir.GetFiles())
             {
+                // Don't add hidden files
+                if (file.Attributes.HasFlag(FileAttributes.Hidden))
+                {
+                    continue;
+                }
+
                 var item = new ListViewItem(file.Name);
 
                 // Populate the sub-items of the item
@@ -219,7 +227,7 @@ namespace FileIndexerApplication
             // Get the folders in the selected directory and display them in the list view
             foreach (var childDir in dir.GetDirectories())
             {
-                // If access to a folder is restricted don't display  it
+                // Don't add hidden directories
                 if (childDir.Attributes.HasFlag(FileAttributes.Hidden))
                 {
                     continue;
@@ -281,13 +289,6 @@ namespace FileIndexerApplication
                 tree.Nodes.AddRange(nodeList);
                 tree.Nodes[0].Expand();
             }
-        }
-
-        private void UpdateListView(ListView list)
-        {
-            // Clear the existing items in the ListView control
-            list.Items.Clear();
-
         }
 
         private bool DirectoryChanged()
