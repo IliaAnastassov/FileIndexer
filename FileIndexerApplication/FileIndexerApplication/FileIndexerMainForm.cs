@@ -131,6 +131,11 @@ namespace FileIndexerApplication
                 try
                 {
                     LoadTree(MainFormTreeView, dialog.FileName);
+                    subsequentPaths.Clear();
+                    currentPath = MainFormTreeView.Nodes[0].Tag.ToString();
+                    subsequentPaths.Add(currentPath);
+                    UpdatePathTextBox();
+                    UpdateListView(MainFormListView);
                 }
                 catch (Exception ex)
                 {
@@ -278,12 +283,11 @@ namespace FileIndexerApplication
             }
         }
 
-        private void LoadListView(SerializableTreeNode<DirectoryInfo> sNode)
+        private void UpdateListView(ListView list)
         {
             // Clear the existing items in the ListView control
-            MainFormListView.Items.Clear();
+            list.Items.Clear();
 
-            // TODO:
         }
 
         private bool DirectoryChanged()
