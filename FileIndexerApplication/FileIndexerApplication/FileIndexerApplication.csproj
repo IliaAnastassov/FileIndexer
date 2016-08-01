@@ -49,13 +49,15 @@
     <Compile Include="BindedListView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Contracts\IIndexTree.cs" />
+    <Compile Include="Contracts\IFIDirectory.cs" />
     <Compile Include="FileIndexerMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FileIndexerMainForm.Designer.cs">
       <DependentUpon>FileIndexerMainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\FIDirectory.cs" />
+    <Compile Include="Models\FIFile.cs" />
     <Compile Include="Models\FileIndexer.cs" />
     <Compile Include="Models\SerializableTreeNode.cs" />
     <Compile Include="Startup.cs" />
