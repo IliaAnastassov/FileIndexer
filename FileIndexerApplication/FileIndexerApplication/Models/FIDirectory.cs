@@ -9,6 +9,18 @@
         private List<FIDirectory> subDirs;
         private List<FIFile> files;
         private FIDirectory parent;
+        private string directoryPath;
+
+        public FIDirectory(string path)
+        {
+            this.directoryPath = path;
+        }
+
+        public string DirectoryPath
+        {
+            get { return directoryPath; }
+            set { directoryPath = value; }
+        }
 
         public FIDirectory Parent
         {
