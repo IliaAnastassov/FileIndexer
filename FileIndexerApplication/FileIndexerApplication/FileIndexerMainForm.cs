@@ -15,6 +15,7 @@ using System.Windows.Forms;
 namespace FileIndexerApplication
 {
     // TODO: Fix ListView for loaded tree
+    // TODO: Fix Go back/forward functionality
     // TODO: Add search functionality in the indexed folder
     // TODO: Add command line arguments
     // TODO: Add copy/paste functionality to paht text box
@@ -50,7 +51,7 @@ namespace FileIndexerApplication
             currentPath = e.Node.Tag.ToString();
             subsequentPaths.Add(currentPath);
             UpdatePathTextBox();
-            PopulateListView(e.Node);
+            PopulateExplorerListView(e.Node);
         }
 
         private void GoToButton_Click(object sender, EventArgs e)
@@ -60,7 +61,7 @@ namespace FileIndexerApplication
             if (currentPath.Replace(" ", string.Empty) != string.Empty)
             {
                 subsequentPaths.Add(currentPath);
-                PopulateTreeView(currentPath);
+                PopulateExplorerTreeView(currentPath);
                 ////PopulateListView();
                 UpdatePathTextBox();
             }
@@ -76,7 +77,7 @@ namespace FileIndexerApplication
 
                 if (DirectoryChanged())
                 {
-                    PopulateTreeView(currentPath);
+                    PopulateExplorerTreeView(currentPath);
                 }
 
                 UpdatePathTextBox();
@@ -135,7 +136,7 @@ namespace FileIndexerApplication
                     currentPath = MainFormTreeView.Nodes[0].Tag.ToString();
                     subsequentPaths.Add(currentPath);
                     UpdatePathTextBox();
-                    PopulateListView(MainFormTreeView.Nodes[0]);
+                    PopulateExplorerListView(MainFormTreeView.Nodes[0]);
                 }
                 catch (Exception ex)
                 {
@@ -166,7 +167,7 @@ namespace FileIndexerApplication
             PathTextBox.Text = currentPath;
         }
 
-        private void PopulateTreeView(string path)
+        private void PopulateExplorerTreeView(string path)
         {
             TreeNode root;
             var dir = new DirectoryInfo(path);
@@ -185,10 +186,8 @@ namespace FileIndexerApplication
             }
         }
 
-        // TODO: REFACTOR!!!
-        private void PopulateListView(TreeNode node)
+        private void PopulateExplorerListView(TreeNode node)
         {
-            // DOES NOT WORK PROPERLY
             var dir = new DirectoryInfo(node.Tag.ToString());
 
             MainFormListView.Items.Clear();
