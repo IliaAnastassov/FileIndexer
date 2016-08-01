@@ -15,15 +15,16 @@ using System.Windows.Forms;
 namespace FileIndexerApplication
 {
     // TODO: Fix ListView for loaded tree
+    // TODO: Fix PopulateExplorerListView method
     // TODO: Fix Go back/forward functionality
     // TODO: Add search functionality in the indexed folder
     // TODO: Add command line arguments
-    // TODO: Add copy/paste functionality to paht text box
+    // TODO: Add copy/paste functionality to path text box
 
     public partial class FileIndexerMainForm : Form
     {
         private string currentPath;
-        private List<string> subsequentPaths = new List<string>(8); // Estimation
+        private List<string> subsequentPaths = new List<string>(8);
 
         public FileIndexerMainForm()
         {
@@ -62,7 +63,7 @@ namespace FileIndexerApplication
             {
                 subsequentPaths.Add(currentPath);
                 PopulateExplorerTreeView(currentPath);
-                ////PopulateListView();
+                ////PopulateExplorerListView();
                 UpdatePathTextBox();
             }
         }
@@ -73,7 +74,7 @@ namespace FileIndexerApplication
             {
                 subsequentPaths.RemoveAt(subsequentPaths.Count - 1);
                 currentPath = subsequentPaths[subsequentPaths.Count - 1];
-                //PopulateListView(currentPath);
+                ////PopulateExplorerListView(currentPath);
 
                 if (DirectoryChanged())
                 {
@@ -136,7 +137,7 @@ namespace FileIndexerApplication
                     currentPath = MainFormTreeView.Nodes[0].Tag.ToString();
                     subsequentPaths.Add(currentPath);
                     UpdatePathTextBox();
-                    PopulateExplorerListView(MainFormTreeView.Nodes[0]);
+                    PopulateLoadedListView(MainFormTreeView);
                 }
                 catch (Exception ex)
                 {
@@ -236,6 +237,16 @@ namespace FileIndexerApplication
                 var item = new ListViewItem(childDir.Name, 0);
 
                 MainFormListView.Items.Add(item);
+            }
+        }
+
+        private void PopulateLoadedListView(TreeView tree)
+        {
+            MainFormListView.Items.Clear();
+
+            for (int i = 0; i < tree.Nodes[0].Nodes.Count; i++)
+            {
+                MainFormListView.Items.Add(tree.Nodes[0].Nodes[i].Text);
             }
         }
 
