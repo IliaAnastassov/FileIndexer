@@ -117,7 +117,7 @@ namespace FileIndexerApplication
 
             if (result == DialogResult.OK)
             {
-                SaveTree(MainFormTreeView, dialog.FileName);
+                FileIndexer.SaveIndexTree(MainFormTreeView, dialog.FileName);
             }
         }
 
@@ -131,7 +131,7 @@ namespace FileIndexerApplication
             {
                 try
                 {
-                    LoadTree(MainFormTreeView, dialog.FileName);
+                    FileIndexer.LoadIndexTree(MainFormTreeView, dialog.FileName);
                     subsequentPaths.Clear();
                     currentPath = MainFormTreeView.Nodes[0].Tag.ToString();
                     subsequentPaths.Add(currentPath);
@@ -264,29 +264,6 @@ namespace FileIndexerApplication
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-            }
-        }
-
-        private static void SaveTree(TreeView tree, string filename)
-        {
-            using (Stream file = File.Open(filename, FileMode.Create))
-            {
-                BinaryFormatter bf = new BinaryFormatter();
-                bf.Serialize(file, tree.Nodes.Cast<TreeNode>().ToList());
-            }
-        }
-
-        private static void LoadTree(TreeView tree, string filename)
-        {
-            using (Stream file = File.Open(filename, FileMode.Open))
-            {
-                BinaryFormatter bf = new BinaryFormatter();
-                object obj = bf.Deserialize(file);
-
-                TreeNode[] nodeList = (obj as IEnumerable<TreeNode>).ToArray();
-                tree.Nodes.Clear();
-                tree.Nodes.AddRange(nodeList);
-                tree.Nodes[0].Expand();
             }
         }
 

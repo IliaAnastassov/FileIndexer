@@ -46,13 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IIndexTree.cs" />
     <Compile Include="FileIndexerMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FileIndexerMainForm.Designer.cs">
       <DependentUpon>FileIndexerMainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\FileIndex.cs" />
+    <Compile Include="Models\FileIndexer.cs" />
     <Compile Include="Models\SerializableTreeNode.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
