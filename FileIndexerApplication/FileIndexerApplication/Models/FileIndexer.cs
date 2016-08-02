@@ -33,16 +33,27 @@
             }
         }
 
-        public static void SaveTree(DirectoryInfo root, string filename)
+        public static void SaveTree(FIDirectory tree, string filename)
         {
-            // Create a new fiDirectory object and populate it with
-            // info from the DirectoryInfo object
-            var fiRoot = new FIDirectory(root.FullName, root.Name, root.LastWriteTime);
-
-
+            using (Stream file = File.Open(filename, FileMode.Create))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(file, tree);
+            }
         }
 
-        private void ExtractItems(DirectoryInfo dir, FIDirectory fiDir)
+        public static void LoadTree(FIDirectory tree, string filename)
+        {
+            using (Stream file = File.Open(filename, FileMode.Open))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                var obj = bf.Deserialize(file);
+
+                // TODO: Cast obj to FIDirectory object
+            }
+        }
+
+        private static void ExtractItems(DirectoryInfo dir, FIDirectory fiDir)
         {
             // Extract needed information about the containing files of the DirectoryInfo object
             // and store it in the FIDirectory object
