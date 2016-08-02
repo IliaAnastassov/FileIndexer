@@ -10,22 +10,22 @@
         private string fileExtension;
         private DateTime lastModified;
         private int fileSize;
-        private Image fileImage;
+        private string icon;
 
-        public FIFile(string name, string path, string extension, DateTime lastModified, int size, Image image)
+        public FIFile(string name, string path, string extension, DateTime lastModified, int size, string icon)
         {
             this.fileName = name;
             this.filePath = path;
             this.fileExtension = extension;
             this.lastModified = lastModified;
             this.fileSize = size;
-            this.fileImage = image;
+            this.icon = icon;
         }
 
-        public Image FileImage
+        public string Icon
         {
-            get { return fileImage; }
-            set { fileImage = value; }
+            get { return icon; }
+            set { icon = value; }
         }
 
         public int FileSize

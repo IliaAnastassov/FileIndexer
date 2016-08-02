@@ -10,10 +10,31 @@
         private List<FIFile> files;
         private FIDirectory parent;
         private string directoryPath;
+        private string icon;
+        private string name;
+        private bool isLive;
 
         public FIDirectory(string path)
         {
             this.directoryPath = path;
+        }
+
+        public bool IsLive
+        {
+            get { return isLive; }
+            set { isLive = value; }
+        }
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        public string Icon
+        {
+            get { return icon; }
+            set { icon = value; }
         }
 
         public string DirectoryPath
