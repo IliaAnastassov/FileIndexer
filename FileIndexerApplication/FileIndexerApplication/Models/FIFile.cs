@@ -9,26 +9,26 @@
         private string path;
         private string extension;
         private DateTime lastModified;
-        private int size;
-        private string icon;
+        private long size;
+        private int imageIndex;
 
-        public FIFile(string name, string path, string extension, DateTime lastModified, int size, string icon)
+        public FIFile(string name, string path, string extension, DateTime lastModified, long size)
         {
             this.name = name;
             this.path = path;
             this.extension = extension;
             this.lastModified = lastModified;
             this.size = size;
-            this.icon = icon;
+            this.imageIndex = 1;
         }
 
-        public string Icon
+        public int ImageIndex
         {
-            get { return icon; }
-            set { icon = value; }
+            get { return imageIndex; }
+            set { imageIndex = value; }
         }
 
-        public int Size
+        public long Size
         {
             get { return size; }
             set { size = value; }

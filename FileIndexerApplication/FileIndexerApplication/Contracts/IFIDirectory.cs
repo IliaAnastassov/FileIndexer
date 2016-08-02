@@ -4,7 +4,7 @@
 
     public interface IFIDirectory
     {
-        void AddSubDir(FIDirectory subDir);
+        void AddSubdirectory(FIDirectory subDir);
 
         void AddFile(FIFile file);
     }

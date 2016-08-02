@@ -10,7 +10,7 @@
         private List<FIFile> files;
         private FIDirectory parent;
         private string path;
-        private string icon;
+        private int imageIndex;
         private string name;
         private bool isLive;
         private DateTime lastModified;
@@ -24,6 +24,7 @@
             this.path = path;
             this.name = name;
             this.lastModified = lastModified;
+            this.ImageIndex = 0;
             isLive = false;
         }
 
@@ -45,10 +46,10 @@
             set { name = value; }
         }
 
-        public string Icon
+        public int ImageIndex
         {
-            get { return icon; }
-            set { icon = value; }
+            get { return imageIndex; }
+            set { imageIndex = value; }
         }
 
         public string Path
@@ -75,7 +76,7 @@
             set { subDirs = value; }
         }
 
-        public void AddSubDir(FIDirectory subDir)
+        public void AddSubdirectory(FIDirectory subDir)
         {
             this.subDirs.Add(subDir);
             subDir.Parent = this;
