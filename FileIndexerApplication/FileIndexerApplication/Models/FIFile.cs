@@ -3,6 +3,7 @@
     using System;
     using System.Drawing;
 
+    [Serializable]
     public class FIFile
     {
         private string name;
@@ -57,6 +58,5 @@
             get { return name; }
             set { name = value; }
         }
-
     }
 }

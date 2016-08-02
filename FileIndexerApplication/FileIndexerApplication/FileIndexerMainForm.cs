@@ -1,19 +1,19 @@
-﻿using FileIndexerApplication.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace FileIndexerApplication
+﻿namespace FileIndexerApplication
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Data;
+    using System.Drawing;
+    using System.IO;
+    using System.Linq;
+    using System.Runtime.InteropServices;
+    using System.Runtime.Serialization.Formatters.Binary;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows.Forms;
+    using Models;
+
     // TODO: Fix ListView for loaded tree
     // TODO: Fix PopulateExplorerListView method
     // TODO: Fix Go back/forward functionality
@@ -118,7 +118,11 @@ namespace FileIndexerApplication
 
             if (result == DialogResult.OK)
             {
-                FileIndexer.SaveIndexTree(MainFormTreeView, dialog.FileName);
+                var dirToIndex = new DirectoryInfo(currentPath);
+                var indexedDir = new FIDirectory(dirToIndex.FullName, dirToIndex.Name, dirToIndex.LastWriteTime);
+
+                FileIndexer.ExtractItems(dirToIndex, indexedDir);
+                FileIndexer.SaveTree(indexedDir, dialog.FileName);
             }
         }
 
@@ -132,12 +136,11 @@ namespace FileIndexerApplication
             {
                 try
                 {
-                    FileIndexer.LoadIndexTree(MainFormTreeView, dialog.FileName);
-                    subsequentPaths.Clear();
-                    currentPath = MainFormTreeView.Nodes[0].Tag.ToString();
-                    subsequentPaths.Add(currentPath);
-                    UpdatePathTextBox();
-                    PopulateLoadedListView(MainFormTreeView);
+                    var loadedTree = new FIDirectory();
+                    FileIndexer.LoadTree(loadedTree, dialog.FileName);
+
+
+                    // TODO:
                 }
                 catch (Exception ex)
                 {

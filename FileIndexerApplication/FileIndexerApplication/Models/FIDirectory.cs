@@ -9,8 +9,8 @@
     [Serializable]
     public class FIDirectory : IFIDirectory, ISerializable
     {
-        private List<FIDirectory> subdirs;
-        private List<FIFile> files;
+        private List<FIDirectory> subdirs = new List<FIDirectory>();
+        private List<FIFile> files = new List<FIFile>();
         private FIDirectory parent;
         private string path;
         private int imageIndex;

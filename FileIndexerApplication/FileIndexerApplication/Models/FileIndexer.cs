@@ -49,11 +49,11 @@
                 BinaryFormatter bf = new BinaryFormatter();
                 var obj = bf.Deserialize(file);
 
-                // TODO: Cast obj to FIDirectory object
+                tree = (FIDirectory)obj;
             }
         }
 
-        private static void ExtractItems(DirectoryInfo dir, FIDirectory fiDir)
+        public static void ExtractItems(DirectoryInfo dir, FIDirectory fiDir)
         {
             // Extract needed information about the containing files of the DirectoryInfo object
             // and store it in the FIDirectory object
@@ -63,7 +63,12 @@
                 {
                     continue;
                 }
-                fiDir.AddFile(new FIFile(file.Name, file.FullName, file.Extension, file.LastWriteTime, file.Length));
+
+                if (file.Exists)
+                {
+                    var fiFile = new FIFile(file.Name, file.FullName, file.Extension, file.LastWriteTime, file.Length);
+                    fiDir.AddFile(fiFile);
+                }
             }
 
             try
