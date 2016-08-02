@@ -5,20 +5,20 @@
 
     public class FIFile
     {
-        private string fileName;
-        private string filePath;
-        private string fileExtension;
+        private string name;
+        private string path;
+        private string extension;
         private DateTime lastModified;
-        private int fileSize;
+        private int size;
         private string icon;
 
         public FIFile(string name, string path, string extension, DateTime lastModified, int size, string icon)
         {
-            this.fileName = name;
-            this.filePath = path;
-            this.fileExtension = extension;
+            this.name = name;
+            this.path = path;
+            this.extension = extension;
             this.lastModified = lastModified;
-            this.fileSize = size;
+            this.size = size;
             this.icon = icon;
         }
 
@@ -28,10 +28,10 @@
             set { icon = value; }
         }
 
-        public int FileSize
+        public int Size
         {
-            get { return fileSize; }
-            set { fileSize = value; }
+            get { return size; }
+            set { size = value; }
         }
 
         public DateTime LastModified
@@ -40,22 +40,22 @@
             set { lastModified = value; }
         }
 
-        public string FileExtension
+        public string Extension
         {
-            get { return fileExtension; }
-            set { fileExtension = value; }
+            get { return extension; }
+            set { extension = value; }
         }
 
-        public string FilePath
+        public string Path
         {
-            get { return filePath; }
-            set { filePath = value; }
+            get { return path; }
+            set { path = value; }
         }
 
-        public string FileName
+        public string Name
         {
-            get { return fileName; }
-            set { fileName = value; }
+            get { return name; }
+            set { name = value; }
         }
 
     }

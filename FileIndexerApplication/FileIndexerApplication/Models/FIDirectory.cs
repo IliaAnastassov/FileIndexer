@@ -9,14 +9,28 @@
         private List<FIDirectory> subDirs;
         private List<FIFile> files;
         private FIDirectory parent;
-        private string directoryPath;
+        private string path;
         private string icon;
         private string name;
         private bool isLive;
+        private DateTime lastModified;
 
-        public FIDirectory(string path)
+        /// <summary>
+        /// Constructor with parameters
+        /// </summary>
+        /// <param name="path"></param>
+        public FIDirectory(string path, string name, DateTime lastModified)
         {
-            this.directoryPath = path;
+            this.path = path;
+            this.name = name;
+            this.lastModified = lastModified;
+            isLive = false;
+        }
+
+        public DateTime LastModified
+        {
+            get { return lastModified; }
+            set { lastModified = value; }
         }
 
         public bool IsLive
@@ -37,10 +51,10 @@
             set { icon = value; }
         }
 
-        public string DirectoryPath
+        public string Path
         {
-            get { return directoryPath; }
-            set { directoryPath = value; }
+            get { return path; }
+            set { path = value; }
         }
 
         public FIDirectory Parent
