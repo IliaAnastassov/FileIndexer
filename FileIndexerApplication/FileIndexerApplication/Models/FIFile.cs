@@ -1,7 +1,6 @@
 ﻿namespace FileIndexerApplication.Models
 {
     using System;
-    using System.Drawing;
 
     [Serializable]
     public class FIFile

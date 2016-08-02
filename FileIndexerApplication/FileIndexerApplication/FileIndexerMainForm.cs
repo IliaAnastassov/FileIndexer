@@ -2,25 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Data;
     using System.Drawing;
     using System.IO;
-    using System.Linq;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Serialization.Formatters.Binary;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Windows.Forms;
     using Models;
 
-    // TODO: Fix ListView for loaded tree
-    // TODO: Fix PopulateExplorerListView method
-    // TODO: Fix Go back/forward functionality
+    // TODO: Application architecture - create two separate modes: live mode and loaded mode
     // TODO: Add search functionality in the indexed folder
     // TODO: Add command line arguments
-    // TODO: Add copy/paste functionality to path text box
-
+    // TODO: Add copy/paste keyboard shortcuts to path text box
     public partial class FileIndexerMainForm : Form
     {
         private string currentPath;
@@ -52,7 +42,7 @@
             currentPath = e.Node.Tag.ToString();
             subsequentPaths.Add(currentPath);
             UpdatePathTextBox();
-            PopulateExplorerListView(e.Node);
+            PopulateExplorerListView(currentPath);
         }
 
         private void GoToButton_Click(object sender, EventArgs e)
@@ -63,7 +53,7 @@
             {
                 subsequentPaths.Add(currentPath);
                 PopulateExplorerTreeView(currentPath);
-                ////PopulateExplorerListView();
+                PopulateExplorerListView(currentPath);
                 UpdatePathTextBox();
             }
         }
@@ -74,7 +64,7 @@
             {
                 subsequentPaths.RemoveAt(subsequentPaths.Count - 1);
                 currentPath = subsequentPaths[subsequentPaths.Count - 1];
-                ////PopulateExplorerListView(currentPath);
+                PopulateExplorerListView(currentPath);
 
                 if (DirectoryChanged())
                 {
@@ -139,7 +129,6 @@
                     var loadedTree = new FIDirectory();
                     FileIndexer.LoadTree(loadedTree, dialog.FileName);
 
-
                     // TODO:
                 }
                 catch (Exception ex)
@@ -149,7 +138,7 @@
             }
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
@@ -190,9 +179,9 @@
             }
         }
 
-        private void PopulateExplorerListView(TreeNode node)
+        private void PopulateExplorerListView(string path)
         {
-            var dir = new DirectoryInfo(node.Tag.ToString());
+            var dir = new DirectoryInfo(path);
 
             MainFormListView.Items.Clear();
             LargeImageList.Images.RemoveByKey(".exe");
