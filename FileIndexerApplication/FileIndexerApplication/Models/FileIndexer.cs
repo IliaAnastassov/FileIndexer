@@ -88,5 +88,22 @@
                 MessageBox.Show(ex.Message);
             }
         }
+
+        public static FIDirectory GetFIDirectory(string path, FIDirectory dir)
+        {
+            if (dir.Path == path)
+            {
+                return dir;
+            }
+            else
+            {
+                foreach (var subdir in dir.Subdirs)
+                {
+                    return GetFIDirectory(path, subdir);
+                }
+            }
+
+            return null;
+        }
     }
 }
