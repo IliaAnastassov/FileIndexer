@@ -33,7 +33,8 @@
 
                 try
                 {
-                    tree = bf.Deserialize(file) as FIDirectory;
+                    file.Position = 0;
+                    tree = (FIDirectory)bf.Deserialize(file);
                 }
                 catch (SerializationException ex)
                 {

@@ -126,13 +126,12 @@
             {
                 try
                 {
-                    var loadedTree = new FIDirectory();
+                    var loadedTree = new FIDirectory("mypath", "myname", new DateTime());
                     FileIndexer.LoadTree(loadedTree, dialog.FileName);
 
                     // TODO:
-                    ////PopulateExplorerTreeView(loadedTree.Path);
+                    PopulateExplorerTreeView(loadedTree.Path);
                     MessageBox.Show(loadedTree.Path);
-
                 }
                 catch (Exception ex)
                 {

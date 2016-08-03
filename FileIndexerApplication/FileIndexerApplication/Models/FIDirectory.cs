@@ -27,6 +27,8 @@
         /// Constructor with parameters
         /// </summary>
         /// <param name="path"></param>
+        /// <param name="name"></param>
+        /// <param name="lastModified"></param>
         public FIDirectory(string path, string name, DateTime lastModified)
         {
             this.path = path;
@@ -115,6 +117,11 @@
             this.Files.Add(file);
         }
 
+        /// <summary>
+        /// Serialization Method
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
         [SecurityPermission(SecurityAction.LinkDemand,
             Flags = SecurityPermissionFlag.SerializationFormatter)]
         public void GetObjectData(SerializationInfo info, StreamingContext context)
