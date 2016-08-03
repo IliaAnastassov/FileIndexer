@@ -25,8 +25,10 @@
             }
         }
 
-        public static void LoadTree(FIDirectory tree, string filename)
+        public static FIDirectory LoadTree(string filename)
         {
+            var tree = new FIDirectory();
+
             using (Stream file = File.Open(filename, FileMode.Open))
             {
                 BinaryFormatter bf = new BinaryFormatter();
@@ -35,10 +37,13 @@
                 {
                     file.Position = 0;
                     tree = (FIDirectory)bf.Deserialize(file);
+
+                    return tree;
                 }
                 catch (SerializationException ex)
                 {
                     MessageBox.Show("Failed to deserialize. Reason: " + ex.Message);
+                    return null;
                 }
             }
         }
