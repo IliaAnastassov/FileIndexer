@@ -52,7 +52,7 @@
             if (currentPath.Replace(" ", string.Empty) != string.Empty)
             {
                 subsequentPaths.Add(currentPath);
-                PopulateExplorerTreeView(currentPath);
+                PopulateTreeView(currentPath);
                 PopulateExplorerListView(currentPath);
                 UpdatePathTextBox();
             }
@@ -68,7 +68,7 @@
 
                 if (DirectoryChanged())
                 {
-                    PopulateExplorerTreeView(currentPath);
+                    PopulateTreeView(currentPath);
                 }
 
                 UpdatePathTextBox();
@@ -126,12 +126,13 @@
             {
                 try
                 {
-                    var loadedTree = new FIDirectory("mypath", "myname", new DateTime());
-                    FileIndexer.LoadTree(loadedTree, dialog.FileName);
+                    var loadedTree = FileIndexer.LoadTree(dialog.FileName);
 
-                    // TODO:
-                    PopulateExplorerTreeView(loadedTree.Path);
-                    MessageBox.Show(loadedTree.Path);
+                    currentPath = loadedTree.Path;
+                    subsequentPaths.Add(currentPath);
+                    UpdatePathTextBox();
+
+                    PopulateTreeView(loadedTree);
                 }
                 catch (Exception ex)
                 {
@@ -162,7 +163,7 @@
             PathTextBox.Text = currentPath;
         }
 
-        private void PopulateExplorerTreeView(string path)
+        private void PopulateTreeView(string path)
         {
             TreeNode root;
             var dir = new DirectoryInfo(path);
@@ -179,6 +180,18 @@
                 MainFormTreeView.Nodes.Add(root);
                 root.Expand();
             }
+        }
+
+        private void PopulateTreeView(FIDirectory tree)
+        {
+            TreeNode root = new TreeNode(tree.Name);
+
+            MainFormTreeView.Nodes.Clear();
+
+            // TODO: 
+
+
+            MainFormTreeView.Nodes.Add(root);
         }
 
         private void PopulateExplorerListView(string path)
@@ -231,16 +244,6 @@
                 var item = new ListViewItem(childDir.Name, 0);
 
                 MainFormListView.Items.Add(item);
-            }
-        }
-
-        private void PopulateLoadedListView(TreeView tree)
-        {
-            MainFormListView.Items.Clear();
-
-            for (int i = 0; i < tree.Nodes[0].Nodes.Count; i++)
-            {
-                MainFormListView.Items.Add(tree.Nodes[0].Nodes[i].Text);
             }
         }
 
