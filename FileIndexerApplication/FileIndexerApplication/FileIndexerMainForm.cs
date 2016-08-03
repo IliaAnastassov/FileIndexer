@@ -130,6 +130,9 @@
                     FileIndexer.LoadTree(loadedTree, dialog.FileName);
 
                     // TODO:
+                    ////PopulateExplorerTreeView(loadedTree.Path);
+                    MessageBox.Show(loadedTree.Path);
+
                 }
                 catch (Exception ex)
                 {

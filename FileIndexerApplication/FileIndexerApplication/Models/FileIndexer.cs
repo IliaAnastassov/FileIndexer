@@ -2,6 +2,7 @@
 {
     using System;
     using System.IO;
+    using System.Runtime.Serialization;
     using System.Runtime.Serialization.Formatters.Binary;
     using System.Windows.Forms;
 
@@ -12,7 +13,15 @@
             using (Stream file = File.Open(filename, FileMode.Create))
             {
                 BinaryFormatter bf = new BinaryFormatter();
-                bf.Serialize(file, tree);
+
+                try
+                {
+                    bf.Serialize(file, tree);
+                }
+                catch (SerializationException ex)
+                {
+                    MessageBox.Show("Failed to serialize. Reason: " + ex.Message);
+                }
             }
         }
 
@@ -21,9 +30,15 @@
             using (Stream file = File.Open(filename, FileMode.Open))
             {
                 BinaryFormatter bf = new BinaryFormatter();
-                var obj = bf.Deserialize(file);
 
-                tree = (FIDirectory)obj;
+                try
+                {
+                    tree = bf.Deserialize(file) as FIDirectory;
+                }
+                catch (SerializationException ex)
+                {
+                    MessageBox.Show("Failed to deserialize. Reason: " + ex.Message);
+                }
             }
         }
 

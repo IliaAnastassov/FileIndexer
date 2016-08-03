@@ -59,7 +59,6 @@
     <Compile Include="Models\FIDirectory.cs" />
     <Compile Include="Models\FIFile.cs" />
     <Compile Include="Models\FileIndexer.cs" />
-    <Compile Include="Models\SerializableTreeNode.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FileIndexerMainForm.resx">
