@@ -7,7 +7,7 @@
     using System.Windows.Forms;
     using Models;
 
-    // TODO: Application architecture - create two separate modes: live mode and loaded mode
+    // TODO: Fix FileIndexerTreeView_AfterSelect method
     // TODO: Add search functionality in the indexed folder
     // TODO: Add command line arguments
     // TODO: Add copy/paste keyboard shortcuts to path text box
@@ -15,6 +15,8 @@
     {
         private string currentPath;
         private List<string> subsequentPaths = new List<string>(8);
+        private FIDirectory loadedDirectory;
+        private bool isLive = true; // Application state is set to LIVE by default
 
         public FileIndexerMainForm()
         {
@@ -39,21 +41,30 @@
 
         private void FileIndexerTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            currentPath = e.Node.Tag.ToString();
+            if (isLive)
+            {
+                currentPath = e.Node.Tag.ToString();
+            }
+            else
+            {
+                currentPath = e.Node.FullPath;
+            }
             subsequentPaths.Add(currentPath);
             UpdatePathTextBox();
-            PopulateListView(currentPath);
+            PopulateListViewStrategy(currentPath, isLive);
         }
 
         private void GoToButton_Click(object sender, EventArgs e)
         {
+            // Reset application state to LIVE
+            isLive = true;
             currentPath = PathTextBox.Text;
 
             if (currentPath.Replace(" ", string.Empty) != string.Empty)
             {
                 subsequentPaths.Add(currentPath);
-                PopulateTreeView(currentPath);
-                PopulateListView(currentPath);
+                PopulateTreeViewStrategy(currentPath, isLive);
+                PopulateLiveListView(currentPath);
                 UpdatePathTextBox();
             }
         }
@@ -64,11 +75,11 @@
             {
                 subsequentPaths.RemoveAt(subsequentPaths.Count - 1);
                 currentPath = subsequentPaths[subsequentPaths.Count - 1];
-                PopulateListView(currentPath);
+                PopulateLiveListView(currentPath);
 
                 if (DirectoryChanged())
                 {
-                    PopulateTreeView(currentPath);
+                    PopulateTreeViewStrategy(currentPath, isLive);
                 }
 
                 UpdatePathTextBox();
@@ -126,14 +137,15 @@
             {
                 try
                 {
-                    var loadedTree = FileIndexer.LoadTree(dialog.FileName);
+                    loadedDirectory = FileIndexer.LoadTree(dialog.FileName);
 
-                    currentPath = loadedTree.Path;
+                    currentPath = loadedDirectory.Path;
                     subsequentPaths.Add(currentPath);
                     UpdatePathTextBox();
+                    isLive = false; // Set application state to LOAD
 
-                    PopulateTreeView(loadedTree);
-                    PopulateListView(loadedTree);
+                    PopulateTreeViewStrategy(currentPath, isLive);
+                    PopulateListViewStrategy(currentPath, isLive);
                 }
                 catch (Exception ex)
                 {
@@ -164,7 +176,38 @@
             PathTextBox.Text = currentPath;
         }
 
-        private void PopulateTreeView(string path)
+        private void PopulateTreeViewStrategy(string path, bool stateLive)
+        {
+            if (stateLive)
+            {
+                PopulateLiveTreeView(path);
+            }
+            else
+            {
+                PopulateLoadedTreeView(path);
+            }
+        }
+
+        private void PopulateLoadedTreeView(string path)
+        {
+            var dir = FileIndexer.GetFIDirectory(path, loadedDirectory);
+
+            if (dir != null)
+            {
+                TreeNode root = new TreeNode(dir.Name);
+
+                MainFormTreeView.Nodes.Clear();
+
+                root.ImageIndex = dir.ImageIndex;
+                GetTreeViewFolders(root, dir);
+
+                MainFormTreeView.Nodes.Add(root);
+                root.Expand();
+            }
+
+        }
+
+        private void PopulateLiveTreeView(string path)
         {
             TreeNode root;
             var dir = new DirectoryInfo(path);
@@ -183,22 +226,19 @@
             }
         }
 
-        private void PopulateTreeView(FIDirectory dir)
+        private void PopulateListViewStrategy(string path, bool stateLive)
         {
-            TreeNode root = new TreeNode(dir.Name);
-
-            MainFormTreeView.Nodes.Clear();
-
-            root.ImageIndex = dir.ImageIndex;
-            GetTreeViewFolders(root, dir);
-
-            MainFormTreeView.Nodes.Add(root);
-            root.Expand();
+            if (stateLive)
+            {
+                PopulateLiveListView(path);
+            }
+            else
+            {
+                PopulateLoadedListView(path);
+            }
         }
 
-
-
-        private void PopulateListView(string path)
+        private void PopulateLiveListView(string path)
         {
             var dir = new DirectoryInfo(path);
 
@@ -251,9 +291,11 @@
             }
         }
 
-        private void PopulateListView(FIDirectory dir)
+        private void PopulateLoadedListView(string path)
         {
             MainFormListView.Items.Clear();
+
+            var dir = FileIndexer.GetFIDirectory(path, loadedDirectory);
 
             // Extract files
             foreach (var file in dir.Files)
