@@ -133,6 +133,7 @@
                     UpdatePathTextBox();
 
                     PopulateTreeView(loadedTree);
+                    PopulateListView(loadedTree);
                 }
                 catch (Exception ex)
                 {
@@ -182,14 +183,14 @@
             }
         }
 
-        private void PopulateTreeView(FIDirectory tree)
+        private void PopulateTreeView(FIDirectory dir)
         {
-            TreeNode root = new TreeNode(tree.Name);
+            TreeNode root = new TreeNode(dir.Name);
 
             MainFormTreeView.Nodes.Clear();
 
-            root.ImageIndex = tree.ImageIndex;
-            GetTreeViewFolders(root, tree);
+            root.ImageIndex = dir.ImageIndex;
+            GetTreeViewFolders(root, dir);
 
             MainFormTreeView.Nodes.Add(root);
             root.Expand();
@@ -250,6 +251,31 @@
             }
         }
 
+        private void PopulateListView(FIDirectory dir)
+        {
+            MainFormListView.Items.Clear();
+
+            // Extract files
+            foreach (var file in dir.Files)
+            {
+                var item = new ListViewItem(file.Name);
+                item.ImageKey = file.Extension;
+                item.SubItems.Add(file.LastModified.ToShortDateString() + " " + file.LastModified.ToShortTimeString());
+                item.SubItems.Add(file.Extension);
+                item.SubItems.Add(Math.Ceiling(file.Size / 1024d) + " KB");
+
+                MainFormListView.Items.Add(item);
+            }
+
+            // Extract directories
+            foreach (var subdir in dir.Subdirs)
+            {
+                var item = new ListViewItem(subdir.Name, subdir.ImageIndex);
+
+                MainFormListView.Items.Add(item);
+            }
+        }
+
         private void GetTreeViewFolders(TreeNode node)
         {
             var dir = new DirectoryInfo(node.Tag.ToString());
@@ -278,11 +304,11 @@
             }
         }
 
-        private void GetTreeViewFolders(TreeNode node, FIDirectory tree)
+        private void GetTreeViewFolders(TreeNode node, FIDirectory dir)
         {
             try
             {
-                foreach (var subdir in tree.Subdirs)
+                foreach (var subdir in dir.Subdirs)
                 {
                     var childNode = new TreeNode(subdir.Name);
                     childNode.ImageIndex = subdir.ImageIndex;
