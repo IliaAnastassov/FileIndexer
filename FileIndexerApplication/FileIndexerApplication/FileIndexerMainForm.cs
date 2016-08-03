@@ -42,7 +42,7 @@
             currentPath = e.Node.Tag.ToString();
             subsequentPaths.Add(currentPath);
             UpdatePathTextBox();
-            PopulateExplorerListView(currentPath);
+            PopulateListView(currentPath);
         }
 
         private void GoToButton_Click(object sender, EventArgs e)
@@ -53,7 +53,7 @@
             {
                 subsequentPaths.Add(currentPath);
                 PopulateTreeView(currentPath);
-                PopulateExplorerListView(currentPath);
+                PopulateListView(currentPath);
                 UpdatePathTextBox();
             }
         }
@@ -64,7 +64,7 @@
             {
                 subsequentPaths.RemoveAt(subsequentPaths.Count - 1);
                 currentPath = subsequentPaths[subsequentPaths.Count - 1];
-                PopulateExplorerListView(currentPath);
+                PopulateListView(currentPath);
 
                 if (DirectoryChanged())
                 {
@@ -188,13 +188,16 @@
 
             MainFormTreeView.Nodes.Clear();
 
-            // TODO: 
-
+            root.ImageIndex = tree.ImageIndex;
+            GetTreeViewFolders(root, tree);
 
             MainFormTreeView.Nodes.Add(root);
+            root.Expand();
         }
 
-        private void PopulateExplorerListView(string path)
+
+
+        private void PopulateListView(string path)
         {
             var dir = new DirectoryInfo(path);
 
@@ -269,9 +272,29 @@
                     GetTreeViewFolders(childNode);
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void GetTreeViewFolders(TreeNode node, FIDirectory tree)
+        {
+            try
+            {
+                foreach (var subdir in tree.Subdirs)
+                {
+                    var childNode = new TreeNode(subdir.Name);
+                    childNode.ImageIndex = subdir.ImageIndex;
+
+                    node.Nodes.Add(childNode);
+
+                    GetTreeViewFolders(childNode, subdir);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
