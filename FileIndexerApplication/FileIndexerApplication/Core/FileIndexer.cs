@@ -1,10 +1,11 @@
-﻿namespace FileIndexerApplication.Models
+﻿namespace FileIndexerApplication.Core
 {
     using System;
     using System.IO;
     using System.Runtime.Serialization;
     using System.Runtime.Serialization.Formatters.Binary;
     using System.Windows.Forms;
+    using Models;
 
     public class FileIndexer
     {
@@ -48,11 +49,11 @@
             }
         }
 
-        public static void ExtractItems(DirectoryInfo dir, FIDirectory fiDir)
+        public static void ExtractItems(DirectoryInfo directoryToIndex, FIDirectory indexedDirectory)
         {
             // Extract needed information about the containing files of the DirectoryInfo object
             // and store it in the FIDirectory object
-            foreach (var file in dir.GetFiles())
+            foreach (var file in directoryToIndex.GetFiles())
             {
                 if (file.Attributes.HasFlag(FileAttributes.Hidden))
                 {
@@ -62,7 +63,7 @@
                 if (file.Exists)
                 {
                     var fiFile = new FIFile(file.Name, file.FullName, file.Extension, file.LastWriteTime, file.Length);
-                    fiDir.AddFile(fiFile);
+                    indexedDirectory.AddFile(fiFile);
                 }
             }
 
@@ -70,7 +71,7 @@
             {
                 // Recursively extract needed information about all the subdirectories and their
                 // subdirectories of the Directoryinfo object and save it to the FIDirectory object
-                foreach (var subdir in dir.GetDirectories())
+                foreach (var subdir in directoryToIndex.GetDirectories())
                 {
                     if (subdir.Attributes.HasFlag(FileAttributes.Hidden))
                     {
@@ -78,7 +79,7 @@
                     }
 
                     var fiSubdir = new FIDirectory(subdir.FullName, subdir.Name, subdir.LastWriteTime);
-                    fiDir.AddSubdirectory(fiSubdir);
+                    indexedDirectory.AddSubdirectory(fiSubdir);
 
                     ExtractItems(subdir, fiSubdir);
                 }
