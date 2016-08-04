@@ -7,7 +7,7 @@
     using System.Windows.Forms;
     using Models;
 
-    // TODO: Fix FileIndexerTreeView_AfterSelect method
+    // TODO: Add file icons to the loaded tree
     // TODO: Add search functionality in the indexed folder
     // TODO: Add command line arguments
     // TODO: Add copy/paste keyboard shortcuts to path text box
@@ -184,7 +184,7 @@
 
         private void PopulateLoadedTreeView(string path)
         {
-            var dir = FileIndexer.FindDirectory(path, loadedDirectory);
+            var dir = FileIndexer.FindFIDirectory(path, loadedDirectory);
 
             if (dir != null)
             {
@@ -289,13 +289,12 @@
         {
             MainFormListView.Items.Clear();
 
-            var dir = FileIndexer.FindDirectory(path, loadedDirectory);
+            var dir = FileIndexer.FindFIDirectory(path, loadedDirectory);
 
             // Extract files
             foreach (var file in dir.Files)
             {
-                var item = new ListViewItem(file.Name);
-                item.ImageKey = file.Extension;
+                var item = new ListViewItem(file.Name, file.ImageIndex);
                 item.SubItems.Add(file.LastModified.ToShortDateString() + " " + file.LastModified.ToShortTimeString());
                 item.SubItems.Add(file.Extension);
                 item.SubItems.Add(Math.Ceiling(file.Size / 1024d) + " KB");

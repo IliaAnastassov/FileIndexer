@@ -89,7 +89,7 @@
             }
         }
 
-        public static FIDirectory FindDirectory(string path, FIDirectory dir)
+        public static FIDirectory FindFIDirectory(string path, FIDirectory dir)
         {
             if (dir.Path == path)
             {
@@ -98,9 +98,9 @@
 
             foreach (var subdir in dir.Subdirs)
             {
-                if (FindDirectory(path, subdir) != null)
+                if (FindFIDirectory(path, subdir) != null)
                 {
-                    return FindDirectory(path, subdir);
+                    return FindFIDirectory(path, subdir);
                 }
             }
 
