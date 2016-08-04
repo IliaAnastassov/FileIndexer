@@ -89,17 +89,18 @@
             }
         }
 
-        public static FIDirectory GetFIDirectory(string path, FIDirectory dir)
+        public static FIDirectory FindDirectory(string path, FIDirectory dir)
         {
             if (dir.Path == path)
             {
                 return dir;
             }
-            else
+
+            foreach (var subdir in dir.Subdirs)
             {
-                foreach (var subdir in dir.Subdirs)
+                if (FindDirectory(path, subdir) != null)
                 {
-                    return GetFIDirectory(path, subdir);
+                    return FindDirectory(path, subdir);
                 }
             }
 

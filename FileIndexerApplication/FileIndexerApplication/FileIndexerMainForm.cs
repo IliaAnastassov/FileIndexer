@@ -184,7 +184,7 @@
 
         private void PopulateLoadedTreeView(string path)
         {
-            var dir = FileIndexer.GetFIDirectory(path, loadedDirectory);
+            var dir = FileIndexer.FindDirectory(path, loadedDirectory);
 
             if (dir != null)
             {
@@ -289,7 +289,7 @@
         {
             MainFormListView.Items.Clear();
 
-            var dir = FileIndexer.GetFIDirectory(path, loadedDirectory);
+            var dir = FileIndexer.FindDirectory(path, loadedDirectory);
 
             // Extract files
             foreach (var file in dir.Files)
