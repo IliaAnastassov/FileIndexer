@@ -41,14 +41,8 @@
 
         private void FileIndexerTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (isLive)
-            {
-                currentPath = e.Node.Tag.ToString();
-            }
-            else
-            {
-                currentPath = e.Node.FullPath;
-            }
+            currentPath = e.Node.Tag.ToString();
+
             subsequentPaths.Add(currentPath);
             UpdatePathTextBox();
             PopulateListViewStrategy(currentPath, isLive);
@@ -198,13 +192,13 @@
 
                 MainFormTreeView.Nodes.Clear();
 
+                root.Tag = dir.Path;
                 root.ImageIndex = dir.ImageIndex;
                 GetTreeViewFolders(root, dir);
 
                 MainFormTreeView.Nodes.Add(root);
                 root.Expand();
             }
-
         }
 
         private void PopulateLiveTreeView(string path)
@@ -353,6 +347,7 @@
                 foreach (var subdir in dir.Subdirs)
                 {
                     var childNode = new TreeNode(subdir.Name);
+                    childNode.Tag = subdir.Path;
                     childNode.ImageIndex = subdir.ImageIndex;
 
                     node.Nodes.Add(childNode);
