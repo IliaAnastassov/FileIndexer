@@ -112,7 +112,7 @@
             this.ImportToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ImportToolStripMenuItem.Name = "ImportToolStripMenuItem";
             this.ImportToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.ImportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ImportToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.ImportToolStripMenuItem.Text = "&Import";
             this.ImportToolStripMenuItem.Click += new System.EventHandler(this.ImportToolStripMenuItem_Click);
             // 
@@ -122,21 +122,21 @@
             this.SaveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
             this.SaveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.SaveToolStripMenuItem.Text = "&Save";
             this.SaveToolStripMenuItem.Click += new System.EventHandler(this.SaveIndexedDirButton_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(144, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exitToolStripMenuItem.Image")));
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -326,6 +326,7 @@
             // 
             this.PathTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.PathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PathTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.PathTextBox.ForeColor = System.Drawing.SystemColors.WindowText;
             this.PathTextBox.Name = "PathTextBox";
             this.PathTextBox.Size = new System.Drawing.Size(600, 23);

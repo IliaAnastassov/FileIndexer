@@ -2,15 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Drawing;
     using System.IO;
     using System.Windows.Forms;
     using Core;
     using Models;
     using Factories;
 
-    // TODO: Add search functionality in the indexed folder
     // TODO: Add command line arguments
+    // TODO: Add search functionality in the indexed folder
     // TODO: Add copy/paste keyboard shortcuts to path text box
     public partial class FileIndexerMainForm : Form
     {
@@ -28,6 +27,15 @@
 
         public FileIndexerMainForm()
         {
+            InitializeComponent();
+        }
+
+        public FileIndexerMainForm(string argument)
+        {
+            if (argument != null)
+            {
+                currentPath = argument;
+            }
             InitializeComponent();
         }
 
