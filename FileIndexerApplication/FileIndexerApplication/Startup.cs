@@ -13,7 +13,8 @@ namespace FileIndexerApplication
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            if (args.Length > 0)
+
+            if (args != null && args.Length > 0)
             {
                 Application.Run(new FileIndexerMainForm(args[0]));
             }
