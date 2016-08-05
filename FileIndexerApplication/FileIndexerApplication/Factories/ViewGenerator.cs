@@ -78,48 +78,55 @@
             listView.LargeImageList.Images.RemoveByKey(".exe");
             listView.SmallImageList.Images.RemoveByKey(".exe");
 
-            // Get the files in the selected directory and display them in the list view
-            foreach (var file in dir.GetFiles())
+            try
             {
-                // Don't add hidden files
-                if (file.Attributes.HasFlag(FileAttributes.Hidden))
+                // Get the files in the selected directory and display them in the list view
+                foreach (var file in dir.GetFiles())
                 {
-                    continue;
+                    // Don't add hidden files
+                    if (file.Attributes.HasFlag(FileAttributes.Hidden))
+                    {
+                        continue;
+                    }
+
+                    var item = new ListViewItem(file.Name);
+
+                    // Populate the sub-items of the item
+                    var lastModified = file.LastWriteTime;
+                    item.SubItems.Add(lastModified.ToShortDateString() + " " + lastModified.ToShortTimeString());
+                    item.SubItems.Add(file.Extension);
+                    item.SubItems.Add(Math.Ceiling(file.Length / 1024d) + " KB");
+
+                    // Add an icon only once
+                    if (!listView.LargeImageList.Images.ContainsKey(file.Extension))
+                    {
+                        var icon = Icon.ExtractAssociatedIcon(file.FullName);
+                        listView.LargeImageList.Images.Add(file.Extension, icon);
+                        listView.SmallImageList.Images.Add(file.Extension, icon);
+                    }
+
+                    item.ImageKey = file.Extension;
+                    listView.Items.Add(item);
                 }
 
-                var item = new ListViewItem(file.Name);
-
-                // Populate the sub-items of the item
-                var lastModified = file.LastWriteTime;
-                item.SubItems.Add(lastModified.ToShortDateString() + " " + lastModified.ToShortTimeString());
-                item.SubItems.Add(file.Extension);
-                item.SubItems.Add(Math.Ceiling(file.Length / 1024d) + " KB");
-
-                // Add an icon only once
-                if (!listView.LargeImageList.Images.ContainsKey(file.Extension))
+                // Get the folders in the selected directory and display them in the list view
+                foreach (var childDir in dir.GetDirectories())
                 {
-                    var icon = Icon.ExtractAssociatedIcon(file.FullName);
-                    listView.LargeImageList.Images.Add(file.Extension, icon);
-                    listView.SmallImageList.Images.Add(file.Extension, icon);
-                }
+                    // Don't add hidden directories
+                    if (childDir.Attributes.HasFlag(FileAttributes.Hidden))
+                    {
+                        continue;
+                    }
 
-                item.ImageKey = file.Extension;
-                listView.Items.Add(item);
+                    // Create a list view item with the folder image index (0)
+                    var item = new ListViewItem(childDir.Name, 0);
+
+                    listView.Items.Add(item);
+                }
             }
-
-            // Get the folders in the selected directory and display them in the list view
-            foreach (var childDir in dir.GetDirectories())
+            catch (DirectoryNotFoundException ex)
             {
-                // Don't add hidden directories
-                if (childDir.Attributes.HasFlag(FileAttributes.Hidden))
-                {
-                    continue;
-                }
-
-                // Create a list view item with the folder image index (0)
-                var item = new ListViewItem(childDir.Name, 0);
-
-                listView.Items.Add(item);
+                MessageBox.Show(ex.Message);
             }
         }
 
