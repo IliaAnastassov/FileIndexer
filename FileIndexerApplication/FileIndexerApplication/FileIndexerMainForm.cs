@@ -14,15 +14,21 @@ namespace FileIndexerApplication
     using Models;
     using Factories;
 
-    // TODO: Add return type to strategy
+    // TODO: Don't display the error message twice when invalid path is loaded
+    // TODO: Don't update path textbox when path is invalid
+    // TODO: Handle back exception when tree is loaded
+    // TODO: Properly name the loaded tree root inside the tree view
+    // TODO: Extract FormLoader class
     // TODO: Add search functionality in the indexed folder - modular tree view / list view display results
+    // TODO: Add return type to strategy ERROR!!!
     // TODO: Add copy/paste keyboard shortcuts to path text box
     public partial class FileIndexerMainForm : Form
     {
         private string currentPath;
         private List<string> subsequentPaths = new List<string>(8);
         private static FIDirectory loadedDirectory;
-        private bool isLive = true; // Application state is set to LIVE by default
+        private bool isLive = true; // Application state is set to LIVE by default]
+        private bool invalidPath;
 
         public static FIDirectory LoadedDirectory
         {
@@ -38,7 +44,6 @@ namespace FileIndexerApplication
 
         public FileIndexerMainForm(string argument)
         {
-            // TODO: add path validation
             currentPath = argument;
 
             InitializeComponent();
@@ -58,12 +63,20 @@ namespace FileIndexerApplication
                 // Populate the tree view with the default root folder
                 MainFormTreeView.Nodes.Add(root);
 
-                FolderGenerator.GetFolders(root);
+                try
+                {
+                    FolderGenerator.GetFolders(root);
+                }
+                catch (DirectoryNotFoundException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    invalidPath = true;
+                }
+
                 root.Expand();
             }
             else
             {
-                // TODO: Refactor using Regex
                 var root = new TreeNode(currentPath);
                 root.Tag = currentPath;
                 subsequentPaths.Add(currentPath);
@@ -72,19 +85,35 @@ namespace FileIndexerApplication
                 // Populate the tree view with the default root folder
                 MainFormTreeView.Nodes.Add(root);
 
-                FolderGenerator.GetFolders(root);
+                try
+                {
+                    FolderGenerator.GetFolders(root);
+                }
+                catch (DirectoryNotFoundException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    invalidPath = true;
+                }
+
                 root.Expand();
             }
         }
 
         private void FileIndexerTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            currentPath = e.Node.Tag.ToString();
+            if (invalidPath)
+            {
+                ResetMainForm();
+            }
+            else
+            {
+                currentPath = e.Node.Tag.ToString();
 
-            subsequentPaths.Add(currentPath);
-            UpdatePathTextBox();
+                subsequentPaths.Add(currentPath);
+                UpdatePathTextBox();
 
-            ViewGenerator.GenerateListView(currentPath, MainFormListView, isLive);
+                ViewGenerator.GenerateListView(currentPath, MainFormListView, isLive);
+            }
         }
 
         private void GoToButton_Click(object sender, EventArgs e)
@@ -189,6 +218,18 @@ namespace FileIndexerApplication
             }
         }
 
+        private void ResetMainForm()
+        {
+            currentPath = string.Empty;
+            subsequentPaths.Clear();
+            UpdatePathTextBox();
+            MainFormListView.Items.Clear();
+            MainFormTreeView.Nodes.Clear();
+            loadedDirectory = null;
+            invalidPath = false;
+            isLive = true;
+    }
+
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -206,7 +247,7 @@ namespace FileIndexerApplication
             }
         }
 
-        private void UpdatePathTextBox()
+        public void UpdatePathTextBox()
         {
             PathTextBox.Text = currentPath;
         }

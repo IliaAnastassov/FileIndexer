@@ -29,9 +29,9 @@
                     GetFolders(childNode);
                 }
             }
-            catch (Exception ex)
+            catch (DirectoryNotFoundException)
             {
-                MessageBox.Show(ex.Message);
+                throw;
             }
         }
 
@@ -50,7 +50,7 @@
                     GetFolders(childNode, subdir);
                 }
             }
-            catch (Exception ex)
+            catch (DirectoryNotFoundException ex)
             {
                 MessageBox.Show(ex.Message);
             }
