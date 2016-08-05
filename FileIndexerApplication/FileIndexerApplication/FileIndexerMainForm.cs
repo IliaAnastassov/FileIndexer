@@ -1,4 +1,10 @@
-﻿namespace FileIndexerApplication
+﻿//-----------------------------------------------------------------------
+// <copyright file="FileIndexerMainForm.cs" company="Proxiad Bulgaria">
+//     Copyright (c) Proxiad Bulgaria. All rights reserved.
+// </copyright>
+// <author>Ilia Anastassov</author>
+//-----------------------------------------------------------------------
+namespace FileIndexerApplication
 {
     using System;
     using System.Collections.Generic;
@@ -8,8 +14,8 @@
     using Models;
     using Factories;
 
-    // TODO: Add command line arguments
-    // TODO: Add search functionality in the indexed folder
+    // TODO: Add return type to strategy
+    // TODO: Add search functionality in the indexed folder - modular tree view / list view display results
     // TODO: Add copy/paste keyboard shortcuts to path text box
     public partial class FileIndexerMainForm : Form
     {
