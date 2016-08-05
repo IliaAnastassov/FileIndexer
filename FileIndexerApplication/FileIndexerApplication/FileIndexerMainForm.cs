@@ -13,11 +13,8 @@ namespace FileIndexerApplication
     using Core;
     using Models;
     using Factories;
+    using System.Linq;
 
-    // TODO: Don't display the error message twice when invalid path is loaded
-    // TODO: Don't update path textbox when path is invalid
-    // TODO: Handle back exception when tree is loaded
-    // TODO: Properly name the loaded tree root inside the tree view
     // TODO: Extract FormLoader class
     // TODO: Add search functionality in the indexed folder - modular tree view / list view display results
     // TODO: Add return type to strategy ERROR!!!
@@ -77,7 +74,9 @@ namespace FileIndexerApplication
             }
             else
             {
-                var root = new TreeNode(currentPath);
+                // Extract the appropriate name for the root node from the path using linq
+                var rootName = currentPath.Split(new[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries).ToArray().Last();
+                var root = new TreeNode(rootName);
                 root.Tag = currentPath;
                 subsequentPaths.Add(currentPath);
                 UpdatePathTextBox();
@@ -204,6 +203,7 @@ namespace FileIndexerApplication
                     LoadedDirectory = FileIndexer.LoadTree(dialog.FileName);
 
                     currentPath = LoadedDirectory.Path;
+                    subsequentPaths.Clear();
                     subsequentPaths.Add(currentPath);
                     UpdatePathTextBox();
                     isLive = false; // Set application state to LOAD
