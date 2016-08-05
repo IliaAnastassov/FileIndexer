@@ -32,27 +32,43 @@
 
         public FileIndexerMainForm(string argument)
         {
-            if (argument != null)
-            {
-                currentPath = argument;
-            }
+            // TODO: add path validation
+            currentPath = argument;
+
             InitializeComponent();
         }
 
         private void FileIndexerMainForm_Load(object sender, EventArgs e)
         {
-            // When loaded with no path as argument, MyDocuments folder is the default root folder
-            var root = new TreeNode("My Documents");
-            root.Tag = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            currentPath = root.Tag.ToString();
-            subsequentPaths.Add(currentPath);
-            UpdatePathTextBox();
+            if (currentPath == null)
+            {
+                // When loaded with no path as argument, MyDocuments folder is the default root folder
+                var root = new TreeNode("My Documents");
+                root.Tag = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                currentPath = root.Tag.ToString();
+                subsequentPaths.Add(currentPath);
+                UpdatePathTextBox();
 
-            // Populate the tree view with the default root folder
-            MainFormTreeView.Nodes.Add(root);
+                // Populate the tree view with the default root folder
+                MainFormTreeView.Nodes.Add(root);
 
-            FolderGenerator.GetFolders(root);
-            root.Expand();
+                FolderGenerator.GetFolders(root);
+                root.Expand();
+            }
+            else
+            {
+                // TODO: Refactor using Regex
+                var root = new TreeNode(currentPath);
+                root.Tag = currentPath;
+                subsequentPaths.Add(currentPath);
+                UpdatePathTextBox();
+
+                // Populate the tree view with the default root folder
+                MainFormTreeView.Nodes.Add(root);
+
+                FolderGenerator.GetFolders(root);
+                root.Expand();
+            }
         }
 
         private void FileIndexerTreeView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -188,7 +204,7 @@
         {
             PathTextBox.Text = currentPath;
         }
-        
+
         private bool DirectoryChanged()
         {
             if (currentPath[0] != PathTextBox.Text[0])
