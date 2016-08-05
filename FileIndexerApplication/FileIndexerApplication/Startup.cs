@@ -1,8 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
-
-namespace FileIndexerApplication
+﻿namespace FileIndexerApplication
 {
+    using System;
+    using System.Windows.Forms;
+
     static class Startup
     {
         /// <summary>
