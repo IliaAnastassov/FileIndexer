@@ -116,6 +116,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FileIndexer.ico" />
+    <None Include="Resources\1_search.png" />
+    <None Include="Resources\save.png" />
+    <None Include="Resources\left-arrow-icon.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
