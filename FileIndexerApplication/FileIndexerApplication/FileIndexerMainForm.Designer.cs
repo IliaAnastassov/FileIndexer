@@ -326,7 +326,6 @@
             // 
             this.PathTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.PathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PathTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.PathTextBox.ForeColor = System.Drawing.SystemColors.WindowText;
             this.PathTextBox.Name = "PathTextBox";
             this.PathTextBox.Size = new System.Drawing.Size(600, 23);
@@ -452,14 +451,14 @@
             this.LargeImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("LargeImageList.ImageStream")));
             this.LargeImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.LargeImageList.Images.SetKeyName(0, "folder.png");
-            this.LargeImageList.Images.SetKeyName(1, "1_file.png");
+            this.LargeImageList.Images.SetKeyName(1, "3_Document.png");
             // 
             // SmallIimageList
             // 
             this.SmallIimageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("SmallIimageList.ImageStream")));
             this.SmallIimageList.TransparentColor = System.Drawing.Color.Transparent;
             this.SmallIimageList.Images.SetKeyName(0, "folder.png");
-            this.SmallIimageList.Images.SetKeyName(1, "1_file.png");
+            this.SmallIimageList.Images.SetKeyName(1, "3_Document.png");
             // 
             // FileIndexerMainForm
             // 

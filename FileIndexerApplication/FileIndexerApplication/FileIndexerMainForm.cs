@@ -15,7 +15,6 @@ namespace FileIndexerApplication
     using Factories;
     using System.Linq;
 
-    // TODO: Handle acces denied exception
     // TODO: Add search functionality in the indexed folder - modular tree view / list view display results
     // TODO: Add return type to strategy ERROR!!!
     // TODO: Add copy/paste keyboard shortcuts to path text box
