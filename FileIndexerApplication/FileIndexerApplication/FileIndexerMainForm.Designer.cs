@@ -32,17 +32,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileIndexerMainForm));
             this.FileIndexerMainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,12 +49,7 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FileIndexerMainToolStrip = new System.Windows.Forms.ToolStrip();
-            this.BackButton = new System.Windows.Forms.ToolStripButton();
-            this.ForwardButton = new System.Windows.Forms.ToolStripButton();
-            this.SaveIndexedDirButton = new System.Windows.Forms.ToolStripButton();
             this.PathTextBox = new System.Windows.Forms.ToolStripTextBox();
-            this.GoToButton = new System.Windows.Forms.ToolStripButton();
-            this.FilterToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.ViewToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -73,6 +62,17 @@
             this.SizeCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LargeImageList = new System.Windows.Forms.ImageList(this.components);
             this.SmallIimageList = new System.Windows.Forms.ImageList(this.components);
+            this.BackButton = new System.Windows.Forms.ToolStripButton();
+            this.ForwardButton = new System.Windows.Forms.ToolStripButton();
+            this.SaveIndexedDirButton = new System.Windows.Forms.ToolStripButton();
+            this.GoToButton = new System.Windows.Forms.ToolStripButton();
+            this.SearchButton = new System.Windows.Forms.ToolStripButton();
+            this.ImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FileIndexerMainMenuStrip.SuspendLayout();
             this.FileIndexerMainToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -106,39 +106,10 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
-            // ImportToolStripMenuItem
-            // 
-            this.ImportToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("ImportToolStripMenuItem.Image")));
-            this.ImportToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ImportToolStripMenuItem.Name = "ImportToolStripMenuItem";
-            this.ImportToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.ImportToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.ImportToolStripMenuItem.Text = "&Import";
-            this.ImportToolStripMenuItem.Click += new System.EventHandler(this.ImportToolStripMenuItem_Click);
-            // 
-            // SaveToolStripMenuItem
-            // 
-            this.SaveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("SaveToolStripMenuItem.Image")));
-            this.SaveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
-            this.SaveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.SaveToolStripMenuItem.Text = "&Save";
-            this.SaveToolStripMenuItem.Click += new System.EventHandler(this.SaveIndexedDirButton_Click);
-            // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(144, 6);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exitToolStripMenuItem.Image")));
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.exitToolStripMenuItem.Text = "E&xit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
+            this.toolStripSeparator.Size = new System.Drawing.Size(149, 6);
             // 
             // editToolStripMenuItem
             // 
@@ -173,33 +144,6 @@
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(141, 6);
-            // 
-            // cutToolStripMenuItem
-            // 
-            this.cutToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("cutToolStripMenuItem.Image")));
-            this.cutToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
-            this.cutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.cutToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.cutToolStripMenuItem.Text = "Cu&t";
-            // 
-            // copyToolStripMenuItem
-            // 
-            this.copyToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("copyToolStripMenuItem.Image")));
-            this.copyToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.copyToolStripMenuItem.Text = "&Copy";
-            // 
-            // pasteToolStripMenuItem
-            // 
-            this.pasteToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("pasteToolStripMenuItem.Image")));
-            this.pasteToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.pasteToolStripMenuItem.Text = "&Paste";
             // 
             // toolStripSeparator4
             // 
@@ -284,7 +228,7 @@
             this.SaveIndexedDirButton,
             this.PathTextBox,
             this.GoToButton,
-            this.FilterToolStripComboBox,
+            this.SearchButton,
             this.ViewToolStripComboBox});
             this.FileIndexerMainToolStrip.Location = new System.Drawing.Point(0, 24);
             this.FileIndexerMainToolStrip.Name = "FileIndexerMainToolStrip";
@@ -292,35 +236,6 @@
             this.FileIndexerMainToolStrip.Size = new System.Drawing.Size(944, 33);
             this.FileIndexerMainToolStrip.TabIndex = 1;
             this.FileIndexerMainToolStrip.Text = "Main tools";
-            // 
-            // BackButton
-            // 
-            this.BackButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.BackButton.Image = ((System.Drawing.Image)(resources.GetObject("BackButton.Image")));
-            this.BackButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new System.Drawing.Size(23, 20);
-            this.BackButton.Text = "Step back";
-            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
-            // 
-            // ForwardButton
-            // 
-            this.ForwardButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ForwardButton.Image = ((System.Drawing.Image)(resources.GetObject("ForwardButton.Image")));
-            this.ForwardButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ForwardButton.Name = "ForwardButton";
-            this.ForwardButton.Size = new System.Drawing.Size(23, 20);
-            this.ForwardButton.Text = "Step Forward";
-            // 
-            // SaveIndexedDirButton
-            // 
-            this.SaveIndexedDirButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.SaveIndexedDirButton.Image = ((System.Drawing.Image)(resources.GetObject("SaveIndexedDirButton.Image")));
-            this.SaveIndexedDirButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.SaveIndexedDirButton.Name = "SaveIndexedDirButton";
-            this.SaveIndexedDirButton.Size = new System.Drawing.Size(23, 20);
-            this.SaveIndexedDirButton.Text = "Save Indexed Directory";
-            this.SaveIndexedDirButton.Click += new System.EventHandler(this.SaveIndexedDirButton_Click);
             // 
             // PathTextBox
             // 
@@ -330,24 +245,6 @@
             this.PathTextBox.Name = "PathTextBox";
             this.PathTextBox.Size = new System.Drawing.Size(600, 23);
             this.PathTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PathTextBox_KeyPress);
-            // 
-            // GoToButton
-            // 
-            this.GoToButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.GoToButton.Image = ((System.Drawing.Image)(resources.GetObject("GoToButton.Image")));
-            this.GoToButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.GoToButton.Name = "GoToButton";
-            this.GoToButton.Size = new System.Drawing.Size(23, 20);
-            this.GoToButton.Text = "Go to address";
-            this.GoToButton.Click += new System.EventHandler(this.GoToButton_Click);
-            // 
-            // FilterToolStripComboBox
-            // 
-            this.FilterToolStripComboBox.BackColor = System.Drawing.SystemColors.Window;
-            this.FilterToolStripComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FilterToolStripComboBox.Name = "FilterToolStripComboBox";
-            this.FilterToolStripComboBox.Size = new System.Drawing.Size(100, 23);
-            this.FilterToolStripComboBox.Text = "Filter";
             // 
             // ViewToolStripComboBox
             // 
@@ -460,6 +357,110 @@
             this.SmallIimageList.Images.SetKeyName(0, "folder.png");
             this.SmallIimageList.Images.SetKeyName(1, "3_Document.png");
             // 
+            // BackButton
+            // 
+            this.BackButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.BackButton.Image = ((System.Drawing.Image)(resources.GetObject("BackButton.Image")));
+            this.BackButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(23, 20);
+            this.BackButton.Text = "Step back";
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            // 
+            // ForwardButton
+            // 
+            this.ForwardButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ForwardButton.Image = ((System.Drawing.Image)(resources.GetObject("ForwardButton.Image")));
+            this.ForwardButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ForwardButton.Name = "ForwardButton";
+            this.ForwardButton.Size = new System.Drawing.Size(23, 20);
+            this.ForwardButton.Text = "Step Forward";
+            // 
+            // SaveIndexedDirButton
+            // 
+            this.SaveIndexedDirButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.SaveIndexedDirButton.Image = global::FileIndexerApplication.Properties.Resources.save;
+            this.SaveIndexedDirButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SaveIndexedDirButton.Name = "SaveIndexedDirButton";
+            this.SaveIndexedDirButton.Size = new System.Drawing.Size(23, 20);
+            this.SaveIndexedDirButton.Text = "Save Indexed Directory";
+            this.SaveIndexedDirButton.Click += new System.EventHandler(this.SaveIndexedDirButton_Click);
+            // 
+            // GoToButton
+            // 
+            this.GoToButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.GoToButton.Image = ((System.Drawing.Image)(resources.GetObject("GoToButton.Image")));
+            this.GoToButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.GoToButton.Name = "GoToButton";
+            this.GoToButton.Size = new System.Drawing.Size(23, 20);
+            this.GoToButton.Text = "Go to address";
+            this.GoToButton.Click += new System.EventHandler(this.GoToButton_Click);
+            // 
+            // SearchButton
+            // 
+            this.SearchButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.SearchButton.Image = global::FileIndexerApplication.Properties.Resources._1_search;
+            this.SearchButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SearchButton.Name = "SearchButton";
+            this.SearchButton.Size = new System.Drawing.Size(23, 20);
+            this.SearchButton.Text = "Search";
+            // 
+            // ImportToolStripMenuItem
+            // 
+            this.ImportToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("ImportToolStripMenuItem.Image")));
+            this.ImportToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ImportToolStripMenuItem.Name = "ImportToolStripMenuItem";
+            this.ImportToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.ImportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ImportToolStripMenuItem.Text = "&Import";
+            this.ImportToolStripMenuItem.Click += new System.EventHandler(this.ImportToolStripMenuItem_Click);
+            // 
+            // SaveToolStripMenuItem
+            // 
+            this.SaveToolStripMenuItem.Image = global::FileIndexerApplication.Properties.Resources.save;
+            this.SaveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
+            this.SaveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.SaveToolStripMenuItem.Text = "&Save";
+            this.SaveToolStripMenuItem.Click += new System.EventHandler(this.SaveIndexedDirButton_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exitToolStripMenuItem.Image")));
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
+            // 
+            // cutToolStripMenuItem
+            // 
+            this.cutToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("cutToolStripMenuItem.Image")));
+            this.cutToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
+            this.cutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.cutToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.cutToolStripMenuItem.Text = "Cu&t";
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("copyToolStripMenuItem.Image")));
+            this.copyToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.copyToolStripMenuItem.Text = "&Copy";
+            // 
+            // pasteToolStripMenuItem
+            // 
+            this.pasteToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("pasteToolStripMenuItem.Image")));
+            this.pasteToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.pasteToolStripMenuItem.Text = "&Paste";
+            // 
             // FileIndexerMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -523,7 +524,6 @@
         private System.Windows.Forms.ImageList LargeImageList;
         private System.Windows.Forms.ImageList SmallIimageList;
         private System.Windows.Forms.ToolStripComboBox ViewToolStripComboBox;
-        private System.Windows.Forms.ToolStripComboBox FilterToolStripComboBox;
         private System.Windows.Forms.ColumnHeader NameCol;
         private System.Windows.Forms.ColumnHeader DateCol;
         private System.Windows.Forms.ColumnHeader TypeCol;
@@ -534,6 +534,7 @@
         private System.Windows.Forms.ToolStripButton SaveIndexedDirButton;
         private System.Windows.Forms.ToolStripButton GoToButton;
         private System.Windows.Forms.ToolStripMenuItem ImportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton SearchButton;
     }
 }
 
