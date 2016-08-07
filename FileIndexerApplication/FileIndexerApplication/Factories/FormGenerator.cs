@@ -41,6 +41,10 @@
             {
                 throw;
             }
+            catch (UnauthorizedAccessException)
+            {
+                throw;
+            }
 
             root.Expand();
 

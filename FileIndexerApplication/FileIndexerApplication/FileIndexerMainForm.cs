@@ -64,10 +64,14 @@ namespace FileIndexerApplication
             {
                 MainFormTreeView = FormGenerator.LoadTree(MainFormTreeView, currentPath);
             }
-            catch (DirectoryNotFoundException ex)
+            catch (DirectoryNotFoundException exDir)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(exDir.Message);
                 invalidPath = true;
+            }
+            catch (UnauthorizedAccessException exUA)
+            {
+                MessageBox.Show(exUA.Message);
             }
         }
 

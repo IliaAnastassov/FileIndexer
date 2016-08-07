@@ -37,7 +37,7 @@
             TreeNode root;
             var dir = new DirectoryInfo(path);
 
-            if (dir.Exists)
+            if (dir.Exists && !dir.Attributes.HasFlag(FileAttributes.ReadOnly))
             {
                 // Clear the existing nodes only in case of a valid path
                 tree.Nodes.Clear();
@@ -81,52 +81,59 @@
             try
             {
                 // Get the files in the selected directory and display them in the list view
-                foreach (var file in dir.GetFiles())
+                if (!dir.Attributes.HasFlag(FileAttributes.ReadOnly))
                 {
-                    // Don't add hidden files
-                    if (file.Attributes.HasFlag(FileAttributes.Hidden))
+                    foreach (var file in dir.GetFiles())
                     {
-                        continue;
+                        // Don't add hidden files
+                        if (file.Attributes.HasFlag(FileAttributes.Hidden))
+                        {
+                            continue;
+                        }
+
+                        var item = new ListViewItem(file.Name);
+
+                        // Populate the sub-items of the item
+                        var lastModified = file.LastWriteTime;
+                        item.SubItems.Add(lastModified.ToShortDateString() + " " + lastModified.ToShortTimeString());
+                        item.SubItems.Add(file.Extension);
+                        item.SubItems.Add(Math.Ceiling(file.Length / 1024d) + " KB");
+
+                        // Add an icon only once
+                        if (!listView.LargeImageList.Images.ContainsKey(file.Extension))
+                        {
+                            var icon = Icon.ExtractAssociatedIcon(file.FullName);
+                            listView.LargeImageList.Images.Add(file.Extension, icon);
+                            listView.SmallImageList.Images.Add(file.Extension, icon);
+                        }
+
+                        item.ImageKey = file.Extension;
+                        listView.Items.Add(item);
                     }
 
-                    var item = new ListViewItem(file.Name);
-
-                    // Populate the sub-items of the item
-                    var lastModified = file.LastWriteTime;
-                    item.SubItems.Add(lastModified.ToShortDateString() + " " + lastModified.ToShortTimeString());
-                    item.SubItems.Add(file.Extension);
-                    item.SubItems.Add(Math.Ceiling(file.Length / 1024d) + " KB");
-
-                    // Add an icon only once
-                    if (!listView.LargeImageList.Images.ContainsKey(file.Extension))
+                    // Get the folders in the selected directory and display them in the list view
+                    foreach (var childDir in dir.GetDirectories())
                     {
-                        var icon = Icon.ExtractAssociatedIcon(file.FullName);
-                        listView.LargeImageList.Images.Add(file.Extension, icon);
-                        listView.SmallImageList.Images.Add(file.Extension, icon);
+                        // Don't add hidden directories
+                        if (childDir.Attributes.HasFlag(FileAttributes.Hidden))
+                        {
+                            continue;
+                        }
+
+                        // Create a list view item with the folder image index (0)
+                        var item = new ListViewItem(childDir.Name, 0);
+
+                        listView.Items.Add(item);
                     }
-
-                    item.ImageKey = file.Extension;
-                    listView.Items.Add(item);
-                }
-
-                // Get the folders in the selected directory and display them in the list view
-                foreach (var childDir in dir.GetDirectories())
-                {
-                    // Don't add hidden directories
-                    if (childDir.Attributes.HasFlag(FileAttributes.Hidden))
-                    {
-                        continue;
-                    }
-
-                    // Create a list view item with the folder image index (0)
-                    var item = new ListViewItem(childDir.Name, 0);
-
-                    listView.Items.Add(item);
                 }
             }
             catch (DirectoryNotFoundException ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+            catch (UnauthorizedAccessException exUA)
+            {
+                MessageBox.Show(exUA.Message);
             }
         }
 
