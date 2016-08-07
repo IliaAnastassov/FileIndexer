@@ -82,6 +82,7 @@
     <Compile Include="Models\FIDirectory.cs" />
     <Compile Include="Models\FIFile.cs" />
     <Compile Include="Core\FileIndexer.cs" />
+    <Compile Include="Factories\FormGenerator.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FileIndexerMainForm.resx">

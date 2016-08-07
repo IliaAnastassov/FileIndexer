@@ -15,7 +15,7 @@ namespace FileIndexerApplication
     using Factories;
     using System.Linq;
 
-    // TODO: Extract FormLoader class
+    // TODO: Handle acces denied exception
     // TODO: Add search functionality in the indexed folder - modular tree view / list view display results
     // TODO: Add return type to strategy ERROR!!!
     // TODO: Add copy/paste keyboard shortcuts to path text box
@@ -26,6 +26,18 @@ namespace FileIndexerApplication
         private static FIDirectory loadedDirectory;
         private bool isLive = true; // Application state is set to LIVE by default]
         private bool invalidPath;
+
+        public string CurrentPath
+        {
+            get { return this.currentPath; }
+            set { this.currentPath = value; }
+        }
+
+        public List<string> SubsequentPaths
+        {
+            get { return this.subsequentPaths; }
+            set { this.subsequentPaths = value; }
+        }
 
         public static FIDirectory LoadedDirectory
         {
@@ -48,53 +60,14 @@ namespace FileIndexerApplication
 
         private void FileIndexerMainForm_Load(object sender, EventArgs e)
         {
-            if (currentPath == null)
+            try
             {
-                // When loaded with no path as argument, MyDocuments folder is the default root folder
-                var root = new TreeNode("My Documents");
-                root.Tag = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                currentPath = root.Tag.ToString();
-                subsequentPaths.Add(currentPath);
-                UpdatePathTextBox();
-
-                // Populate the tree view with the default root folder
-                MainFormTreeView.Nodes.Add(root);
-
-                try
-                {
-                    FolderGenerator.GetFolders(root);
-                }
-                catch (DirectoryNotFoundException ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    invalidPath = true;
-                }
-
-                root.Expand();
+                MainFormTreeView = FormGenerator.LoadTree(MainFormTreeView, currentPath);
             }
-            else
+            catch (DirectoryNotFoundException ex)
             {
-                // Extract the appropriate name for the root node from the path using linq
-                var rootName = currentPath.Split(new[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries).ToArray().Last();
-                var root = new TreeNode(rootName);
-                root.Tag = currentPath;
-                subsequentPaths.Add(currentPath);
-                UpdatePathTextBox();
-
-                // Populate the tree view with the default root folder
-                MainFormTreeView.Nodes.Add(root);
-
-                try
-                {
-                    FolderGenerator.GetFolders(root);
-                }
-                catch (DirectoryNotFoundException ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    invalidPath = true;
-                }
-
-                root.Expand();
+                MessageBox.Show(ex.Message);
+                invalidPath = true;
             }
         }
 
@@ -228,7 +201,7 @@ namespace FileIndexerApplication
             loadedDirectory = null;
             invalidPath = false;
             isLive = true;
-    }
+        }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
