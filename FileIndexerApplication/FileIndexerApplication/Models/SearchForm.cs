@@ -15,38 +15,52 @@
 
         private void SearchButton_Click(object sender, EventArgs e)
         {
-            if (FileNameTextBox.Text != null)
+            try
             {
-                var fileName = FileNameTextBox.Text.ToLower();
-                try
+                if (FileNameTextBox.Text != string.Empty)
                 {
-                    FileSearcher.SearchByname(FileIndexerMainForm.LoadedDirectory, fileName, foundFiles);
+                    var fileName = FileNameTextBox.Text.ToLower();
+
+                    FileSearcher.SearchByName(FileIndexerMainForm.LoadedDirectory, fileName, foundFiles);
                 }
-                catch (ArgumentException ex)
+                if (MaxSizeTextBox.Text != string.Empty)
                 {
-                    MessageBox.Show(ex.Message);
+                    var maxSize = int.Parse(MaxSizeTextBox.Text);
+
+                    FileSearcher.SearchByMaxSize(FileIndexerMainForm.LoadedDirectory, maxSize, foundFiles);
+                }
+                if (MinSizeTextBox.Text != string.Empty)
+                {
+                    var minSize = int.Parse(MaxSizeTextBox.Text);
+
+                    FileSearcher.SearchByMinSize(FileIndexerMainForm.LoadedDirectory, minSize, foundFiles);
+                }
+                if (DateModifiedTextBox.Text != string.Empty)
+                {
+                    var date = DateTime.Parse(DateModifiedTextBox.Text);
+
+                    FileSearcher.SearchByDateModified(FileIndexerMainForm.LoadedDirectory, date, foundFiles);
+
+                }
+                if (FileExtensionTextBox.Text != string.Empty)
+                {
+                    var extension = FileExtensionTextBox.Text;
+
+                    FileSearcher.SearchByFileExtension(FileIndexerMainForm.LoadedDirectory, extension, foundFiles);
                 }
             }
-            if (MaxSizeTextBox.Text != null)
+            catch (ArgumentException ex)
             {
-                // TODO
-            }
-            if (MinSizeTextBox.Text != null)
-            {
-                // TODO
-            }
-            if (DateModifiedTextBox.Text != null)
-            {
-                // TODO
-            }
-            if (FileExtensionTextBox.Text != null)
-            {
-                // TODO
+                MessageBox.Show(ex.Message);
             }
 
-            this.Close();
+            // Load the found files in the current instance of the FileIndexerMainForm class
             var mainForm = Application.OpenForms[0] as FileIndexerMainForm;
             mainForm.LoadFoundFiles(foundFiles);
+
+            // Close the form after the search is done and clear the foundFiles list
+            this.Close();
+            foundFiles.Clear();
         }
     }
 }

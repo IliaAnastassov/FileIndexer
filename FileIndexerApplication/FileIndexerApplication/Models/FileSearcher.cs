@@ -74,7 +74,7 @@
         {
             foreach (var file in dir.Files)
             {
-                var extension = file.Name.Split('.').ToArray()[1];
+                var extension = file.Name.Split('.').ToArray().Last();
 
                 if (extension == fileExtension)
                 {

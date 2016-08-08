@@ -15,7 +15,10 @@ namespace FileIndexerApplication
     using Factories;
     using System.Linq;
 
-    // TODO: Add search functionality in the indexed folder - modular tree view / list view display results
+    // TODO: Fix search bugs
+    // TODO: Add size type to search by size
+    // TODO: Add combined search
+    // TODO: Add modular tree view for searched files
     // TODO: Add return type to strategy ERROR!!!
     // TODO: Add copy/paste keyboard shortcuts to path text box
     public partial class FileIndexerMainForm : Form
