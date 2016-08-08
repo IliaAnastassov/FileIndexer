@@ -22,7 +22,7 @@
             }
         }
 
-        public static void SearchByMaxSize(FIDirectory dir, int fileSize, List<FIFile> foundFiles)
+        public static void SearchByMaxSize(FIDirectory dir, long fileSize, List<FIFile> foundFiles)
         {
             foreach (var file in dir.Files)
             {
@@ -38,7 +38,7 @@
             }
         }
 
-        public static void SearchByMinSize(FIDirectory dir, int fileSize, List<FIFile> foundFiles)
+        public static void SearchByMinSize(FIDirectory dir, long fileSize, List<FIFile> foundFiles)
         {
             foreach (var file in dir.Files)
             {

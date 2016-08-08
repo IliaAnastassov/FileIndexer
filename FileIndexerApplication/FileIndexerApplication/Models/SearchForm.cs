@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Windows.Forms;
 
     public partial class SearchForm : Form
@@ -25,15 +26,29 @@
                 }
                 if (MaxSizeTextBox.Text != string.Empty)
                 {
-                    var maxSize = int.Parse(MaxSizeTextBox.Text);
+                    var size = EvaluateSize(MaxSizeTextBox.Text);
 
-                    FileSearcher.SearchByMaxSize(FileIndexerMainForm.LoadedDirectory, maxSize, foundFiles);
+                    if (size < 0)
+                    {
+                        throw new FormatException();
+                    }
+                    else
+                    {
+                        FileSearcher.SearchByMaxSize(FileIndexerMainForm.LoadedDirectory, size, foundFiles);
+                    }
                 }
                 if (MinSizeTextBox.Text != string.Empty)
                 {
-                    var minSize = int.Parse(MaxSizeTextBox.Text);
+                    var size = EvaluateSize(MinSizeTextBox.Text);
 
-                    FileSearcher.SearchByMinSize(FileIndexerMainForm.LoadedDirectory, minSize, foundFiles);
+                    if (size < 0)
+                    {
+                        throw new FormatException();
+                    }
+                    else
+                    {
+                        FileSearcher.SearchByMinSize(FileIndexerMainForm.LoadedDirectory, size, foundFiles);
+                    }
                 }
                 if (DateModifiedTextBox.Text != string.Empty)
                 {
@@ -49,18 +64,45 @@
                     FileSearcher.SearchByFileExtension(FileIndexerMainForm.LoadedDirectory, extension, foundFiles);
                 }
             }
-            catch (ArgumentException ex)
+            catch (FormatException ex)
             {
                 MessageBox.Show(ex.Message);
             }
+
+            // Close the form after the search is done
+            this.Close();
 
             // Load the found files in the current instance of the FileIndexerMainForm class
             var mainForm = Application.OpenForms[0] as FileIndexerMainForm;
             mainForm.LoadFoundFiles(foundFiles);
 
-            // Close the form after the search is done and clear the foundFiles list
-            this.Close();
+            // Clear the foundFiles list
             foundFiles.Clear();
+        }
+
+        private long EvaluateSize(string inputStr)
+        {
+            var input = inputStr.Split().ToArray();
+            var size = long.Parse(input[0]);
+
+            if (input[1].ToUpper() == "KB")
+            {
+                size *= 1000;
+            }
+            else if (input[1].ToUpper() == "MB")
+            {
+                size *= 1000000;
+            }
+            else if (input[1].ToUpper() == "GB")
+            {
+                size *= 1000000000;
+            }
+            else
+            {
+                size = -1;
+            }
+
+            return size;
         }
     }
 }
