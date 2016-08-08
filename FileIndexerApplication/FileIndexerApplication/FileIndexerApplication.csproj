@@ -83,6 +83,7 @@
     <Compile Include="Models\FIFile.cs" />
     <Compile Include="Core\FileIndexer.cs" />
     <Compile Include="Factories\FormGenerator.cs" />
+    <Compile Include="Models\FileSearcher.cs" />
     <Compile Include="Models\SearchForm.cs">
       <SubType>Form</SubType>
     </Compile>
