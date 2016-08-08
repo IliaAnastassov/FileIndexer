@@ -8,11 +8,6 @@
     {
         private List<FIFile> foundFiles = new List<FIFile>();
 
-        public List<FIFile> FoundFiles
-        {
-            get { return this.foundFiles; }
-        }
-
         public SearchForm()
         {
             InitializeComponent();
@@ -22,7 +17,7 @@
         {
             if (FileNameTextBox.Text != null)
             {
-                var fileName = FileNameTextBox.Text;
+                var fileName = FileNameTextBox.Text.ToLower();
                 try
                 {
                     FileSearcher.SearchByname(FileIndexerMainForm.LoadedDirectory, fileName, foundFiles);
@@ -50,6 +45,8 @@
             }
 
             this.Close();
+            var mainForm = Application.OpenForms[0] as FileIndexerMainForm;
+            mainForm.LoadFoundFiles(foundFiles);
         }
     }
 }

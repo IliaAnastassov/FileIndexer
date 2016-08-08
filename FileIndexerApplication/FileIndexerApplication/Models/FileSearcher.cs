@@ -9,7 +9,7 @@
         {
             foreach (var file in dir.Files)
             {
-                if (file.Name == fileName)
+                if (file.Name.ToLower().Contains(fileName))
                 {
                     foundFiles.Add(file);
                 }
