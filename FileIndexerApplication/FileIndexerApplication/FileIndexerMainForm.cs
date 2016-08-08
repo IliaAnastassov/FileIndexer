@@ -15,6 +15,7 @@ namespace FileIndexerApplication
     using Factories;
     using System.Linq;
 
+    // TODO: Handle search case when no directory is loaded
     // TODO: Add search functionality in the indexed folder - modular tree view / list view display results
     // TODO: Add return type to strategy ERROR!!!
     // TODO: Add copy/paste keyboard shortcuts to path text box
@@ -23,7 +24,7 @@ namespace FileIndexerApplication
         private string currentPath;
         private List<string> subsequentPaths = new List<string>(8);
         private static FIDirectory loadedDirectory;
-        private bool isLive = true; // Application state is set to LIVE by default]
+        private bool isLive = true; // Application state is set to LIVE by default
         private bool invalidPath;
 
         public string CurrentPath
@@ -198,6 +199,22 @@ namespace FileIndexerApplication
         {
             var searchDialog = new SearchForm();
             searchDialog.Show();
+            LoadFoundFiles(searchDialog.FoundFiles);
+        }
+
+        private void LoadFoundFiles(List<FIFile> files)
+        {
+            MainFormListView.Items.Clear();
+
+            foreach (var file in files)
+            {
+                var item = new ListViewItem(file.Name, file.ImageIndex);
+                item.SubItems.Add(file.LastModified.ToShortDateString() + " " + file.LastModified.ToShortTimeString());
+                item.SubItems.Add(file.Extension);
+                item.SubItems.Add(Math.Ceiling(file.Size / 1024d) + " KB");
+
+                MainFormListView.Items.Add(item);
+            }
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
