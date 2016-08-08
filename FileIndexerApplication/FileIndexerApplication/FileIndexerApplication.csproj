@@ -83,10 +83,19 @@
     <Compile Include="Models\FIFile.cs" />
     <Compile Include="Core\FileIndexer.cs" />
     <Compile Include="Factories\FormGenerator.cs" />
+    <Compile Include="Models\SearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Models\SearchForm.Designer.cs">
+      <DependentUpon>SearchForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FileIndexerMainForm.resx">
       <DependentUpon>FileIndexerMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\SearchForm.resx">
+      <DependentUpon>SearchForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
