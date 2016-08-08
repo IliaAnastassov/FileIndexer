@@ -194,16 +194,10 @@ namespace FileIndexerApplication
             }
         }
 
-        private void ResetMainForm()
+        private void SearchButton_Click(object sender, EventArgs e)
         {
-            currentPath = string.Empty;
-            subsequentPaths.Clear();
-            UpdatePathTextBox();
-            MainFormListView.Items.Clear();
-            MainFormTreeView.Nodes.Clear();
-            loadedDirectory = null;
-            invalidPath = false;
-            isLive = true;
+            var searchDialog = new SearchForm();
+            searchDialog.Show();
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -238,6 +232,18 @@ namespace FileIndexerApplication
             {
                 return false;
             }
+        }
+
+        private void ResetMainForm()
+        {
+            currentPath = string.Empty;
+            subsequentPaths.Clear();
+            UpdatePathTextBox();
+            MainFormListView.Items.Clear();
+            MainFormTreeView.Nodes.Clear();
+            loadedDirectory = null;
+            invalidPath = false;
+            isLive = true;
         }
     }
 }
