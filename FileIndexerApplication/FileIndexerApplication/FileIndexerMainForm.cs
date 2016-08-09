@@ -11,17 +11,17 @@ namespace FileIndexerApplication
     using System.IO;
     using System.Windows.Forms;
     using Core;
-    using Models;
     using Factories;
-    using System.Linq;
+    using Models;
 
-    // TODO: Fix search bugs
+    // TODO: Extract search logic into separate class
     // TODO: Fix case when all fields are empty
-    // TODO: Refactor using only interfaces
+    // TODO: Add key press functionality to Search Form
     // TODO: Add size type to search by size
     // TODO: Add modular tree view for searched files
     // TODO: Add return type to strategy ERROR!!!
     // TODO: Add copy/paste keyboard shortcuts to path text box
+    // TODO: Make buttons bigger
     public partial class FileIndexerMainForm : Form
     {
         private string currentPath;
@@ -207,7 +207,7 @@ namespace FileIndexerApplication
             }
         }
 
-        public void LoadFoundFiles(List<FIFile> files)
+        public void LoadFoundFiles(IList<FIFile> files)
         {
             MainFormListView.Items.Clear();
 

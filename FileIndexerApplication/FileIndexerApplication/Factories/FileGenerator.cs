@@ -4,10 +4,11 @@
     using System.Collections;
     using System.Collections.Generic;
     using Models;
+    using Contracts;
 
     public class FileGenerator
     {
-        public static List<FIFile> GetFiles(FIDirectory dir)
+        public static IList<FIFile> GetFiles(IFIDirectory dir)
         {
             var files = new List<FIFile>();
 
@@ -16,7 +17,7 @@
             return files;
         }
 
-        private static void ExtractFiles(FIDirectory dir, List<FIFile> files)
+        private static void ExtractFiles(IFIDirectory dir, IList<FIFile> files)
         {
             foreach (var file in dir.Files)
             {
