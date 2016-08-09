@@ -65,7 +65,7 @@
             this.MinSizeTextBox.Location = new System.Drawing.Point(101, 75);
             this.MinSizeTextBox.Name = "MinSizeTextBox";
             this.MinSizeTextBox.Size = new System.Drawing.Size(121, 20);
-            this.MinSizeTextBox.TabIndex = 9;
+            this.MinSizeTextBox.TabIndex = 300;
             // 
             // label1
             // 
@@ -81,7 +81,7 @@
             this.FileExtensionTextBox.Location = new System.Drawing.Point(101, 139);
             this.FileExtensionTextBox.Name = "FileExtensionTextBox";
             this.FileExtensionTextBox.Size = new System.Drawing.Size(121, 20);
-            this.FileExtensionTextBox.TabIndex = 7;
+            this.FileExtensionTextBox.TabIndex = 500;
             // 
             // FileExtensionLabel
             // 
@@ -97,7 +97,7 @@
             this.DateModifiedTextBox.Location = new System.Drawing.Point(101, 107);
             this.DateModifiedTextBox.Name = "DateModifiedTextBox";
             this.DateModifiedTextBox.Size = new System.Drawing.Size(121, 20);
-            this.DateModifiedTextBox.TabIndex = 5;
+            this.DateModifiedTextBox.TabIndex = 400;
             // 
             // DateModifiedLabel
             // 
@@ -113,7 +113,7 @@
             this.MaxSizeTextBox.Location = new System.Drawing.Point(101, 43);
             this.MaxSizeTextBox.Name = "MaxSizeTextBox";
             this.MaxSizeTextBox.Size = new System.Drawing.Size(121, 20);
-            this.MaxSizeTextBox.TabIndex = 3;
+            this.MaxSizeTextBox.TabIndex = 200;
             // 
             // MaxSizeLabel
             // 
@@ -129,7 +129,7 @@
             this.FileNameTextBox.Location = new System.Drawing.Point(101, 11);
             this.FileNameTextBox.Name = "FileNameTextBox";
             this.FileNameTextBox.Size = new System.Drawing.Size(121, 20);
-            this.FileNameTextBox.TabIndex = 1;
+            this.FileNameTextBox.TabIndex = 100;
             // 
             // FileNameLabel
             // 
@@ -145,7 +145,7 @@
             this.SearchButton.Location = new System.Drawing.Point(159, 192);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
-            this.SearchButton.TabIndex = 1;
+            this.SearchButton.TabIndex = 600;
             this.SearchButton.Text = "Search";
             this.SearchButton.UseVisualStyleBackColor = true;
             this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
