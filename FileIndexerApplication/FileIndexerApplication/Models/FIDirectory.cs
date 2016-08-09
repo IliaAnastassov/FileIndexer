@@ -19,16 +19,18 @@
         private DateTime lastModified;
 
         /// <summary>
-        /// Parameterless constructor
+        /// Initializes a new instance of the <see cref="FIDirectory" /> class
         /// </summary>
-        public FIDirectory() { }
+        public FIDirectory()
+        {
+        }
 
         /// <summary>
-        /// Constructor with parameters
+        /// Initializes a new instance of the <see cref="FIDirectory" /> class
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="name"></param>
-        /// <param name="lastModified"></param>
+        /// <param name="path">The path of the directory</param>
+        /// <param name="name">The name of the directory</param>
+        /// <param name="lastModified">The last modified date of the directory</param>
         public FIDirectory(string path, string name, DateTime lastModified)
         {
             this.path = path;
@@ -39,8 +41,10 @@
         }
 
         /// <summary>
-        /// Deserialisation constructor
+        /// Initializes a new instance of the <see cref="FIDirectory" /> class to be deserialized
         /// </summary>
+        /// <param name="info">Information to be extracted during the deserialization process</param>
+        /// <param name="context">The source and destination of the deserialized stream</param>
         public FIDirectory(SerializationInfo info, StreamingContext context)
         {
             if (info == null)
@@ -120,8 +124,8 @@
         /// <summary>
         /// Serialization Method
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information to be serialized</param>
+        /// <param name="context">The source and destination of the serialized stream</param>
         [SecurityPermission(SecurityAction.LinkDemand,
             Flags = SecurityPermissionFlag.SerializationFormatter)]
         public void GetObjectData(SerializationInfo info, StreamingContext context)

@@ -131,9 +131,9 @@
             {
                 MessageBox.Show(ex.Message);
             }
-            catch (UnauthorizedAccessException exUA)
+            catch (UnauthorizedAccessException accessEx)
             {
-                MessageBox.Show(exUA.Message);
+                MessageBox.Show(accessEx.Message);
             }
         }
 
@@ -164,4 +164,3 @@
         }
     }
 }
-

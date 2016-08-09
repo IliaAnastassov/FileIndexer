@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Windows.Forms;
     using Factories;
 
@@ -10,6 +9,9 @@
     {
         private IList<FIFile> extractedFiles = new List<FIFile>();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SearchForm" /> class
+        /// </summary>
         public SearchForm()
         {
             InitializeComponent();

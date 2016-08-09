@@ -1,10 +1,8 @@
 ﻿namespace FileIndexerApplication.Factories
 {
-    using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using Models;
     using Contracts;
+    using Models;
 
     public class FileGenerator
     {

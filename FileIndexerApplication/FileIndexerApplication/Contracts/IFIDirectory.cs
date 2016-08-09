@@ -1,16 +1,16 @@
 ﻿namespace FileIndexerApplication.Contracts
 {
-    using Models;
     using System.Collections.Generic;
+    using Models;
 
     public interface IFIDirectory
     {
-        void AddSubdirectory(FIDirectory subDir);
-
-        void AddFile(FIFile file);
+        List<FIDirectory> Subdirs { get; }
 
         List<FIFile> Files { get; }
 
-        List<FIDirectory> Subdirs { get; }
+        void AddSubdirectory(FIDirectory subDir);
+
+        void AddFile(FIFile file);
     }
 }

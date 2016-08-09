@@ -62,8 +62,8 @@
 
                 if (file.Exists)
                 {
-                    var fiFile = new FIFile(file.Name, file.FullName, file.Extension, file.LastWriteTime, file.Length);
-                    indexedDirectory.AddFile(fiFile);
+                    var fileIndexerFile = new FIFile(file.Name, file.FullName, file.Extension, file.LastWriteTime, file.Length);
+                    indexedDirectory.AddFile(fileIndexerFile);
                 }
             }
 
@@ -78,10 +78,10 @@
                         continue;
                     }
 
-                    var fiSubdir = new FIDirectory(subdir.FullName, subdir.Name, subdir.LastWriteTime);
-                    indexedDirectory.AddSubdirectory(fiSubdir);
+                    var fileIndexerSubdir = new FIDirectory(subdir.FullName, subdir.Name, subdir.LastWriteTime);
+                    indexedDirectory.AddSubdirectory(fileIndexerSubdir);
 
-                    ExtractItems(subdir, fiSubdir);
+                    ExtractItems(subdir, fileIndexerSubdir);
                 }
             }
             catch (Exception ex)
