@@ -157,6 +157,7 @@
             this.ClientSize = new System.Drawing.Size(249, 226);
             this.Controls.Add(this.SearchButton);
             this.Controls.Add(this.panel1);
+            this.KeyPreview = true;
             this.Name = "SearchForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Search";
