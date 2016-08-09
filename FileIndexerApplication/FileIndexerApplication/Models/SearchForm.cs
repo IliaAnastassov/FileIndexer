@@ -8,7 +8,7 @@
 
     public partial class SearchForm : Form
     {
-        private List<FIFile> extractedFiles = new List<FIFile>();
+        private IList<FIFile> extractedFiles = new List<FIFile>();
 
         public SearchForm()
         {
@@ -18,57 +18,25 @@
         private void SearchButton_Click(object sender, EventArgs e)
         {
             extractedFiles = FileGenerator.GetFiles(FileIndexerMainForm.LoadedDirectory);
+            var searcher = new FileSearcher();
 
             try
             {
-                if (FileNameTextBox.Text != string.Empty)
-                {
-                    var fileName = FileNameTextBox.Text.ToLower();
-
-                    extractedFiles = extractedFiles.Where(f => f.Name.ToLower().Contains(fileName)).ToList();
-                }
-                if (MaxSizeTextBox.Text != string.Empty)
-                {
-                    var size = EvaluateSize(MaxSizeTextBox.Text);
-
-                    if (size < 0)
-                    {
-                        throw new FormatException();
-                    }
-                    else
-                    {
-                        extractedFiles = extractedFiles.Where(f => f.Size <= size).ToList();
-                    }
-                }
-                if (MinSizeTextBox.Text != string.Empty)
-                {
-                    var size = EvaluateSize(MinSizeTextBox.Text);
-
-                    if (size < 0)
-                    {
-                        throw new FormatException();
-                    }
-                    else
-                    {
-                        extractedFiles = extractedFiles.Where(f => f.Size >= size).ToList();
-                    }
-                }
-                if (DateModifiedTextBox.Text != string.Empty)
-                {
-                    var date = DateTime.Parse(DateModifiedTextBox.Text);
-
-                    extractedFiles = extractedFiles.Where(f => f.LastModified == date).ToList();
-                }
-                if (FileExtensionTextBox.Text != string.Empty)
-                {
-                    var extension = FileExtensionTextBox.Text;
-
-                    extractedFiles = extractedFiles.Where(f => f.Extension == extension).ToList();
-                }
+                extractedFiles = searcher.SearchFiles(
+                    extractedFiles,
+                    FileNameTextBox.Text,
+                    MaxSizeTextBox.Text,
+                    MinSizeTextBox.Text,
+                    DateModifiedTextBox.Text,
+                    FileExtensionTextBox.Text);
             }
-            catch (FormatException ex)
+            catch (FormatException exF)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(exF.Message);
+            }
+            catch (ArgumentException exA)
+            {
+                MessageBox.Show(exA.Message);
             }
 
             // Close the form after the search is done
@@ -80,31 +48,6 @@
 
             // Clear the foundFiles list
             extractedFiles.Clear();
-        }
-
-        private long EvaluateSize(string inputStr)
-        {
-            var input = inputStr.Split().ToArray();
-            var size = long.Parse(input[0]);
-
-            if (input[1].ToUpper() == "KB")
-            {
-                size *= 1000;
-            }
-            else if (input[1].ToUpper() == "MB")
-            {
-                size *= 1000000;
-            }
-            else if (input[1].ToUpper() == "GB")
-            {
-                size *= 1000000000;
-            }
-            else
-            {
-                size = -1;
-            }
-
-            return size;
         }
     }
 }
