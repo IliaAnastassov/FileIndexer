@@ -97,13 +97,13 @@
         public List<FIFile> Files
         {
             get { return files; }
-            set { files = value; }
+            private set { files = value; }
         }
 
         public List<FIDirectory> Subdirs
         {
             get { return subdirs; }
-            set { subdirs = value; }
+            private set { subdirs = value; }
         }
 
         public void AddSubdirectory(FIDirectory subDir)
