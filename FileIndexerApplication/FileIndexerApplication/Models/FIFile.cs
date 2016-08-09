@@ -1,9 +1,10 @@
 ﻿namespace FileIndexerApplication.Models
 {
     using System;
+    using Contracts;
 
     [Serializable]
-    public class FIFile
+    public class FIFile : IFIFile
     {
         private string name;
         private string path;
