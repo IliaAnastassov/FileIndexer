@@ -33,7 +33,7 @@
 
             if (extension != string.Empty)
             {
-                files = SearchByExtension(files, extension);
+                files = SearchByExtension(files, "." + extension);
             }
 
             return files;

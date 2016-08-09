@@ -17,37 +17,61 @@
 
         private void SearchButton_Click(object sender, EventArgs e)
         {
-            extractedFiles = FileGenerator.GetFiles(FileIndexerMainForm.LoadedDirectory);
-            var searcher = new FileSearcher();
+            var invalidInput = false;
 
-            try
+            if (!EmptyInput())
             {
-                extractedFiles = searcher.SearchFiles(
-                    extractedFiles,
-                    FileNameTextBox.Text,
-                    MaxSizeTextBox.Text,
-                    MinSizeTextBox.Text,
-                    DateModifiedTextBox.Text,
-                    FileExtensionTextBox.Text);
+                extractedFiles = FileGenerator.GetFiles(FileIndexerMainForm.LoadedDirectory);
+                var searcher = new FileSearcher();
+
+                try
+                {
+                    extractedFiles = searcher.SearchFiles(
+                        extractedFiles,
+                        FileNameTextBox.Text,
+                        MaxSizeTextBox.Text,
+                        MinSizeTextBox.Text,
+                        DateModifiedTextBox.Text,
+                        FileExtensionTextBox.Text);
+                }
+                catch (FormatException exF)
+                {
+                    MessageBox.Show(exF.Message);
+                    invalidInput = true;
+                }
+                catch (ArgumentException exA)
+                {
+                    MessageBox.Show(exA.Message);
+                    invalidInput = true;
+                }
+
+                if (!invalidInput)
+                {
+                    // Close the form after the search is done
+                    this.Close();
+
+                    // Load the found files in the current instance of the FileIndexerMainForm class
+                    var mainForm = Application.OpenForms[0] as FileIndexerMainForm;
+                    mainForm.LoadFoundFiles(extractedFiles);
+
+                    // Clear the foundFiles list
+                    extractedFiles.Clear();
+                }
             }
-            catch (FormatException exF)
+        }
+
+        private bool EmptyInput()
+        {
+            if (FileNameTextBox.Text == string.Empty
+                && MaxSizeTextBox.Text == string.Empty
+                && MinSizeTextBox.Text == string.Empty
+                && DateModifiedTextBox.Text == string.Empty
+                && FileExtensionTextBox.Text == string.Empty)
             {
-                MessageBox.Show(exF.Message);
-            }
-            catch (ArgumentException exA)
-            {
-                MessageBox.Show(exA.Message);
+                return true;
             }
 
-            // Close the form after the search is done
-            this.Close();
-
-            // Load the found files in the current instance of the FileIndexerMainForm class
-            var mainForm = Application.OpenForms[0] as FileIndexerMainForm;
-            mainForm.LoadFoundFiles(extractedFiles);
-
-            // Clear the foundFiles list
-            extractedFiles.Clear();
+            return false;
         }
     }
 }

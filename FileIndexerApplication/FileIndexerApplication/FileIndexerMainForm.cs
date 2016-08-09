@@ -14,8 +14,6 @@ namespace FileIndexerApplication
     using Factories;
     using Models;
 
-    // TODO: Extract search logic into separate class
-    // TODO: Fix case when all fields are empty
     // TODO: Add key press functionality to Search Form
     // TODO: Add size type to search by size
     // TODO: Add modular tree view for searched files
