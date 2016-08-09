@@ -14,12 +14,11 @@ namespace FileIndexerApplication
     using Factories;
     using Models;
 
-    // TODO: Add key press functionality to Search Form
-    // TODO: Add size type to search by size
     // TODO: Add modular tree view for searched files
     // TODO: Add return type to strategy ERROR!!!
     // TODO: Add copy/paste keyboard shortcuts to path text box
     // TODO: Make buttons bigger
+    // TODO: Add key press functionality to Search Form
     public partial class FileIndexerMainForm : Form
     {
         private string currentPath;

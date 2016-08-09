@@ -73,5 +73,22 @@
 
             return false;
         }
+
+        private void SearchForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case (char)Keys.Enter:
+                    MessageBox.Show(e.KeyChar.ToString());
+                    SearchButton.PerformClick();
+                    break;
+                case (char)Keys.Escape:
+                    MessageBox.Show(e.KeyChar.ToString());
+                    Close();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
