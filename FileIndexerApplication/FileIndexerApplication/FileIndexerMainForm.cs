@@ -14,28 +14,34 @@ namespace FileIndexerApplication
     using Factories;
     using Models;
 
-    // TODO: Make buttons bigger
     // TODO: Add return type to strategy ERROR!!!
     // TODO: Add modular tree view for searched files
-    // TODO: Add key press functionality to Search Form
+    // TODO: Add about form
     public partial class FileIndexerMainForm : Form
     {
+        private static FIDirectory loadedDirectory;
         private string currentPath;
         private List<string> subsequentPaths = new List<string>(8);
-        private static FIDirectory loadedDirectory;
         private bool isLive = true; // Application state is set to LIVE by default
         private bool invalidPath;
 
-        public string CurrentPath
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileIndexerMainForm" /> class
+        /// </summary>
+        public FileIndexerMainForm()
         {
-            get { return this.currentPath; }
-            set { this.currentPath = value; }
+            InitializeComponent();
         }
 
-        public List<string> SubsequentPaths
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileIndexerMainForm" /> class
+        /// </summary>
+        /// <param name="path">The path loaded from the command line argument</param>
+        public FileIndexerMainForm(string path)
         {
-            get { return this.subsequentPaths; }
-            set { this.subsequentPaths = value; }
+            currentPath = path;
+
+            InitializeComponent();
         }
 
         public static FIDirectory LoadedDirectory
@@ -45,16 +51,24 @@ namespace FileIndexerApplication
             private set { loadedDirectory = value; }
         }
 
-        public FileIndexerMainForm()
+        public void UpdatePathTextBox()
         {
-            InitializeComponent();
+            PathTextBox.Text = currentPath;
         }
 
-        public FileIndexerMainForm(string argument)
+        public void LoadFoundFiles(IList<FIFile> files)
         {
-            currentPath = argument;
+            MainFormListView.Items.Clear();
 
-            InitializeComponent();
+            foreach (var file in files)
+            {
+                var item = new ListViewItem(file.Name, file.ImageIndex);
+                item.SubItems.Add(file.LastModified.ToShortDateString() + " " + file.LastModified.ToShortTimeString());
+                item.SubItems.Add(file.Extension);
+                item.SubItems.Add(Math.Ceiling(file.Size / 1024d) + " KB");
+
+                MainFormListView.Items.Add(item);
+            }
         }
 
         private void FileIndexerMainForm_Load(object sender, EventArgs e)
@@ -63,14 +77,14 @@ namespace FileIndexerApplication
             {
                 MainFormTreeView = FormGenerator.LoadTree(MainFormTreeView, currentPath);
             }
-            catch (DirectoryNotFoundException exDir)
+            catch (DirectoryNotFoundException dirEx)
             {
-                MessageBox.Show(exDir.Message);
+                MessageBox.Show(dirEx.Message);
                 invalidPath = true;
             }
-            catch (UnauthorizedAccessException exUA)
+            catch (UnauthorizedAccessException acccesEx)
             {
-                MessageBox.Show(exUA.Message);
+                MessageBox.Show(acccesEx.Message);
             }
         }
 
@@ -203,21 +217,6 @@ namespace FileIndexerApplication
             }
         }
 
-        public void LoadFoundFiles(IList<FIFile> files)
-        {
-            MainFormListView.Items.Clear();
-
-            foreach (var file in files)
-            {
-                var item = new ListViewItem(file.Name, file.ImageIndex);
-                item.SubItems.Add(file.LastModified.ToShortDateString() + " " + file.LastModified.ToShortTimeString());
-                item.SubItems.Add(file.Extension);
-                item.SubItems.Add(Math.Ceiling(file.Size / 1024d) + " KB");
-
-                MainFormListView.Items.Add(item);
-            }
-        }
-
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -233,11 +232,6 @@ namespace FileIndexerApplication
                 default:
                     break;
             }
-        }
-
-        public void UpdatePathTextBox()
-        {
-            PathTextBox.Text = currentPath;
         }
 
         private bool DirectoryChanged()
