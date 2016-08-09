@@ -4,10 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Forms;
+    using Factories;
 
     public partial class SearchForm : Form
     {
-        private List<FIFile> foundFiles = new List<FIFile>();
+        private List<FIFile> extractedFiles = new List<FIFile>();
 
         public SearchForm()
         {
@@ -16,13 +17,15 @@
 
         private void SearchButton_Click(object sender, EventArgs e)
         {
+            extractedFiles = FileGenerator.GetFiles(FileIndexerMainForm.LoadedDirectory);
+
             try
             {
                 if (FileNameTextBox.Text != string.Empty)
                 {
                     var fileName = FileNameTextBox.Text.ToLower();
 
-                    FileSearcher.SearchByName(FileIndexerMainForm.LoadedDirectory, fileName, foundFiles);
+                    extractedFiles = extractedFiles.Where(f => f.Name.ToLower().Contains(fileName)).ToList();
                 }
                 if (MaxSizeTextBox.Text != string.Empty)
                 {
@@ -34,7 +37,7 @@
                     }
                     else
                     {
-                        FileSearcher.SearchByMaxSize(FileIndexerMainForm.LoadedDirectory, size, foundFiles);
+                        extractedFiles = extractedFiles.Where(f => f.Size <= size).ToList();
                     }
                 }
                 if (MinSizeTextBox.Text != string.Empty)
@@ -47,21 +50,20 @@
                     }
                     else
                     {
-                        FileSearcher.SearchByMinSize(FileIndexerMainForm.LoadedDirectory, size, foundFiles);
+                        extractedFiles = extractedFiles.Where(f => f.Size >= size).ToList();
                     }
                 }
                 if (DateModifiedTextBox.Text != string.Empty)
                 {
                     var date = DateTime.Parse(DateModifiedTextBox.Text);
 
-                    FileSearcher.SearchByDateModified(FileIndexerMainForm.LoadedDirectory, date, foundFiles);
-
+                    extractedFiles = extractedFiles.Where(f => f.LastModified == date).ToList();
                 }
                 if (FileExtensionTextBox.Text != string.Empty)
                 {
                     var extension = FileExtensionTextBox.Text;
 
-                    FileSearcher.SearchByFileExtension(FileIndexerMainForm.LoadedDirectory, extension, foundFiles);
+                    extractedFiles = extractedFiles.Where(f => f.Extension == extension).ToList();
                 }
             }
             catch (FormatException ex)
@@ -74,10 +76,10 @@
 
             // Load the found files in the current instance of the FileIndexerMainForm class
             var mainForm = Application.OpenForms[0] as FileIndexerMainForm;
-            mainForm.LoadFoundFiles(foundFiles);
+            mainForm.LoadFoundFiles(extractedFiles);
 
             // Clear the foundFiles list
-            foundFiles.Clear();
+            extractedFiles.Clear();
         }
 
         private long EvaluateSize(string inputStr)

@@ -71,6 +71,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Contracts\IFIDirectory.cs" />
+    <Compile Include="Factories\FileGenerator.cs" />
     <Compile Include="Factories\FolderGenerator.cs" />
     <Compile Include="Factories\ViewGenerator.cs" />
     <Compile Include="FileIndexerMainForm.cs">

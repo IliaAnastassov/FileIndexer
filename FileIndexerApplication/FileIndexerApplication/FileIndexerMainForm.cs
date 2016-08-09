@@ -16,8 +16,9 @@ namespace FileIndexerApplication
     using System.Linq;
 
     // TODO: Fix search bugs
+    // TODO: Fix case when all fields are empty
+    // TODO: Refactor using only interfaces
     // TODO: Add size type to search by size
-    // TODO: Add combined search
     // TODO: Add modular tree view for searched files
     // TODO: Add return type to strategy ERROR!!!
     // TODO: Add copy/paste keyboard shortcuts to path text box
