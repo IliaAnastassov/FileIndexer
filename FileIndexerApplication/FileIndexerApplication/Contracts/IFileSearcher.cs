@@ -6,14 +6,6 @@
 
     public interface IFileSearcher
     {
-        IList<FIFile> SearchByName(IList<FIFile> files, string name);
-
-        IList<FIFile> SearchByMaxSize(IList<FIFile> files, long size);
-
-        IList<FIFile> SearchByMinSize(IList<FIFile> files, long size);
-
-        IList<FIFile> SearchByDate(IList<FIFile> files, DateTime date);
-
-        IList<FIFile> SearchByExtension(IList<FIFile> files, string extension);
+        IList<FIFile> SearchFiles(IList<FIFile> files, string name, string maxSize, string minSize, string date, string extension);
     }
 }
