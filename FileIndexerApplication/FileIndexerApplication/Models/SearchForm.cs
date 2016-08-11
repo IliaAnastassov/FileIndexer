@@ -81,11 +81,9 @@
             switch (e.KeyChar)
             {
                 case (char)Keys.Enter:
-                    MessageBox.Show(e.KeyChar.ToString());
                     SearchButton.PerformClick();
                     break;
                 case (char)Keys.Escape:
-                    MessageBox.Show(e.KeyChar.ToString());
                     Close();
                     break;
                 default:
