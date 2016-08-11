@@ -8,31 +8,31 @@
 
     public class ViewGenerator
     {
-        public static void GenerateTreeView(string path, TreeView tree, bool liveState)
+        public static TreeView GenerateTreeView(string path, TreeView tree, bool liveState)
         {
             if (liveState)
             {
-                GenerateLiveTreeView(path, tree);
+                return GenerateLiveTreeView(path, tree);
             }
             else
             {
-                GenerateLoadedTreeView(path, tree);
+                return GenerateLoadedTreeView(path, tree);
             }
         }
 
-        public static void GenerateListView(string path, ListView listView, bool liveState)
+        public static ListView GenerateListView(string path, ListView listView, bool liveState)
         {
             if (liveState)
             {
-                GenerateLiveListView(path, listView);
+                return GenerateLiveListView(path, listView);
             }
             else
             {
-                GenerateLoadedListView(path, listView);
+                return GenerateLoadedListView(path, listView);
             }
         }
 
-        private static void GenerateLiveTreeView(string path, TreeView tree)
+        private static TreeView GenerateLiveTreeView(string path, TreeView tree)
         {
             TreeNode root;
             var dir = new DirectoryInfo(path);
@@ -49,9 +49,11 @@
                 tree.Nodes.Add(root);
                 root.Expand();
             }
+
+            return tree;
         }
 
-        private static void GenerateLoadedTreeView(string path, TreeView tree)
+        private static TreeView GenerateLoadedTreeView(string path, TreeView tree)
         {
             var dir = FileIndexer.FindFIDirectory(path, FileIndexerMainForm.LoadedDirectory);
 
@@ -68,9 +70,11 @@
                 tree.Nodes.Add(root);
                 root.Expand();
             }
+
+            return tree;
         }
 
-        private static void GenerateLiveListView(string path, ListView listView)
+        private static ListView GenerateLiveListView(string path, ListView listView)
         {
             var dir = new DirectoryInfo(path);
 
@@ -135,9 +139,11 @@
             {
                 MessageBox.Show(accessEx.Message);
             }
+
+            return listView;
         }
 
-        private static void GenerateLoadedListView(string path, ListView listView)
+        private static ListView GenerateLoadedListView(string path, ListView listView)
         {
             listView.Items.Clear();
 
@@ -161,6 +167,8 @@
 
                 listView.Items.Add(item);
             }
+
+            return listView;
         }
     }
 }

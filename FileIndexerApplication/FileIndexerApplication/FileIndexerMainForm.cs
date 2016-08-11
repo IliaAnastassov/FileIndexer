@@ -99,7 +99,7 @@ namespace FileIndexerApplication
                 subsequentPaths.Add(currentPath);
                 UpdatePathTextBox();
 
-                ViewGenerator.GenerateListView(currentPath, MainFormListView, isLive);
+                MainFormListView = ViewGenerator.GenerateListView(currentPath, MainFormListView, isLive);
             }
         }
 
@@ -113,8 +113,8 @@ namespace FileIndexerApplication
             {
                 subsequentPaths.Add(currentPath);
 
-                ViewGenerator.GenerateTreeView(currentPath, MainFormTreeView, isLive);
-                ViewGenerator.GenerateListView(currentPath, MainFormListView, isLive);
+                MainFormTreeView = ViewGenerator.GenerateTreeView(currentPath, MainFormTreeView, isLive);
+                MainFormListView = ViewGenerator.GenerateListView(currentPath, MainFormListView, isLive);
 
                 UpdatePathTextBox();
             }
@@ -126,11 +126,11 @@ namespace FileIndexerApplication
             {
                 subsequentPaths.RemoveAt(subsequentPaths.Count - 1);
                 currentPath = subsequentPaths[subsequentPaths.Count - 1];
-                ViewGenerator.GenerateListView(currentPath, MainFormListView, isLive);
+                MainFormListView = ViewGenerator.GenerateListView(currentPath, MainFormListView, isLive);
 
                 if (DirectoryChanged())
                 {
-                    ViewGenerator.GenerateTreeView(currentPath, MainFormTreeView, isLive);
+                    MainFormTreeView = ViewGenerator.GenerateTreeView(currentPath, MainFormTreeView, isLive);
                 }
 
                 UpdatePathTextBox();
@@ -196,8 +196,8 @@ namespace FileIndexerApplication
                     UpdatePathTextBox();
                     isLive = false; // Set application state to LOAD
 
-                    ViewGenerator.GenerateTreeView(currentPath, MainFormTreeView, isLive);
-                    ViewGenerator.GenerateListView(currentPath, MainFormListView, isLive);
+                    MainFormTreeView = ViewGenerator.GenerateTreeView(currentPath, MainFormTreeView, isLive);
+                    MainFormListView = ViewGenerator.GenerateListView(currentPath, MainFormListView, isLive);
                 }
                 catch (Exception ex)
                 {
