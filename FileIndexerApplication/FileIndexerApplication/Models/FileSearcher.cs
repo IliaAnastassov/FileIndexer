@@ -61,7 +61,7 @@
 
             try
             {
-                input = inputStr.Split();
+                input = inputStr.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
                 // Check if input is valid
                 if (input.Length < 2)
