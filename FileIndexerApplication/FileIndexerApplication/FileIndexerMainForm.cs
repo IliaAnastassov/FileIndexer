@@ -15,8 +15,6 @@ namespace FileIndexerApplication
     using Models;
 
     // TODO: Add return type to strategy ERROR!!!
-    // TODO: Add modular tree view for searched files
-    // TODO: Add about form
     public partial class FileIndexerMainForm : Form
     {
         private static FIDirectory loadedDirectory;
